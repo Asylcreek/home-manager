@@ -1,0 +1,6 @@
+{
+ imports = [
+  ./yazi
+  ./git
+ ];
+}
