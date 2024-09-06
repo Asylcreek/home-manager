@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     gh
     lazygit
+    diff-so-fancy
   ];
 
   programs.git = {
@@ -25,6 +26,10 @@
         ".Spotlight-V100"
         ".Trashes"
     ];
+
+    diff-so-fancy = {
+      enable = true;
+    };
   };
 
   programs.gh-dash = {
@@ -125,7 +130,7 @@
       };
 
       pager = {
-        diff = "";
+        diff = "diff-so-fancy";
       };
     };
   };
