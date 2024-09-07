@@ -26,13 +26,11 @@
     jq
     ripgrep
     fd
-    fzf
     tor
     watchman
     mongosh
     doppler
     nowplaying-cli
-    oh-my-posh
     unar
     tree
     
@@ -94,17 +92,4 @@
   programs.home-manager.enable = true;
 
   xdg.enable = true;
-
-
-  # programs.zsh = {
-  # enable = true;
-  # enableCompletion = true;
-  # autosuggestion.enable = true;
-  # syntaxHighlighting.enable = true;
-  #
-  # history = {
-  #   size = 10000;
-  #   path = "${config.xdg.dataHome}/zsh/history";
-  # };
-  # };
 }

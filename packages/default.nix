@@ -3,5 +3,6 @@
   ./yazi
   ./git
   ./fonts
+  ./zsh
  ];
 }
