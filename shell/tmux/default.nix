@@ -48,34 +48,34 @@
 
       set -g status-right " "
 
-      set -g pane-border-style fg=red
-      set -g pane-active-border-style 'fg=red,bg=yellow'
+      set -g pane-border-style fg=yellow
+      set -g pane-active-border-style 'fg=yellow,bg=yellow'
 
       #  modes
       setw -g clock-mode-colour yellow
-      setw -g mode-style 'fg=black bg=red bold'
+      setw -g mode-style 'fg=black bg=yellow bold'
 
       # panes
-      set -g pane-border-style 'fg=red'
+      set -g pane-border-style 'fg=yellow'
       set -g pane-active-border-style 'fg=yellow'
 
       # statusbar
       set -g status-position bottom
       set -g status-justify left
-      set -g status-style 'fg=red'
+      set -g status-style 'fg=yellow'
 
-      set -g status-left '#{?client_prefix,#[bg=green],#[bg=red]}#{session_name} '
-      set -g status-left-style 'fg=black bg=red'
+      set -g status-left ' #{?client_prefix,#[bg=green],#[bg=yellow]}#{session_name} '
+      set -g status-left-style 'fg=black bg=yellow'
       set -g status-left-length 20
 
       setw -g window-status-current-style 'underscore'
       setw -g window-status-current-format ' #I #W #F '
 
-      setw -g window-status-style 'fg=red bg=black'
+      setw -g window-status-style 'fg=yellow bg=black'
       setw -g window-status-separator ""
-      setw -g window-status-format ' #I #[fg=white]#W #[fg=red]#F '
+      setw -g window-status-format ' #I #[fg=white]#W #[fg=yellow]#F '
 
-      setw -g window-status-bell-style 'fg=yellow bg=red bold'
+      setw -g window-status-bell-style 'fg=yellow bg=yellow bold'
 
       # messages
       set -g message-style 'fg=yellow bg=black bold'
