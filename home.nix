@@ -38,9 +38,8 @@
     
     # develop
     go
-    pnpm_8
     redis
-    nodejs_18
+    fnm
     
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
