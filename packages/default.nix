@@ -2,5 +2,6 @@
  imports = [
   ./yazi
   ./git
+  ./fonts
  ];
 }
