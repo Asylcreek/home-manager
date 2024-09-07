@@ -45,7 +45,7 @@
 
     history = {
       expireDuplicatesFirst = true;
-      ignorePatterns = ["doppler*"];
+      ignorePatterns = [ "doppler*" ];
       ignoreAllDups = true;
     };
 
@@ -58,19 +58,5 @@
       eval "$(fnm env --use-on-cd --resolve-engines)" 
     '';
   };
-  
-  programs.fzf = {
-    enable = true;
 
-    enableZshIntegration = true;
-
-    defaultCommand = "fd --strip-cwd-prefix";
-
-    defaultOptions = [
-      "--height 40%"
-      "--layout=reverse"
-      "--border"
-      "--inline-info"
-    ];
-  };
 }

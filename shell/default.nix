@@ -1,8 +1,9 @@
 {
- imports = [
-  ./yazi
-  ./git
-  ./fonts
-  ./zsh
- ];
+  imports = [
+    ./yazi
+    ./git
+    ./fonts
+    ./zsh
+    ./fzf
+  ];
 }
