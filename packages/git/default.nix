@@ -1,6 +1,6 @@
 {
   imports = [
-    ./git.nix
-    ./gh-dash.nix
+    ./git
+    ./gh-dash
   ];
 }
