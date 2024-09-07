@@ -5,5 +5,6 @@
     ./fonts
     ./zsh
     ./fzf
+    ./zoxide
   ];
 }
