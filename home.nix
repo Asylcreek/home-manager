@@ -32,6 +32,7 @@
     nowplaying-cli
     unar
     tree
+    certbot
 
     # develop
     go
@@ -80,10 +81,6 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-
-  home.sessionPath = [
-    # "/opt/homebrew/opt/pnpm@8/bin"
-  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
