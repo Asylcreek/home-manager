@@ -64,8 +64,8 @@
       set -g status-justify left
       set -g status-style 'fg=yellow'
 
-      set -g status-left ' #{?client_prefix,#[bg=green],#[bg=yellow]}#{session_name} '
-      set -g status-left-style 'fg=black bg=yellow'
+      set -g status-left ' #{?client_prefix,[,}#{session_name}#{?client_prefix,],} '
+      # set -g status-left-style 'fg=black bg=yellow'
       set -g status-left-length 20
 
       setw -g window-status-current-style 'underscore'

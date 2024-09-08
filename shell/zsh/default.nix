@@ -37,6 +37,7 @@
       "dash" = "ta gh && tmux send-keys -t 0 'gh dash' Enter";
       "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
       "edng" = "vim ~/Library/Application\ Support/ngrok/ngrok.yml";
+      "hsf" = "home-manager switch --flake . -b backup";
     };
 
     syntaxHighlighting = {
