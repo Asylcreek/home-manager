@@ -28,7 +28,7 @@
       "ta" = "tmux a -t ";
       "dash" = "ta gh && tmux send-keys -t 0 'gh dash' Enter";
       "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
-      "edng" = "vim ~/Library/Application\ Support/ngrok/ngrok.yml";
+      "edng" = "v ~/Library/Application\ Support/ngrok/ngrok.yml";
       "hsf" = "darwin-rebuild switch --impure";
     };
 
@@ -40,6 +40,7 @@
       expireDuplicatesFirst = true;
       ignorePatterns = [ "doppler*" ];
       ignoreAllDups = true;
+      extended = true;
     };
 
     initExtra = ''
@@ -49,7 +50,15 @@
 
       # fnm
       eval "$(fnm env --use-on-cd --resolve-engines)" 
+
+      # Amazon Q post block. Keep at the bottom of this file.
+      [[ -f "$HOME/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
     '';
+
+    initExtraFirst = ''
+      # Amazon Q pre block. Keep at the top of this file.
+      [[ -f "$HOME/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+      '';
   };
 
 }

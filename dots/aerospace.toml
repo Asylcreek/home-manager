@@ -188,6 +188,10 @@ if.app-id = "com.apple.ActivityMonitor"
 run = "layout floating"
 
 [[on-window-detected]]
+if.app-id = "io.zsa.keymap"
+run = "layout floating"
+
+[[on-window-detected]]
 if.app-id = "com.apple.AppStore"
 run = "layout floating"
 
