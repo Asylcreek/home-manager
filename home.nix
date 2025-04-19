@@ -7,8 +7,8 @@
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "asylcreek";
-  home.homeDirectory = "/Users/asylcreek";
+  home.username = "asyl";
+  home.homeDirectory = "/Users/asyl";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -38,6 +38,7 @@
     go
     redis
     fnm
+    cargo
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -60,6 +61,9 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/ghostty/config".source = ./dots/ghostty;
+    ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
+    ".config/lazygit/config.yml".text = '''';
   };
 
   # Home Manager can also manage your environment variables through
@@ -76,7 +80,7 @@
   #
   # or
   #
-  #  /etc/profiles/per-user/asylcreek/etc/profile.d/hm-session-vars.sh
+  #  /etc/profiles/per-user/asyl/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
     # EDITOR = "emacs";

@@ -109,7 +109,7 @@
 
     ];
 
-    prefix = "C-a";
+    prefix = "C-,";
 
     sensibleOnTop = false;
 

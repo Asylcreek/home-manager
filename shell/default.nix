@@ -1,6 +1,6 @@
 {
   imports = [
-    ./yazi
+    # ./yazi
     ./git
     ./fonts
     ./zsh

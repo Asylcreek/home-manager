@@ -14,14 +14,6 @@
 
     enableCompletion = true;
 
-    plugins = [
-      {
-        name = "vi-mode";
-        src = pkgs.zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
-    ];
-
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
@@ -31,13 +23,13 @@
     shellAliases = {
       "dv" = "cd ~/Downloads/Video";
       "vlc" = "/Applications/VLC.app/Contents/MacOS/VLC";
-      "vim" = "nvim";
+      "v" = "nvim";
       "python" = "python3";
       "ta" = "tmux a -t ";
       "dash" = "ta gh && tmux send-keys -t 0 'gh dash' Enter";
       "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
       "edng" = "vim ~/Library/Application\ Support/ngrok/ngrok.yml";
-      "hsf" = "home-manager switch --flake . -b backup";
+      "hsf" = "darwin-rebuild switch --impure";
     };
 
     syntaxHighlighting = {
