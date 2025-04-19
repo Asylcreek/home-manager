@@ -79,6 +79,9 @@
 
       # messages
       set -g message-style 'fg=yellow bg=black bold'
+
+      set -g set-titles on
+      set -g set-titles-string '#T - #S / #W'
     '';
 
     historyLimit = 50000;
