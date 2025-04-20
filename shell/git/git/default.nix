@@ -3,8 +3,6 @@
 {
   home.packages = with pkgs; [
     gh
-    lazygit
-    diff-so-fancy
   ];
 
   programs.git = {
@@ -17,6 +15,8 @@
      init = {
        defaultBranch = "main";
       };
+
+     merge.conflictStyle = "zdiff3";
    };
 
    ignores = [
@@ -25,11 +25,28 @@
         "._*"
         ".Spotlight-V100"
         ".Trashes"
-    ];
+   ];
 
-    diff-so-fancy = {
+   delta = {
       enable = true;
-    };
+
+      options = {
+        navigate = true;
+        dark = true;
+        line-numbers = true;
+        hyperlinks = true;
+      };
+   };
   };
 
+  programs.lazygit = {
+    enable = true;
+
+    settings = {
+      git.paging = {
+        colorArg = "always";
+        pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=lazygit-edit://{path}:{line}";
+      };
+    };
+  };
 }

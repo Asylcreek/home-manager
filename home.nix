@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -63,7 +63,6 @@
     # '';
     ".config/ghostty/config".source = ./dots/ghostty;
     ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
-    ".config/lazygit/config.yml".text = '''';
   };
 
   # Home Manager can also manage your environment variables through
