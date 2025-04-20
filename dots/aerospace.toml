@@ -211,6 +211,10 @@ if.app-id = "com.electron.dockerdesktop"
 run = "layout floating"
 
 [[on-window-detected]]
+if.app-id = "app.motrix.native"
+run = "layout floating"
+
+[[on-window-detected]]
 if.app-id = "org.localsend.localsendApp"
 run = "layout floating"
 
