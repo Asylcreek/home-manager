@@ -235,6 +235,6 @@ if.app-id = "com.tinyspeck.slackmacgap"
 run = "move-node-to-workspace u"
 
 [workspace-to-monitor-force-assignment]
-7 = [ 'LF24T450G', 'ARZOPA' ]
-9 = 'built-in'                # Case insensitive regex substring
-0 = [ 'LF24T450G', 'ARZOPA' ]
+7 = [ 'LF24T450G', 'ARZOPA', 1 ]
+9 = [ 'built-in', "Omokugbo's MacBook Pro (AirPlay)", 3 ] # Case insensitive regex substring
+0 = [ 'LF24T450G', 'ARZOPA', 1 ]
