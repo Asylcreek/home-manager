@@ -33,6 +33,7 @@
     unar
     tree
     certbot
+    wget
 
     # develop
     go
