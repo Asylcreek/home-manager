@@ -190,8 +190,16 @@ if.app-id = "com.apple.ActivityMonitor"
 run = "layout floating"
 
 [[on-window-detected]]
-if.app-id = "io.zsa.keymap"
+if.app-id = "io.zsa.keymapp"
 run = "move-node-to-workspace 5"
+
+[[on-window-detected]]
+if.app-id = "com.apple.clock"
+run = "move-node-to-workspace 0"
+
+[[on-window-detected]]
+if.app-id = "com.apple.Notes"
+run = "move-node-to-workspace 0"
 
 [[on-window-detected]]
 if.app-id = "com.apple.AppStore"
@@ -221,9 +229,9 @@ run = "layout floating"
 if.app-id = "app.motrix.native"
 run = "layout floating"
 
-[[on-window-detected]]
-if.app-id = "io.zsa.keymapp"
-run = "layout floating"
+# [[on-window-detected]]
+# if.app-id = "io.zsa.keymapp"
+# run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = "org.localsend.localsendApp"
@@ -238,7 +246,7 @@ if.app-id = "com.tinyspeck.slackmacgap"
 run = "move-node-to-workspace u"
 
 [workspace-to-monitor-force-assignment]
-5 = [ 'Duet' ]
+5 = [ 'MC-SM-X510-Airplay' ]
 7 = [ 'LF24T450G', 'ARZOPA', 1 ]
 9 = [ 'built-in', "Omokugbo's MacBook Pro (AirPlay)", 3 ] # Case insensitive regex substring
 0 = [ 'LF24T450G', 'ARZOPA', 1 ]
