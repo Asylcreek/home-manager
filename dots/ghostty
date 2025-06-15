@@ -11,7 +11,7 @@ font-size = 13
 # Adventure, Mathias
 theme = Mathias
 
-cursor-style = block_hollow
+cursor-style = bar
 cursor-style-blink = true
 
 mouse-hide-while-typing = true
