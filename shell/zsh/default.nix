@@ -30,6 +30,10 @@
       "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
       "edng" = "v ~/Library/Application\ Support/ngrok/ngrok.yml";
       "hsf" = "darwin-rebuild switch --impure";
+      "dr" = "doppler run -- ";
+      "psd" = "pnpm start:dev";
+      "pd" = "pnpm dev";
+      "pb" = "pnpm build";
     };
 
     syntaxHighlighting = {
