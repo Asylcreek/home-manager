@@ -34,6 +34,10 @@
       "psd" = "pnpm start:dev";
       "pd" = "pnpm dev";
       "pb" = "pnpm build";
+      "pi" = "pnpm install";
+      "pa" = "pnpm add";
+      "yb" = "yarn build";
+      "yd" = "yarn dev";
     };
 
     syntaxHighlighting = {
