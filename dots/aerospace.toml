@@ -24,12 +24,12 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 5
 
 # Possible values: tiles|accordion
-default-root-container-layout = 'accordion'
+default-root-container-layout = 'tiles'
 
 # Possible values: horizontal|vertical|auto
 # 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
 #               tall monitor (anything higher than wide) gets vertical orientation
-default-root-container-orientation = 'vertical'
+default-root-container-orientation = 'horizontal'
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -171,7 +171,7 @@ run = "move-node-to-workspace 6"
 
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
-run = "move-node-to-workspace 7"
+run = [ "layout floating", "move-node-to-workspace 7" ]
 
 [[on-window-detected]]
 if.app-id = "sh.cider.genten.mac"
