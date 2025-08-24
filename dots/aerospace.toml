@@ -191,7 +191,7 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = "com.apple.clock"
-run = "move-node-to-workspace 0"
+run = "move-node-to-workspace 9"
 
 [[on-window-detected]]
 if.app-id = "com.apple.Notes"
