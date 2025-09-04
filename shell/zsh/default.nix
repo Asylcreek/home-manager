@@ -38,6 +38,7 @@
       "pa" = "pnpm add";
       "yb" = "yarn build";
       "yd" = "yarn dev";
+      "ysd" = "yarn start:dev";
     };
 
     syntaxHighlighting = {
