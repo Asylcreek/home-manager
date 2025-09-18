@@ -21,7 +21,7 @@ background-blur = 10
 
 link-url = true
 
-window-title-font-family = Maple Mono Italic Italic
+window-title-font-family = Maple Mono
 window-new-tab-position = current
 window-theme = auto
 
