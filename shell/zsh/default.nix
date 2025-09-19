@@ -39,6 +39,7 @@
       "yb" = "yarn build";
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
+      "uc" = "brew upgrade --cask --greedy";
     };
 
     syntaxHighlighting = {
