@@ -12,7 +12,7 @@
       # Enable vim motions in view mode
       set-window-option -g mode-keys vi
 
-      set-option -g default-terminal "xterm-256color"
+      set-option -g default-terminal "screen-256color"
       set-option -g focus-events on
 
       bind-key -T copy-mode-vi 'v' send -X begin-selection # start selecting text with "v"
