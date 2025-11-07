@@ -1,0 +1,185 @@
+;; Home row mods QWERTY example with more complexity.
+;; Some of the changes from the basic example:
+;; - when a home row mod activates tap, the home row mods are disabled
+;;   while continuing to type rapidly
+;; - tap-hold-release helps make the hold action more responsive
+;; - pressing another key on the same half of the keyboard
+;;   as the home row mod will activate an early tap action
+
+(defcfg
+  process-unmapped-keys no
+  concurrent-tap-hold yes
+)
+
+(defsrc
+  esc  f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet       spc              rmet ralt
+)
+
+(defvar
+  ;; Note: consider using different time values for your different fingers.
+  ;; For example, your pinkies might be slower to release keys and index
+  ;; fingers faster.
+  tap-time 200
+  hold-time 180
+)
+
+(deflayer default
+  @esc 🔅    🔆    mctl  sls   dtn   dnd   ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    @qe  r    t    y    u    @qi  o    p    [    ]    \
+  caps @qa  @qs  @qd  @qf  g    h    @qj  @qk  @ql  @q;  '    ret
+  lsft z    x    c    @qv  b    n    @qm  ,    .    /    rsft
+  fn   lctl lalt lmet       spc              rmet ralt
+)
+
+(deflayer graphite
+  @qw  🔅    🔆    mctl  sls   dtn   dnd   ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
+  _    b    l    @gd  w    z    '    f    @go  u    j    ;    =    \
+  @ct  @gn  @gr  @gt  @gs  g    y    @gh  @ga  @ge  @gi  ,    _ XX
+  XX   q    x    @extra @gc  v    k    @gp  .    ,    ;    XX XX
+  XX   XX   XX   XX   @rptsym   XX   @gspc   XX   XX   XX   XX   XX    
+  _    _    _    XX       @bspnav            _    _
+)
+
+(deflayer sym
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   \    [    @lang  @dol S-grv  @under `    @rang  ]    @perc  XX   XX   XX
+  XX   @ex  @obrc  = @lebrc @plus  -    @rebrc @dquot @cbrc  @at    XX   XX XX
+  XX   @hash  @pipe  @amp @col  @times /    @ques  .    ,    @caret XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   
+  XX   XX   XX   XX       XX               XX   XX
+)
+
+(deflayer num
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   XX   9    8    7    XX   XX   XX   @ccom  XX   XX   XX   XX   XX
+  XX   XX   3    2    1    XX   tab  @zer lmet lalt XX   XX   XX XX
+  XX   XX   6    5    4    XX   XX   lctl XX   XX   XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   
+  XX   XX   XX   XX       XX               XX   XX
+)
+
+(deflayer extra
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   XX   XX   XX   XX   XX   XX   @senter @center @aenter XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   ret    esc    tab    bspc XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   @stab  @ctab  @sctab XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX     XX     XX     XX   XX   
+  XX   XX   XX   XX        XX                 XX     XX
+)
+
+(deflayer nav
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   XX   XX   XX   XX   XX   XX   @cleft up @crght XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   @aleft   left    down    rght    @arght XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX  XX  XX XX   XX XX
+  XX   XX   XX   XX   XX   XX   rpt-any   XX     XX     XX     XX   XX   
+  XX   XX   XX   XX        XX                 XX     XX
+)
+
+(deflayer fn
+  _     f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _  _     _     _     _     _     _     _     _ _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     
+  _    _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _                 _                 _     _
+)
+
+
+(defalias
+  ;; Modifiers
+  meh (multi lctl lalt lsft)
+  hpr (multi lctl lalt lsft lmet)
+  os (multi lalt lsft)
+
+  ;; Symbol Aliases (used in @sym layer)
+  ccom  (multi lctl ,)
+  ex    (multi lsft 1)
+  at    (multi lsft 2)
+  hash  (multi lsft 3)
+  dol   (multi lsft 4)
+  perc  (multi lsft 5)
+  caret (multi lsft 6)
+  amp   (multi lsft 7)
+  times (multi lsft 8)
+  obrc  (multi lsft 9)
+  cbrc  (multi lsft 0)
+  under (multi lsft -)
+  plus  (multi lsft =)
+  lebrc (multi lsft [)
+  rebrc (multi lsft ])
+  pipe  (multi lsft \)
+  col   (multi lsft ;)
+  dquot (multi lsft ')
+  lang  (multi lsft ,)
+  rang  (multi lsft .)
+  ques  (multi lsft /)
+  senter (multi lsft ret)
+  center (multi lmet ret)
+  aenter (multi lalt ret)
+  stab (multi lsft tab)
+  ctab (multi lctl tab)
+  sctab (multi lctl lsft tab)
+  cleft (multi lmet left)
+  crght (multi lmet rght)
+  aleft (multi lalt left)
+  arght (multi lalt rght)
+
+  ;; Caps Word Toggle
+  ct (caps-word-custom-toggle
+    3500
+    (a b c d e f g h i j k l m n o p q r s t u v w x y z)
+    (bspc del)
+  )
+
+  ;; QWERTY Home Row Mods (Left Hand)
+  qa (tap-hold $tap-time $hold-time a @hpr)
+  qs (tap-hold $tap-time $hold-time s lalt)
+  qd (tap-hold $tap-time $hold-time d lmet)
+  qf (tap-hold $tap-time $hold-time f lsft)
+  qv (tap-hold $tap-time $hold-time v lctl)
+  qe (tap-hold $tap-time $hold-time e @meh)
+
+  ;; QWERTY Home Row Mods (Right Hand)
+  qj (tap-hold $tap-time $hold-time j rsft)
+  qk (tap-hold $tap-time $hold-time k rmet)
+  ql (tap-hold $tap-time $hold-time l ralt)
+  q; (tap-hold $tap-time $hold-time ; @hpr)
+  qm (tap-hold $tap-time $hold-time m rctl)
+  qi (tap-hold $tap-time $hold-time i @meh)
+
+  ;; Graphite Home Row Mods (Left Hand)
+  gn (tap-hold $tap-time $hold-time n @hpr)
+  gr (tap-hold $tap-time $hold-time r lalt)
+  gt (tap-hold $tap-time $hold-time t lmet)
+  gs (tap-hold $tap-time $hold-time s lsft)
+  gc (tap-hold $tap-time $hold-time c lctl)
+  gd (tap-hold $tap-time $hold-time d @meh)
+
+  ;; Graphite Home Row Mods (Right Hand)
+  gh (tap-hold $tap-time $hold-time h rsft)
+  ga (tap-hold $tap-time $hold-time a rmet)
+  ge (tap-hold $tap-time $hold-time e ralt)
+  gi (tap-hold $tap-time $hold-time i @hpr)
+  gp (tap-hold $tap-time $hold-time p rctl)
+  go (tap-hold $tap-time $hold-time o @meh)
+
+  ;; Layer Access Taps/Holds
+  gspc (tap-hold $tap-time $hold-time spc (layer-while-held num))
+  zer  (tap-hold $tap-time $hold-time 0 @os)
+  extra (tap-hold $tap-time $hold-time m (layer-while-held extra))
+  rptsym (tap-hold $tap-time $hold-time rpt-any (layer-while-held sym))
+  bspnav (tap-hold $tap-time $hold-time bspc (layer-while-held nav))
+  fn (tap-hold $tap-time $hold-time fn (layer-toggle fn))
+
+  ;; Layer Switches
+  qw (layer-switch default)
+  sym (layer-while-held sym)
+  esc (tap-hold $tap-time $hold-time esc (layer-switch graphite))
+)

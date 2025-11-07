@@ -64,6 +64,7 @@
     # '';
     ".config/ghostty/config".source = ./dots/ghostty;
     ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
+    ".config/kanata/config.kbd".source = ./dots/config.kbd;
   };
 
   # Home Manager can also manage your environment variables through

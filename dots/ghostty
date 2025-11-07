@@ -33,3 +33,6 @@ macos-auto-secure-input = true
 macos-secure-input-indication = true
 
 auto-update = check
+
+keybind = global:cmd+shift+alt+ctrl+q=toggle_quick_terminal
+
