@@ -40,6 +40,7 @@
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
       "uc" = "brew upgrade --cask --greedy";
+      "p8" = "nix-shell -p pnpm_8";
     };
 
     syntaxHighlighting = {
