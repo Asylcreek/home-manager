@@ -62,7 +62,8 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/ghostty/config".source = ./dots/ghostty;
+    ".config/ghostty/config".source = ./dots/ghostty/config;
+    ".config/ghostty/themes/jellybeans-muted".source = ./dots/ghostty/themes/jellybeans-muted;
     ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
     ".config/kanata/config.kbd".source = ./dots/config.kbd;
   };

@@ -9,7 +9,7 @@ font-style-bold-italic = Bold Italic
 font-size = 13
 
 # Adventure, Mathias
-theme = Mathias
+theme = jellybeans-muted
 
 cursor-style = bar
 cursor-style-blink = true

@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     # prevent installing node with pnpm
-    (pnpm_8.overrideAttrs
+    (pnpm.overrideAttrs
       (oldAttrs: rec {
         buildInputs = [ ];
       }))
