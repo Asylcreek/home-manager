@@ -64,6 +64,8 @@
     # '';
     ".config/ghostty/config".source = ./dots/ghostty/config;
     ".config/ghostty/themes/jellybeans-muted".source = ./dots/ghostty/themes/jellybeans-muted;
+    ".config/ghostty/themes/moonfly".source = ./dots/ghostty/themes/moonfly;
+    ".config/ghostty/themes/gruvbox".source = ./dots/ghostty/themes/gruvbox;
     ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
     ".config/kanata/config.kbd".source = ./dots/config.kbd;
   };

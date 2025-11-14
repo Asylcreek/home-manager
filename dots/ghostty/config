@@ -8,8 +8,8 @@ font-style-italic = Italic
 font-style-bold-italic = Bold Italic
 font-size = 13
 
-# Adventure, Mathias
-theme = jellybeans-muted
+# Adventure, Mathias, jellybeans-muted, moonfly, gruvbox
+theme = gruvbox
 
 cursor-style = bar
 cursor-style-blink = true
