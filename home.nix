@@ -21,25 +21,25 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    jq
-    ripgrep
-    fd
-    tor
-    watchman
-    mongosh
-    doppler
-    nowplaying-cli
-    unar
-    tree
-    certbot
-    wget
-
-    # develop
-    go
-    redis
-    fnm
-    cargo
+  home.packages =  [
+    # jq
+    # ripgrep
+    # fd
+    # tor
+    # watchman
+    # mongosh
+    # doppler
+    # nowplaying-cli
+    # unar
+    # tree
+    # certbot
+    # wget
+    #
+    # # develop
+    # go
+    # redis
+    # fnm
+    # cargo
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
