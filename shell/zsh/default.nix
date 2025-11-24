@@ -39,7 +39,7 @@
       "yb" = "yarn build";
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
-      "uc" = "brew upgrade --cask --greedy";
+      "uc" = "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup";
       "p8" = "nix-shell -p pnpm_8";
     };
 
