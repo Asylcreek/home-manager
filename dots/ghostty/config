@@ -17,7 +17,7 @@ cursor-style-blink = true
 mouse-hide-while-typing = true
 
 background-opacity = 0.8
-background-blur = 10
+background-blur = 20
 
 link-url = true
 
