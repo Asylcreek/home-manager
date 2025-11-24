@@ -39,9 +39,9 @@
       "yb" = "yarn build";
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
-      "uc" = "brew upgrade --cask --greedy";
-      "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
+      "uc" = "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup";
       "p8" = "nix-shell -p pnpm_8";
+      "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
     };
 
     syntaxHighlighting = {
