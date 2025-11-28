@@ -1,5 +1,9 @@
 { pkgs, ... }:
 
+let
+  precmdScriptPath = pkgs.writeText "precmd.zsh" (builtins.readFile ./precmd.zsh);
+in
+
 {
   home.packages = with pkgs; [
     oh-my-posh
@@ -28,7 +32,7 @@
       "ta" = "tmux a -t ";
       "dash" = "ta gh && tmux send-keys -t 0 'gh dash' Enter";
       "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
-      "edng" = "v ~/Library/Application\ Support/ngrok/ngrok.yml";
+      "edng" = "v ~/Library/Application\\ Support/ngrok/ngrok.yml";
       "hsf" = "darwin-rebuild switch --impure";
       "dr" = "doppler run -- ";
       "psd" = "pnpm start:dev";
@@ -40,7 +44,7 @@
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
       "uc" = "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup";
-      "p8" = "nix-shell -p pnpm_8";
+      "p8" = "ns -p pnpm_8";
       "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
     };
 
@@ -56,9 +60,19 @@
     };
 
     initExtra = ''
-      # oh-my-posh
+      ns() {
+        export context_display="$*" 
+
+        nix-shell "$@" --run '
+          export NIX_CONTEXT_DISPLAY="$context_display";
+          zsh
+        '
+      }
+
       # possible options: emodipt-extend, kali, pure, negligible, craver, honukai, wopian
-      eval "$(oh-my-posh init zsh --config $HOME/.nix-profile/share/oh-my-posh/themes/wopian.omp.json)"
+      eval "$(oh-my-posh init zsh --config $HOME/.nix-profile/share/oh-my-posh/themes/negligible.omp.json)"
+
+      source "${precmdScriptPath}"
 
       # fnm
       eval "$(fnm env --use-on-cd --resolve-engines)" 
@@ -72,5 +86,4 @@
       [[ -f "$HOME/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
       '';
   };
-
 }
