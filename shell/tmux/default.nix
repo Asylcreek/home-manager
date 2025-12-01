@@ -12,7 +12,6 @@
       # Enable vim motions in view mode
       set-window-option -g mode-keys vi
 
-      set-option -g default-terminal "tmux-256color"
       set-option -g focus-events on
 
       bind-key -T copy-mode-vi 'v' send -X begin-selection # start selecting text with "v"
@@ -48,6 +47,7 @@
 
       set -ga update-environment TERM
       set -ga update-environment TERM_PROGRAM
+      set -g default-command '$SHELL'
 
       set -g status-right " "
 
@@ -121,7 +121,7 @@
 
     shell = "${pkgs.zsh}/bin/zsh";
 
-    terminal = "xterm-256color";
+    terminal = "screen-256color";
 
     tmuxinator = {
       enable = true;
