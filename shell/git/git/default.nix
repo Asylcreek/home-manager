@@ -19,6 +19,19 @@
      merge.conflictStyle = "zdiff3";
    };
 
+   includes = [
+      {
+        contents = {
+          user = {
+            email = "omokugbo.b@turing.com";
+            name = "Omokugbo Boro";
+          };
+        };
+
+        condition = "gitdir:~/Documents/turing/";
+      }
+   ];
+
    ignores = [
         # macOS
         ".DS_Store"
