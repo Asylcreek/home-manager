@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "matrix",
+  "permission": {
+    "edit": "ask",
+    "skill": "ask",
+    "webfetch": "allow",
+    "doom_loop": "ask",
+    "external_directory": "ask",
+    "bash": {
+      "git status": "allow",
+      "git diff": "allow",
+      "ls": "allow",
+      "pwd": "allow",
+      "cat": "allow",
+      "grep": "allow",
+      "glob": "allow",
+      "*": "ask",
+    },
+  },
+}

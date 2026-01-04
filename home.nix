@@ -70,6 +70,8 @@
     ".claude/CLAUDE.md".source = ./dots/claude/CLAUDE.md;
     ".env".source = ./dots/.env;
     ".envrc".source = ./dots/.envrc;
+    ".config/opencode/AGENTS.md".source = ./dots/opencode/AGENTS.md;
+    ".config/opencode/opencode.jsonc".source = ./dots/opencode/opencode.jsonc;
   };
 
   # Home Manager can also manage your environment variables through
