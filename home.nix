@@ -68,6 +68,8 @@
     ".config/ghostty/themes/gruvbox".source = ./dots/ghostty/themes/gruvbox;
     ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
     ".claude/CLAUDE.md".source = ./dots/claude/CLAUDE.md;
+    ".env".source = ./dots/.env;
+    ".envrc".source = ./dots/.envrc;
   };
 
   # Home Manager can also manage your environment variables through

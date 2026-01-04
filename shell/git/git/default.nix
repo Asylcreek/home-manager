@@ -33,11 +33,18 @@
    ];
 
    ignores = [
-        # macOS
-        ".DS_Store"
-        "._*"
-        ".Spotlight-V100"
-        ".Trashes"
+      # macOS
+      ".DS_Store"
+      "._*"
+      ".Spotlight-V100"
+      ".Trashes"
+
+      # envs
+      ".env"
+      ".env*"
+      "!.env.example"
+      ".envrc"
+      ".direnv/"
    ];
 
    delta = {
