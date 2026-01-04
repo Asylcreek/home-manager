@@ -86,4 +86,11 @@ in
       [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
       '';
   };
+
+  programs.direnv ={
+    enable = true;
+    nix-direnv = {
+      enable = true;
+    };
+  };
 }

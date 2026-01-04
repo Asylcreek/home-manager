@@ -62,13 +62,17 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/kanata/config.kbd".source = ./dots/config.kbd;
     ".config/ghostty/config".source = ./dots/ghostty/config;
     ".config/ghostty/themes/jellybeans-muted".source = ./dots/ghostty/themes/jellybeans-muted;
     ".config/ghostty/themes/moonfly".source = ./dots/ghostty/themes/moonfly;
     ".config/ghostty/themes/gruvbox".source = ./dots/ghostty/themes/gruvbox;
     ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
     ".claude/CLAUDE.md".source = ./dots/claude/CLAUDE.md;
-    ".config/kanata/config.kbd".source = ./dots/config.kbd;
+    ".env".source = ./dots/.env;
+    ".envrc".source = ./dots/.envrc;
+    ".config/opencode/AGENTS.md".source = ./dots/opencode/AGENTS.md;
+    ".config/opencode/opencode.jsonc".source = ./dots/opencode/opencode.jsonc;
   };
 
   # Home Manager can also manage your environment variables through
