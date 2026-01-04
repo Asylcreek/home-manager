@@ -59,6 +59,11 @@ in
     };
 
     initExtra = ''
+      # load .env
+      if [ -f $HOME/.env ]; then
+        export $(cat $HOME/.env | xargs)
+      fi
+
       ns() {
         export context_display="$*" 
 
