@@ -45,6 +45,9 @@
       "!.env.example"
       ".envrc"
       ".direnv/"
+
+      ".claude"
+      ".opencode"
    ];
 
    delta = {
