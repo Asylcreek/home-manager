@@ -48,6 +48,7 @@
 
       ".claude"
       ".opencode"
+      ".codex"
    ];
 
    delta = {
