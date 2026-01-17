@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  precmdScriptPath = pkgs.writeText "precmd.zsh" (builtins.readFile ./precmd.zsh);
+  ompConfigPath = pkgs.writeText "negligible.omp.json" (builtins.readFile ../../dots/oh-my-posh/negligible.omp.json);
 in
 
 {
@@ -66,7 +66,7 @@ in
       fi
 
       ns() {
-        export context_display="$*" 
+        export context_display="$*"
 
         nix-shell "$@" --run '
           export NIX_CONTEXT_DISPLAY="$context_display";
@@ -74,10 +74,24 @@ in
         '
       }
 
-      # possible options: emodipt-extend, kali, pure, negligible, craver, honukai, wopian
-      eval "$(oh-my-posh init zsh --config $HOME/.nix-profile/share/oh-my-posh/themes/negligible.omp.json)"
+      # Custom Oh My Posh config with nix-shell segment
+      eval "$(oh-my-posh init zsh --config ${ompConfigPath})"
 
-      source "${precmdScriptPath}"
+      # Function to set context for Oh My Posh before each prompt
+      # Define this AFTER oh-my-posh init to avoid being overwritten
+      function set_poshcontext() {
+        # Populate NIX_CONTEXT_DISPLAY if we're in a nix-shell
+        if [[ -n "$IN_NIX_SHELL" && -n "$NIX_CONTEXT_DISPLAY" ]]; then
+          export POSH_NIX_CONTEXT="$NIX_CONTEXT_DISPLAY"
+        else
+          unset POSH_NIX_CONTEXT
+        fi
+      }
+
+      # Register the hook to run before every prompt
+      autoload -U add-zsh-hook
+      add-zsh-hook precmd set_poshcontext
+
 
       # fnm
       eval "$(fnm env --use-on-cd --resolve-engines)" 
