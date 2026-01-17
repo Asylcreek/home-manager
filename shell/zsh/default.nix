@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  ompConfigPath = pkgs.writeText "negligible.omp.json" (builtins.readFile ../../dots/oh-my-posh/negligible.omp.json);
+  ompConfigPath = pkgs.writeText "negligible.omp.json" (builtins.readFile ../../dots/oh-my-posh/kali.omp.json);
 in
 
 {
@@ -46,6 +46,10 @@ in
       "uc" = "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup";
       "p8" = "ns -p pnpm_8";
       "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
+      "d" = "droid";
+      "c" = "claude";
+      "co" = "codex";
+      "o" = "opencode";
     };
 
     syntaxHighlighting = {
