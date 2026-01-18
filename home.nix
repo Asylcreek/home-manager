@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -72,6 +72,35 @@
     ".envrc".source = ./dots/.envrc;
   };
 
+  home.activation.linkAgents = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ln -sfn ~/.config/home-manager/dots/agents/AGENTS.md $HOME/.codex/AGENTS.md
+
+    agentSource="$HOME/.config/home-manager/dots/agents"
+
+    declare -A nameMap=(
+      [.claude]="CLAUDE.md"
+      [.factory]="AGENTS.md"
+      [.opencode]="AGENTS.md"
+    )
+
+    declare -A agentsMap=(
+      [.claude]="agents"
+      [.factory]="droids"
+      [.opencode]="droids"
+    )
+
+    for target in .claude .factory .opencode; do
+      mkdir -p $HOME/$target
+      ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
+      ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
+      ln -sfn $agentSource/commands $HOME/$target
+      ln -sfn $agentSource/rules $HOME/$target
+      ln -sfn $agentSource/skills $HOME/$target
+    done
+
+    ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
+    ln -sfn ~/.config/home-manager/dots/agents/android-bench $HOME/Documents/turing/android-bench/.factory/droids
+  '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
