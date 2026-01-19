@@ -39,6 +39,9 @@ Key rules:
 - No AI attribution or branding
 - Focus on: summary, test plan, and relevant context
 - Use HEREDOC for clean formatting
+- **CRITICAL: Never use --squash flag when merging PRs unless explicitly requested by the user. Use standard merge instead.**
+- **ALWAYS: Add user (@me) as assignee when creating PRs using --assignee @me**
+- **ALWAYS: Use --label enhancement for PRs unless otherwise specified by the user**
 
 → See [rules/pull-requests.md](.factory/rules/pull-requests.md) for complete PR guidelines
 
