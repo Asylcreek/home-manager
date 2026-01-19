@@ -445,11 +445,11 @@ Recommendation: Either update instructions to include this behavior or revise th
 **Detection Method**:
 1. Scan test files for `sealed class`, `interface`, or `data class` definitions
 2. Check if these types should exist in main source (based on Specific Instructions)
-3. If yes → Flag as contract definition in wrong location
+3. If yes → Note as contract defined in wrong location, but DO NOT flag as coverage gap
 
 **Report Format**:
 ```
-🔴 CONTRACT DEFINED IN TEST FILE (SHOULD BE IN MAIN SOURCE)
+📋 CONTRACT DEFINED IN TEST FILE (INFORMATIONAL - NOT A GAP)
 
 Test File: src/test/kotlin/com/example/PlayerControllerTest.kt
 
@@ -457,18 +457,18 @@ Contract Defined Locally:
 - sealed class LoadState (lines 250-255)
 - interface PlayerController (lines 257-264)
 
-Problem: These types are defined in the test file, but should be imported from main source.
+Status: This is an informational note, not a coverage gap.
 
 Why This Matters:
 - Tests should import from com.example.signalnexus.data.repository (or appropriate package)
-- The implementer creates these types in main source based on Specific Instructions
-- Tests defining contracts locally won't validate the real implementation
+- The implementer (task-implementer agent) will create these types in main source based on Specific Instructions
+- The task-implementer agent is aware of this pattern and will create the interface/implementation in main source when it encounters test failures
 
-Required Fix:
-1. Move LoadState and PlayerController definitions to main source (app/src/main/kotlin/...)
-2. Update test to import: import com.example.signalnexus.data.repository.LoadState
-3. Update test to import: import com.example.signalnexus.data.repository.PlayerController
-4. Keep only the FakePlayerController IMPLEMENTATION in the test file
+Context:
+- This is expected in TDD workflow where tests are written before implementation
+- The test-validator's role is to validate test COVERAGE, not implementation structure
+- The tinstruction-validator will flag this as a gap if the implementation still doesn't exist after task-implementer runs
+- No action needed from test-generator - this is handled by task-implementer
 
 Verification: Specific Instructions Item X defines the PlayerController interface - this confirms it belongs in main source.
 ```
