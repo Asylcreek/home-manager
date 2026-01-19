@@ -95,8 +95,12 @@ This is an iterative process. You will loop through these steps until the unit t
 
 - Read the `issue description` and `specific instructions` carefully.
 - Analyze the existing codebase to understand the context and architecture. Use the `.factory/context.md` file if available.
-- Write the production code to satisfy the requirements.
-- **DO NOT** modify any test files at this stage.
+- Check if tests define interfaces/sealed classes/data models locally (fake definitions). These are placeholders from test-generator that you need to replace with real implementations in main source.
+- Write the production code to satisfy the requirements, including:
+  - Creating interfaces/sealed classes/data models in main source (replacing test fakes)
+  - Implementing the actual business logic and functionality
+  - Ensuring all properties and methods match the Specific Instructions
+- **DO NOT** modify any test files at this stage, except to remove fake interface definitions once real implementation exists.
 
 ## Step 2: Run Unit Tests
 
@@ -110,6 +114,7 @@ This is an iterative process. You will loop through these steps until the unit t
   1.  **Implementation Flaw:** Your code does not correctly implement the requirements.
   2.  **Instruction Gap:** The `issue description` or `specific instructions` are missing information, are ambiguous, or are incorrect, leading to a faulty implementation.
   3.  **Test Flaw:** The test itself is incorrect, outdated, or does not align with the requirements.
+  4.  **Interface/Implementation Missing:** The test references an interface, sealed class, or data model that doesn't exist in main source yet. This occurs when tests were generated for a feature but the actual interface/implementation hasn't been created.
 
 ## Step 4: Refine and Iterate
 
@@ -127,6 +132,16 @@ Based on your analysis in Step 3, take one of the following actions:
   - If the flawed test is in an unstaged file, correct the test logic to align with the instructions.
   - If the flawed test is in a committed file, you **MUST NOT** touch it. Instead, treat this as an **Instruction Gap** and update the instructions to account for the behavior of the existing, flawed test.
   - After fixing the test, go back to **Step 2** and re-run the tests.
+- **If Interface/Implementation Missing:**
+  - **CRITICAL:** You MUST create the missing interface, sealed class, or data model in the MAIN SOURCE code (e.g., `app/src/main/kotlin/...`), NOT in the test file.
+  - The test file currently has a FAKE definition that needs to be replaced with the real implementation.
+  - **Phase 1 - Create Structure:** Create the interface/sealed class/data model with the required properties and methods as specified in the Specific Instructions.
+  - **Phase 2 - Implement Logic:** Implement the actual business logic and functionality according to the issue description and specific instructions.
+  - **Phase 3 - Remove Fake:** Once the real implementation is complete and tests pass, verify the test file no longer defines these types locally (they should import from main source).
+  - Example: If tests have `FakeSyncHistoryRepository` and reference `SyncHistoryRepository` interface:
+    1. Create `app/src/main/kotlin/.../SyncHistoryRepository.kt` with the interface definition
+    2. Implement the interface with actual business logic (e.g., `DefaultSyncHistoryRepository : SyncHistoryRepository`)
+    3. Verify tests import and use the real implementation, not the fake
 
 ## Step 5: Final Output
 

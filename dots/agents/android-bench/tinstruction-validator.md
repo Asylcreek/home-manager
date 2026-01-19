@@ -148,6 +148,20 @@ IMPLEMENTATION: [Description of edge case handling]
 - Severity: MEDIUM
 - Recommended Addition: "System should reject registration attempts with null or empty email addresses"
 
+---
+
+🔴 Missing Interface/Implementation (CRITICAL - POST-IMPLEMENTATION GAP)
+
+TEST REFERENCES: [Interface/sealed class/data model name]
+
+- Referenced in Test: src/test/kotlin/com/example/MyFeatureTest.kt
+- Missing Implementation: Interface/implementation does NOT exist in main source
+- Expected Location: src/main/kotlin/com/example/... (based on test import statements)
+- Severity: CRITICAL
+- Problem: Tests import from main source (e.g., `com.example.signalnexus.data.repository.PlayerController`) but the interface/implementation doesn't exist in the codebase
+- Required Action: task-implementer MUST create the interface/sealed class/data model in main source with the required structure as specified in Specific Instructions
+- Note: This is expected during test-generation phase but MUST be fixed by task-implementer before completion
+
 ### Section 2: Test Coverage Analysis
 
 INSTRUCTIONS → TESTS VALIDATION
@@ -259,6 +273,57 @@ Verification: Specific Instructions Item X defines the PlayerController interfac
 ```
 
 **Exception**: Fake implementations (e.g., `FakePlayerController : PlayerController`) are correct in test files - they IMPLEMENT the interface, not define it.
+
+### Detection Method for Missing Interface/Implementation (CRITICAL - NEW)
+
+**Purpose**: Identify when tests reference interfaces/sealed classes/data models that don't exist in main source after implementation should be complete.
+
+**Detection Steps**:
+1. Scan test files for import statements referencing main source packages (e.g., `import com.example.signalnexus.data.repository.*`)
+2. Extract the imported type names (interfaces, sealed classes, data models)
+3. Check if these types exist in the main source codebase
+4. If imports reference types that don't exist in main source → Flag as missing implementation
+
+**Detection Command**:
+```bash
+# Get test file imports
+grep -r "import com.example.signalnexus" app/src/test --include="*.kt" | grep -E "(interface|sealed class|data class)" | cut -d: -f2 | sort -u
+
+# Check if imported types exist in main source
+for type in $(extracted_type_names); do
+  if ! find app/src/main -name "${type}.kt" | grep -q .; then
+    echo "Missing: $type"
+  fi
+done
+```
+
+**Report When Found**:
+```
+🔴 MISSING INTERFACE/IMPLEMENTATION IN MAIN SOURCE
+
+Referenced by Tests:
+- Interface: PlayerController (imported in src/test/kotlin/com/example/PlayerControllerTest.kt)
+- Sealed Class: LoadState (imported in src/test/kotlin/com/example/PlayerControllerTest.kt)
+
+Status: Types do NOT exist in app/src/main
+
+Expected Locations:
+- app/src/main/kotlin/com/example/signalnexus/data/repository/PlayerController.kt
+- app/src/main/kotlin/com/example/signalnexus/data/repository/LoadState.kt
+
+Required Action:
+task-implementer must create these types in main source with structure defined in Specific Instructions.
+
+Why This Is Critical:
+- Tests import from main source expecting these types to exist
+- Without these types, tests cannot compile
+- This indicates incomplete implementation by task-implementer
+```
+
+**When to Report**:
+- Report this ONLY when running AFTER task-implementer has completed its work
+- If running during test-generation phase, this is expected and should be noted but not flagged as a gap
+- The test-validator will note this informatively; tinstruction-validator should flag it as a gap post-implementation
 
 ## Instruction Quality Analysis (CRITICAL - NEW)
 
