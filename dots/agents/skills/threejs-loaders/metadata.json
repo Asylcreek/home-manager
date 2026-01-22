@@ -1,0 +1,20 @@
+{
+  "name": "threejs-loaders",
+  "version": "1.0.0",
+  "description": "Three.js asset loading - GLTF, textures, images, models, async patterns",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-loaders",
+  "categories": [
+    "Texture Loading",
+    "GLTF Loading",
+    "Model Formats",
+    "Async Patterns",
+    "Caching"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "loaders",
+    "webgl",
+    "3d"
+  ]
+}

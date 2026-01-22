@@ -1,0 +1,21 @@
+{
+  "name": "threejs-animation",
+  "version": "1.0.0",
+  "description": "Three.js animation - keyframe animation, skeletal animation, morph targets, animation mixing",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-animation",
+  "categories": [
+    "Animation System",
+    "Keyframe Animation",
+    "Skeletal Animation",
+    "Morph Targets",
+    "Animation Blending",
+    "Procedural Animation"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "animation",
+    "webgl",
+    "3d"
+  ]
+}

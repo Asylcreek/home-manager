@@ -1,0 +1,19 @@
+{
+  "name": "threejs-materials",
+  "version": "1.0.0",
+  "description": "Three.js materials - PBR, basic, phong, shader materials, material properties",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-materials",
+  "categories": [
+    "Material Types",
+    "PBR Materials",
+    "Shader Materials",
+    "Material Properties"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "materials",
+    "webgl",
+    "3d"
+  ]
+}
