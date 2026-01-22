@@ -14,6 +14,8 @@ Key rules:
 
 ## Git Commits
 
+**CRITICAL** NEVER COMMIT UNLESS EXPLICITY REQUESTED TO
+
 **Use conventional commit format for all git commits.**
 
 Format: `<type>(<scope>): <description>` with types like feat, fix, chore, docs, style, refactor, perf, test, build.
