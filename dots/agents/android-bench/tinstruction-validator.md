@@ -613,7 +613,54 @@ Recommendation: Add to Specific Instructions:
 - Button remains hidden while sync is in progress (status is Syncing)"
 ```
 
-#### 8. Missing Contract Specifications (HIGH PRIORITY - NEW)
+#### 8. Spatial Positioning Requirements (MEDIUM PRIORITY - NEW)
+
+**Problem**: Claims specify where UI elements should be placed relative to each other, which are implementation details that constrain layout flexibility and cannot be reliably tested.
+
+**Example**:
+- Claim: "The error message must appear below the submit button"
+- Claim: "Place the delete button beside the edit button"
+- Claim: "Position the loading indicator above the list"
+- **Problem**: These are layout implementation details, not testable behaviors
+- **Consequence**: Tests must know exact layout structure; implementers lose layout flexibility
+
+**Detection Method**:
+1. Scan claims for spatial positioning keywords: "below", "above", "beside", "next to", "under", "over", "left of", "right of", "position", "place"
+2. Check if they describe WHERE elements appear (layout) rather than WHETHER they appear (visibility)
+3. If spatial positioning is specified → Flag as inappropriate
+
+**Report Format**:
+```
+🟡 SPATIAL POSITIONING REQUIREMENT DETECTED
+
+Claim: "The error message must appear below the submit button"
+
+Issue:
+- Specifies WHERE the error message should be placed (below the button)
+- This is a layout implementation detail, not a behavioral requirement
+- Cannot be reliably tested without knowing exact layout structure
+- Constrains implementer's UI design flexibility
+
+Recommended Revision:
+Remove spatial positioning and focus on visibility/behavior:
+
+- "When validation fails, an error message with test tag 'error_message' must be visible"
+- Tests verify the error message exists, not its position
+- Implementer can decide optimal placement based on design requirements
+```
+
+**Additional Examples**:
+
+❌ Bad: "Place the delete button beside the edit button"
+✅ Good: "The screen must include a delete button with test tag 'delete_button'"
+
+❌ Bad: "Position the loading spinner above the content list"
+✅ Good: "When loading, a spinner with test tag 'loading_spinner' must be displayed"
+
+❌ Bad: "The timestamp should be at the top of the card"
+✅ Good: "Each item card must display a timestamp with test tag 'item_timestamp'"
+
+#### 9. Missing Contract Specifications (HIGH PRIORITY - NEW)
 
 **Problem**: Constructor or method signatures are not specified precisely, leading to incompatible implementations.
 

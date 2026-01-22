@@ -131,13 +131,14 @@ For every task idea you suggest, you must provide:
 
       Test Command: The specific ./gradlew command to run the validation.
 
-      Issue Description: **CRITICAL - Follow the pattern from Examples of Issue Descriptions (lines 150-219).** This section must describe OBSERVABLE USER-FACING BEHAVIOR and UI requirements, NOT implementation details. **Format Requirements:**
+      Issue Description: **CRITICAL - Follow the pattern from Examples of Issue Descriptions (lines 329-400+).** This section must describe OBSERVABLE USER-FACING BEHAVIOR and UI requirements, NOT implementation details. **Format Requirements:**
       - Start with a user action or initial state ("When navigating to...", "When the user taps...", "The screen must display...")
       - List specific observable behaviors as bullet points
       - Include test tags (e.g., "button with test tag 'login_button'")
       - Reference specific UI elements and their states
       - NO implementation details (no "use Flow", "call viewModelScope", "use Room", etc.)
       - NO vague adjectives (intuitive, fast, accessible, good-looking, responsive during load)
+      - **CRITICAL - NO Spatial Positioning: Do NOT specify where UI elements are placed relative to each other (no "below", "beside", "above", etc.)** - See Issue Description Formatting Rules section
       - **CRITICAL - Test Coverage Requirement: Every sentence/claim MUST have a corresponding INSTRUMENTATION TEST (E2E test).** If a requirement cannot be verified by an instrumentation test, it should NOT be included.
 
       Specific Instructions: **CRITICAL - Follow the pattern from Examples of Specific Instructions (lines 294-407).** This section must list WHAT MUST BE TRUE about the implementation (state, properties, behaviors), NOT HOW to implement it (no prescriptive code, no specific function calls). **Format Requirements:**
@@ -307,6 +308,51 @@ Test Command
 
 [Exact gradle command(s) to run tests]
 
+## Test File Organization Guidelines
+
+When generating tasks and test files, follow these consolidation principles:
+
+### Android Instrumentation Tests (androidTest)
+
+**Consolidate to 2 test files per feature:**
+- **`[Feature]ScreenTest.kt`** in `app/src/androidTest/kotlin/.../ui/[feature]/` - All UI screen tests including lifecycle, refresh, filtering, sorting
+- **`[Feature]IntegrationTest.kt`** in `app/src/androidTest/kotlin/.../` - Navigation, worker integration, cross-component tests
+
+**DO NOT create separate files for:**
+- ❌ `[Feature]ScreenLifecycleTest.kt` - Include in screen test file
+- ❌ `[Feature]ScreenRefreshTest.kt` - Include in screen test file
+- ❌ `[Feature]ScreenNavigationTest.kt` - Include in integration test file
+- ❌ `[Feature]WorkerIntegrationTest.kt` - Include in integration test file
+
+### Unit Tests (test)
+
+**Keep separate by architectural layer:**
+- **`data/repository/[Feature]RepositoryTest.kt`** - Data layer (Room DAO, repository operations)
+- **`ui/[feature]/[Feature]ViewModelTest.kt`** - Presentation layer (ViewModel state management)
+- **`navigation/ScreenTest.kt`** - Navigation layer (route definitions)
+
+**DO NOT consolidate unit tests** from different layers - they test distinct responsibilities.
+
+### Example Pattern
+
+**For a new feature "Sync History":**
+
+Instrumentation tests (2 files):
+```
+app/src/androidTest/kotlin/com/example/signalnexus/
+├── ui/syncHistory/
+│   └── SyncHistoryScreenTest.kt          # 30+ UI tests
+└── SyncHistoryIntegrationTest.kt          # Navigation + worker tests
+```
+
+Unit tests (3 files):
+```
+app/src/test/kotlin/com/example/signalnexus/
+├── data/repository/SyncHistoryRepositoryTest.kt  # Data layer
+├── ui/syncHistory/SyncHistoryViewModelTest.kt    # Presentation layer
+└── navigation/ScreenTest.kt                       # Navigation layer
+```
+
 Issue Description
 
 [Complete issue description with all UI requirements and test tags]
@@ -325,6 +371,26 @@ Specific Instructions
 - Exact test commands
 
 Do NOT provide summaries or abbreviated versions. The user expects to see the full task specification that can be used directly for evaluation.
+
+## Issue Description Formatting Rules (CRITICAL)
+
+When writing Issue Descriptions, follow these strict formatting rules:
+
+1. **NO Spatial Positioning**: Do NOT specify where UI elements should be placed relative to each other.
+   - ❌ AVOID: "The button must be below the text", "Place the icon beside the title", "Position the error message above the form"
+   - ✅ USE: "The screen must include a button", "The dialog must show an error message", "The icon must be visible"
+   - **Rationale**: Spatial positioning is implementation-specific. Tests should verify behavior/visibility, not exact layout coordinates.
+
+2. **Focus on Testable Behavior**: Describe WHAT must happen, not WHERE things appear.
+   - Use test tags to identify elements for testing
+   - Describe state changes, user interactions, and visible outcomes
+   - Let implementers decide on layout/positioning
+
+3. **Example Corrections**:
+   - ❌ "The error message must appear below the submit button"
+   - ✅ "When validation fails, an error message with test tag 'error_message' must be visible"
+   - ❌ "Place the delete button beside the edit button"
+   - ✅ "The screen must include a delete button with test tag 'delete_button'"
 
 ## Examples of Issue Descriptions:
 
