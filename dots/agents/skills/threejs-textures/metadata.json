@@ -1,0 +1,20 @@
+{
+  "name": "threejs-textures",
+  "version": "1.0.0",
+  "description": "Three.js textures - texture types, UV mapping, environment maps, texture settings",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-textures",
+  "categories": [
+    "Texture Loading",
+    "Texture Configuration",
+    "Texture Types",
+    "Environment Maps",
+    "UV Mapping"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "textures",
+    "webgl",
+    "3d"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "threejs-fundamentals",
+  "version": "1.0.0",
+  "description": "Three.js scene setup, cameras, renderer, Object3D hierarchy, coordinate systems",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-fundamentals",
+  "categories": [
+    "Scene Setup",
+    "Cameras",
+    "Renderer",
+    "Object3D",
+    "Coordinate Systems",
+    "Math Utilities"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "fundamentals",
+    "webgl",
+    "3d"
+  ]
+}

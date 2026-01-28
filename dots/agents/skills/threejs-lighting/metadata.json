@@ -1,0 +1,19 @@
+{
+  "name": "threejs-lighting",
+  "version": "1.0.0",
+  "description": "Three.js lighting - light types, shadows, environment lighting",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-lighting",
+  "categories": [
+    "Light Types",
+    "Shadows",
+    "Environment Lighting",
+    "Light Helpers"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "lighting",
+    "webgl",
+    "3d"
+  ]
+}
