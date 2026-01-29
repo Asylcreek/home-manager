@@ -1,14 +1,21 @@
+---
+name: web-interface-guidelines
+description: Comprehensive guidelines for building accessible, fast, and delightful web interface
+---
+
 Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEVER to guide decisions.
 
 ## Interactions
 
 ### Keyboard
+
 - MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
 - MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
 - MUST: Manage focus (trap, move, return) per APG patterns
 - NEVER: `outline: none` without visible focus replacement
 
 ### Targets & Input
+
 - MUST: Hit target ≥24px (mobile ≥44px); if visual <24px, expand hit area
 - MUST: Mobile `<input>` font-size ≥16px to prevent iOS zoom
 - NEVER: Disable browser zoom (`user-scalable=no`, `maximum-scale=1`)
@@ -16,6 +23,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - SHOULD: Set `-webkit-tap-highlight-color` to match design
 
 ### Forms
+
 - MUST: Hydration-safe inputs (no lost focus/value)
 - NEVER: Block paste in `<input>`/`<textarea>`
 - MUST: Loading buttons show spinner and keep original label
@@ -33,18 +41,21 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: No dead zones on checkboxes/radios; label+control share one hit target
 
 ### State & Navigation
+
 - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels)
 - MUST: Back/Forward restores scroll position
 - MUST: Links use `<a>` or `<Link>` for navigation (support Cmd/Ctrl/middle-click)
 - NEVER: Use `<button>` or `<div>` for navigation
 
 ### Feedback
+
 - SHOULD: Optimistic UI; reconcile on response; on failure rollback or offer Undo
 - MUST: Confirm destructive actions or provide Undo window
 - MUST: Use polite `aria-live` for toasts/inline validation
 - SHOULD: Ellipsis (`…`) for options opening follow-ups ("Rename…") and loading states ("Loading…")
 
 ### Touch & Drag
+
 - MUST: Generous targets, clear affordances; avoid finicky interactions
 - MUST: Delay first tooltip; subsequent peers instant
 - MUST: `overscroll-behavior: contain` in modals/drawers
@@ -52,6 +63,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: If it looks clickable, it must be clickable
 
 ### Autofocus
+
 - SHOULD: Autofocus on desktop with single primary input; rarely on mobile
 
 ## Animation
