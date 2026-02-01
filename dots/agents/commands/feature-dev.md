@@ -5,6 +5,8 @@ argument-hint: <feature-description>
 
 # Feature Development
 
+**CRITICAL: Before starting any phase, use the Skill tool to load 'kguide' and apply its behavioral guidelines throughout this entire workflow.**
+
 You are helping a developer implement a new feature. Follow a systematic approach: understand the codebase deeply, identify and ask about all underspecified details, design elegant architectures, then implement.
 
 ## Core Principles
