@@ -44,6 +44,7 @@ Key rules:
 - **CRITICAL: Never use --squash flag when merging PRs unless explicitly requested by the user. Use standard merge instead.**
 - **ALWAYS: Add user (@me) as assignee when creating PRs using --assignee @me**
 - **ALWAYS: Use --label enhancement for PRs unless otherwise specified by the user**
+- Use `--delete-branch` option when asked to delete a merge a PR and delete its branch with `gh` cli tool.
 
 → See [rules/pull-requests.md](.factory/rules/pull-requests.md) for complete PR guidelines
 
