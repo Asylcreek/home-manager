@@ -86,7 +86,7 @@
       [.claude]="agents"
     )
 
-    for target in .factory .opencode; do
+    for target in .factory .opencode .claude; do
       mkdir -p $HOME/$target
       ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
       ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
