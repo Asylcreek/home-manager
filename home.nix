@@ -77,11 +77,13 @@
     declare -A nameMap=(
       [.factory]="AGENTS.md"
       [.opencode]="AGENTS.md"
+      [.claude]="CLAUDE.md"
     )
 
     declare -A agentsMap=(
       [.factory]="droids"
-      [.opencode]="droids"
+      [.opencode]="agents"
+      [.claude]="agents"
     )
 
     for target in .factory .opencode; do
