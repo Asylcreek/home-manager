@@ -1,14 +1,4 @@
-## Sub-Droid/Sub-Agent Output Handling
-
-NEVER assume, if you do not know, ask questions or research online ... DO NOT ASSUME
-
-Key rules:
-
-- Present FULL output from sub-droids (no summaries)
-- Do not condense or paraphrase findings
-- User prefers all details directly
-
-→ See [rules/sub-droid-output.md](.factory/rules/sub-droid-output.md) for complete details
+**Important:** NEVER assume, if you do not know, ask questions or research online ... DO NOT ASSUME
 
 ## Git Commits
 
