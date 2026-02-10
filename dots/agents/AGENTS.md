@@ -1,8 +1,6 @@
 ## Sub-Droid/Sub-Agent Output Handling
 
-**Always show complete sub-droid/sub-agent output without summarization.**
-
-When using the Task tool to launch sub-droids/sub-agents (Explore, Code, Plan, etc.), present the complete, verbose output without summarizing or condensing it. You may add brief context but must show the full response.
+NEVER assume, if you do not know, ask questions or research online ... DO NOT ASSUME
 
 Key rules:
 
