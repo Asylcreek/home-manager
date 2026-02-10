@@ -47,8 +47,6 @@ in
       "p8" = "ns -p pnpm_8";
       "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
       "d" = "droid";
-      "c" = "claude";
-      "co" = "codex";
       "o" = "opencode";
     };
 

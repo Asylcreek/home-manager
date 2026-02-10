@@ -1,0 +1,19 @@
+{
+  "name": "threejs-geometry",
+  "version": "1.0.0",
+  "description": "Three.js geometry creation - built-in shapes, BufferGeometry, custom geometry, instancing",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-geometry",
+  "categories": [
+    "Built-in Geometries",
+    "BufferGeometry",
+    "InstancedMesh",
+    "Geometry Utilities"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "geometry",
+    "webgl",
+    "3d"
+  ]
+}

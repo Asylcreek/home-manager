@@ -1,0 +1,21 @@
+{
+  "name": "threejs-shaders",
+  "version": "1.0.0",
+  "description": "Three.js shaders - GLSL, ShaderMaterial, uniforms, custom effects",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-shaders",
+  "categories": [
+    "ShaderMaterial",
+    "Uniforms",
+    "Varyings",
+    "Shader Patterns",
+    "GLSL Functions"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "shaders",
+    "webgl",
+    "3d",
+    "glsl"
+  ]
+}

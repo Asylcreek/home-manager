@@ -1,0 +1,20 @@
+{
+  "name": "threejs-interaction",
+  "version": "1.0.0",
+  "description": "Three.js interaction - raycasting, controls, mouse/touch input, object selection",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-interaction",
+  "categories": [
+    "Raycasting",
+    "Camera Controls",
+    "Transform Controls",
+    "Selection System",
+    "Keyboard Input"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "interaction",
+    "webgl",
+    "3d"
+  ]
+}

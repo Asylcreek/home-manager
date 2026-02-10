@@ -1,0 +1,20 @@
+{
+  "name": "threejs-postprocessing",
+  "version": "1.0.0",
+  "description": "Three.js post-processing - EffectComposer, bloom, DOF, screen effects",
+  "source": "https://github.com/CloudAI-X/threejs-skills/tree/main/skills/threejs-postprocessing",
+  "categories": [
+    "EffectComposer",
+    "Bloom",
+    "Anti-Aliasing",
+    "DOF",
+    "Custom Shaders"
+  ],
+  "totalRules": 1,
+  "tags": [
+    "threejs",
+    "postprocessing",
+    "webgl",
+    "3d"
+  ]
+}
