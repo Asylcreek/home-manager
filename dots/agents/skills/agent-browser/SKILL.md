@@ -21,6 +21,7 @@ agent-browser close             # Close browser
 2. Snapshot: `agent-browser snapshot -i` (returns elements with refs like `@e1`, `@e2`)
 3. Interact using refs from the snapshot
 4. Re-snapshot after navigation or significant DOM changes
+5. All snapshots/screenshots should be saved to the `/tmp` dir, unless otherwise stated.
 
 ## Commands
 

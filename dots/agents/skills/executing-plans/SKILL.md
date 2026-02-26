@@ -1,3 +1,8 @@
+---
+name: executing-plans
+description: Load and execute implementation plans task-by-task with batch execution and checkpoints. Use when implementing from a pre-written plan document.
+---
+
 # Executing Plans
 
 ## Overview

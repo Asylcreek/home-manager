@@ -1,3 +1,8 @@
+---
+name: writing-plans
+description: Write comprehensive implementation plans with bite-sized tasks, code snippets, and test commands. Use when planning feature implementation before coding.
+---
+
 # Writing Plans
 
 ## Overview

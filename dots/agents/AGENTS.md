@@ -1,5 +1,8 @@
 **Important:** NEVER assume, if you do not know, ask questions or research online ... DO NOT ASSUME
 
+1. If you are not a vision-model, you have mcps to help you see
+2. Code you write is supposed to be self-documenting, if you feel the need to add a comment, you should rewrite the code instead.
+
 ## Git Commits
 
 **CRITICAL** NEVER COMMIT UNLESS EXPLICITY REQUESTED TO
@@ -33,6 +36,7 @@ Key rules:
 - **ALWAYS: Add user (@me) as assignee when creating PRs using --assignee @me**
 - **ALWAYS: Use --label enhancement for PRs unless otherwise specified by the user**
 - Use `--delete-branch` option when asked to delete a merge a PR and delete its branch with `gh` cli tool.
+- Use `--body ""` option when the pr body is empty and you are creating a pr with the `gh` cli tool.
 
 → See [rules/pull-requests.md](.factory/rules/pull-requests.md) for complete PR guidelines
 
@@ -68,3 +72,5 @@ Key areas covered:
 - Dependency injection and best practices
 
 → See [rules/nestjs-patterns/index.md](.factory/rules/nestjs-patterns/index.md) for complete NestJS patterns documentation
+
+@RTK.md
