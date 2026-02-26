@@ -1,3 +1,8 @@
+---
+name: investigating-codebase-for-user-stories
+description: Systematic codebase investigation to produce well-formed user stories with acceptance criteria and traceability. Use when documenting existing features as stories or reverse-engineering requirements from implementation.
+---
+
 # Investigating Codebase for User Stories
 
 ## Overview

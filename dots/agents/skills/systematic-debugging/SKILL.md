@@ -1,3 +1,8 @@
+---
+name: systematic-debugging
+description: Systematic debugging process to find root causes before attempting fixes. Use for ANY technical issue - test failures, bugs, unexpected behavior, performance problems, build failures.
+---
+
 # Systematic Debugging
 
 ## Overview

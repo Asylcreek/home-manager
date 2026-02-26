@@ -1,3 +1,8 @@
+---
+name: brainstorming
+description: Help turn ideas into fully formed designs and specs through collaborative dialogue. Use when exploring new features, planning architecture, or refining product requirements.
+---
+
 # Brainstorming Ideas Into Designs
 
 ## Overview

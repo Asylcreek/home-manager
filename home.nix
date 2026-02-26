@@ -77,17 +77,17 @@
 
     declare -A nameMap=(
       [.factory]="AGENTS.md"
-      [.opencode]="AGENTS.md"
+      [.agents]="AGENTS.md"
       [.claude]="CLAUDE.md"
     )
 
     declare -A agentsMap=(
       [.factory]="droids"
-      [.opencode]="agents"
+      [.agents]="agents"
       [.claude]="agents"
     )
 
-    for target in .factory .opencode .claude; do
+    for target in .factory .agents .claude; do
       mkdir -p $HOME/$target
       ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
       ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
