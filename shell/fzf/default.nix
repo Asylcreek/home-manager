@@ -10,7 +10,8 @@
       "--height 40%"
       "--layout=reverse"
       "--border"
-      "--inline-info"
+      "--info=inline"
+      "--multi"
     ];
   };
 }
