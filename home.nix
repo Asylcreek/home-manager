@@ -78,20 +78,22 @@
       [.factory]="AGENTS.md"
       [.agents]="AGENTS.md"
       [.claude]="CLAUDE.md"
+      [.codex]="AGENTS.md"
     )
 
     declare -A agentsMap=(
       [.factory]="droids"
       [.agents]="agents"
       [.claude]="agents"
+      [.codex]="sagents"
     )
 
-    for target in .factory .agents .claude; do
+    for target in .factory .agents .claude .codex; do
       mkdir -p $HOME/$target
       ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
       ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
       ln -sfn $agentSource/commands $HOME/$target
-      ln -sfn $agentSource/rules $HOME/$target
+      ln -sfn $agentSource/docs-rules $HOME/$target
       ln -sfn $agentSource/skills $HOME/$target
     done
 
@@ -118,9 +120,7 @@
     # EDITOR = "emacs";
   };
 
-  home.sessionPath = [
-    "$HOME/.amp/bin"
-  ];
+  home.sessionPath = [];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

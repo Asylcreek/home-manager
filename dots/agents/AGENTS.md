@@ -18,7 +18,7 @@ Key rules:
 - Use imperative mood ("add" not "added")
 - No Co-Authored-By footer unless requested
 
-→ See [rules/git-commits.md](.factory/rules/git-commits.md) for types, examples, and complete rules
+→ See [docs-rules/git-commits.md](~/.agents/docs-rules/git-commits.md) for types, examples, and complete rules
 
 ## Pull Request Guidelines
 
@@ -30,7 +30,7 @@ Key rules:
 
 - No "Generated with [Droid](...)" footers
 - No AI attribution or branding
-- Focus on: summary, test plan, and relevant context
+- Use an empty body unless otherwise stated by the user, else focus on: summary
 - Use HEREDOC for clean formatting
 - **CRITICAL: Never use --squash flag when merging PRs unless explicitly requested by the user. Use standard merge instead.**
 - **ALWAYS: Add user (@me) as assignee when creating PRs using --assignee @me**
@@ -38,7 +38,7 @@ Key rules:
 - Use `--delete-branch` option when asked to delete a merge a PR and delete its branch with `gh` cli tool.
 - Use `--body ""` option when the pr body is empty and you are creating a pr with the `gh` cli tool.
 
-→ See [rules/pull-requests.md](.factory/rules/pull-requests.md) for complete PR guidelines
+→ See [docs-rules/pull-requests.md](~/.agents/docs-rules/pull-requests.md) for complete PR guidelines
 
 ## File Reading Efficiency
 
@@ -55,7 +55,7 @@ Key rules:
 
 Exceptions: user explicitly asks, file was modified, or verifying recent changes.
 
-→ See [rules/file-reading-efficiency.md](.factory/rules/file-reading-efficiency.md) for complete rules and examples
+→ See [docs-rules/file-reading-efficiency.md](~/.agents/docs-rules/file-reading-efficiency.md) for complete rules and examples
 
 ## Generic NestJS Patterns
 
@@ -71,6 +71,6 @@ Key areas covered:
 - Guards, decorators, pipes, interceptors
 - Dependency injection and best practices
 
-→ See [rules/nestjs-patterns/index.md](.factory/rules/nestjs-patterns/index.md) for complete NestJS patterns documentation
+→ See [docs-rules/nestjs-patterns/index.md](~/.agents/docs-rules/nestjs-patterns/index.md) for complete NestJS patterns documentation
 
 @RTK.md
