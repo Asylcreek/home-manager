@@ -40,7 +40,7 @@ jq --arg id "$REVIEWED_FEATURE_ID" '
 
 Then gather:
 
-1. **Handoff** (use `completedWorkerSessionId`):
+1. **Handoff** (use the last entry in `workerSessionIds`):
 ```bash
 WORKER_SESSION_ID="..."
 HANDOFF_FILE=$(ls -1 "{missionDir}/handoffs" | rg "$WORKER_SESSION_ID" | sort | tail -n 1)
