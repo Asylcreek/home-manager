@@ -98,6 +98,8 @@ in
       # fnm
       eval "$(fnm env --use-on-cd --resolve-engines)" 
 
+      # rbenv
+      eval "$(rbenv init - --no-rehash zsh)"
       # Amazon Q post block. Keep at the bottom of this file.
       [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
     '';
