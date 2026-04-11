@@ -4,12 +4,12 @@
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
-after-login-command = [  ]
+after-login-command = []
 
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = [  ]
+after-startup-command = []
 
 # Start AeroSpace at login
 start-at-login = true
@@ -40,7 +40,7 @@ key-mapping.preset = 'qwerty'
 # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
-on-focus-changed = [ 'move-mouse window-lazy-center' ]
+on-focus-changed = ['move-mouse window-lazy-center']
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -147,19 +147,22 @@ alt-shift-semicolon = 'mode service'
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-esc = [ 'reload-config', 'mode main' ]
-r = [ 'flatten-workspace-tree', 'mode main' ]                # reset layout
-f = [ 'layout floating tiling', 'mode main' ]                # Toggle between floating and tiling layout
-backspace = [ 'close-all-windows-but-current', 'mode main' ]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = [
+  'layout floating tiling',
+  'mode main',
+] # Toggle between floating and tiling layout
+backspace = ['close-all-windows-but-current', 'mode main']
 b = "balance-sizes"
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
 
-alt-shift-h = [ 'join-with left', 'mode main' ]
-alt-shift-j = [ 'join-with down', 'mode main' ]
-alt-shift-k = [ 'join-with up', 'mode main' ]
-alt-shift-l = [ 'join-with right', 'mode main' ]
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
 if.app-id = "com.mongodb.compass"
@@ -171,7 +174,7 @@ run = "move-node-to-workspace 6"
 
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
-run = [ "layout floating", "move-node-to-workspace 7" ]
+run = ["layout floating", "move-node-to-workspace 7"]
 
 [[on-window-detected]]
 if.app-id = "sh.cider.genten.mac"
@@ -207,7 +210,19 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = "app.zen-browser.zen"
-run = [ "layout floating", "move-node-to-workspace 7" ]
+run = ["layout floating", "move-node-to-workspace 7"]
+
+[[on-window-detected]]
+if.app-id = "cc.ffitch.shottr"
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = "com.colliderli.iina"
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = "com.linkmymac.mac"
+run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = "com.apple.finder"
@@ -243,6 +258,12 @@ run = "move-node-to-workspace u"
 
 [workspace-to-monitor-force-assignment]
 # 5 = [ 'secondary', '^Airplay-Asylcreek', 'ARZOPA' ]
-7 = [ 'main' ]
-9 = [ 'secondary', "Omokugbo's MacBook Pro (AirPlay)", '^Airplay-Asylcreek', "ARZOPA", 3 ]      # Case insensitive regex substring
+7 = ['main']
+9 = [
+  'secondary',
+  "Omokugbo's MacBook Pro (AirPlay)",
+  '^Airplay-Asylcreek',
+  "ARZOPA",
+  3,
+] # Case insensitive regex substring
 # 0 = [ 'secondary', 'LF24T450G', 'ARZOPA', 1 ]
