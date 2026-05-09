@@ -21,14 +21,14 @@ The parent scrutiny-validator has assigned you a specific feature to review. The
 
 ## Where things live
 
-- **missionDir**: Path provided in your task prompt. Contains `mission.md`, `validation-contract.md`, `AGENTS.md`, `features.json`, `handoffs/`, `worker-transcripts.jsonl`
-- **repo root** (cwd): `.factory/services.yaml`, `.factory/library/` (including `architecture.md` — use this to verify that implementations respect intended component boundaries and data flows)
+- **missionDir**: Path provided in your task prompt. Contains `mission.md`, `validation-contract.md`, `AGENTS.md`, `features.json`, `handoffs/`, `worker-transcripts.jsonl`, `services.yaml`, `library/`, `skills/`
+- **`repoPath`** from handoffs: implementation code.
 
 **IMPORTANT:** Replace `{missionDir}` in all commands below with the actual path from your task prompt.
 
 ## 1) Gather evidence for the reviewed feature
 
-Find the reviewed feature in features.json:
+Find the reviewed feature in `{missionDir}/features.json`:
 
 ```bash
 REVIEWED_FEATURE_ID="..."  # from your task prompt
@@ -47,11 +47,15 @@ HANDOFF_FILE=$(ls -1 "{missionDir}/handoffs" | rg "$WORKER_SESSION_ID" | sort | 
 cat "{missionDir}/handoffs/$HANDOFF_FILE"
 ```
 
-2. **Git diff** (use `commitId` from handoff):
+2. **Git diff** (use `commitId` and `repoPath` from handoff when present):
 ```bash
-git show <commitId> --stat
-git show <commitId>
+git -C "<repoPath>" show <commitId> --stat
+git -C "<repoPath>" show <commitId>
 ```
+
+If the handoff has a `commitId` but no `repoPath`, use the current working directory as the legacy single-repo fallback. If the handoff has no `commitId`, do not run git diff commands; set `diffReviewed` to false and:
+- Pass only if the feature required no repository code changes.
+- Fail if repository code changes were expected but no commit was provided.
 
 3. **Transcript skeleton**:
 ```bash
@@ -62,7 +66,7 @@ jq -s --arg sid "$WORKER_SESSION_ID" '
 
 4. **Worker skill** (use `skillName` from the feature):
 ```bash
-cat .factory/skills/<skillName>/SKILL.md
+cat "{missionDir}/skills/<skillName>/SKILL.md"
 ```
 
 ## 2) Code Review
@@ -75,13 +79,13 @@ Review the code:
 
 ## 3) Shared State Observations
 
-After reviewing the code, check for gaps in the mission's shared state. Read `{missionDir}/AGENTS.md`, `.factory/services.yaml`, and `.factory/library/` to understand what's already documented.
+After reviewing the code, check for gaps in the mission's shared state. Read `{missionDir}/AGENTS.md`, `{missionDir}/services.yaml`, and `{missionDir}/library/` to understand what's already documented.
 
 Look for:
 - **Convention gaps**: Project rules or patterns the worker violated that aren't documented in AGENTS.md (or are documented but unclear)
 - **Skill gaps**: Compare the worker's skill file against the transcript skeleton and `handoff.skillFeedback`. Did the worker follow the procedure? If `skillFeedback.followedProcedure` is false, check if the deviation was justified — does the skill's procedure match reality, or does the skill need updating?
-- **Services/commands gaps**: Did the worker use commands or start services that should be in `.factory/services.yaml` but aren't?
-- **Knowledge gaps**: Did the worker discover codebase knowledge (patterns, quirks, env vars) that should be in `.factory/library/` but wasn't recorded? Did the worker spend time figuring out something that was / could have been resolved by referencing online documentation?
+- **Services/commands gaps**: Did the worker use commands or start services that should be in `services.yaml` but aren't?
+- **Knowledge gaps**: Did the worker discover codebase knowledge (patterns, quirks, env vars) that should be in `library/` but wasn't recorded? Did the worker spend time figuring out something that was / could have been resolved by referencing online documentation?
 
 Record each observation in `sharedStateObservations` (see report schema below). The scrutiny validator will triage these — you just note what you see with evidence. Don't worry about categorizing precisely; the validator decides what action to take. For knowledge gaps, include enough detail that the observation is directly actionable.
 
@@ -98,13 +102,14 @@ If you're reviewing a FIX for a prior failure:
 Write your review to the output file path specified in your task prompt:
 
 ```json
-// .factory/validation/<milestone>/scrutiny/reviews/<feature-id>.json
+// {missionDir}/validation/<milestone>/scrutiny/reviews/<feature-id>.json
 {
   "featureId": "<feature-id>",
   "reviewedAt": "<ISO timestamp>",
-  "commitId": "<commit from handoff>",
+  "commitId": "<commit from handoff, or null>",
+  "repoPath": "<repo path from handoff, or null>",
   "transcriptSkeletonReviewed": true,
-  "diffReviewed": true,
+  "diffReviewed": true,  // false only when no commitId was provided
   "status": "pass" | "fail",
   "codeReview": {
     "summary": "...",

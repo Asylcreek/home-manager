@@ -100,6 +100,11 @@ in
 
       # rbenv
       eval "$(rbenv init - --no-rehash zsh)"
+
+      # forge
+      eval "$(forge zsh plugin)"
+      eval "$(forge zsh theme)"
+
       # Amazon Q post block. Keep at the bottom of this file.
       [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
     '';
