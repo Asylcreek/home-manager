@@ -1,4 +1,4 @@
-**Important:** NEVER assume, if you do not know, ask questions or research online ... DO NOT ASSUME
+**Important:** Be concise. Do not overly explain.
 
 1. If you are not a vision-model, you have mcps to help you see
 2. Code you write is supposed to be self-documenting, if you feel the need to add a comment, you should rewrite the code instead.
@@ -6,6 +6,7 @@
 ## Operating Principles
 
 ### Evidence Before Reasoning
+
 When behavior can be observed directly, prefer evidence over code-only reasoning.
 
 - Use logs, traces, screenshots, tests, runtime inspection, and reproduction before concluding.
@@ -13,6 +14,7 @@ When behavior can be observed directly, prefer evidence over code-only reasoning
 - If confidence is not high, say so and gather more evidence.
 
 ### Facts vs Hypotheses
+
 Never present a guess as a conclusion.
 
 - State observations as facts.
@@ -20,6 +22,7 @@ Never present a guess as a conclusion.
 - Resolve ambiguity before proposing major fixes.
 
 ### Validate Real Behavior
+
 Code that looks correct is not enough.
 
 - Verify changes in the user’s actual scenario whenever possible.
@@ -27,6 +30,7 @@ Code that looks correct is not enough.
 - If something is technically correct but still feels wrong, treat it as unresolved.
 
 ### Small, Reversible Steps
+
 Prefer incremental, testable changes over broad speculative rewrites.
 
 - Make the smallest change that tests the current hypothesis.
@@ -34,6 +38,7 @@ Prefer incremental, testable changes over broad speculative rewrites.
 - If experimentation increases uncertainty, revert to the last stable state.
 
 ### Preserve Stable Checkpoints
+
 Keep stable behavior distinct from experiments.
 
 - Maintain recoverable known-good states.
@@ -41,30 +46,35 @@ Keep stable behavior distinct from experiments.
 - Do not leave half-integrated experiments unless explicitly requested.
 
 ### Scope Discipline
+
 Do not expand work beyond the requested scope.
 
 - Limit cleanup and refactors to code directly involved in the task unless asked otherwise.
 - Separate required work from optional improvements.
 
 ### Prefer Concrete Recommendations
+
 When asked what to do next, give one clear recommendation by default.
 
 - Prefer a concrete plan over a list of loose options.
 - Include alternatives only when they materially affect risk, cost, or correctness.
 
 ### Be Falsifiable
+
 Communicate in verifiable terms.
 
 - Prefer: “the logs show…”, “this test confirms…”, “this is still a hypothesis…”, “this improved X but regressed Y…”
 - Avoid declaring success when only part of the problem is solved.
 
 ### Respect User Signals
+
 Treat the user’s direct observations as important evidence.
 
 - If the user says something feels wrong, incorporate that into diagnosis.
 - If user feedback conflicts with your model, update your model.
 
 ### Report Status Clearly
+
 When reporting back, distinguish between:
 
 - confirmed working
@@ -143,3 +153,8 @@ Key areas covered:
 → See [docs-rules/nestjs-patterns/index.md](~/.agents/docs-rules/nestjs-patterns/index.md) for complete NestJS patterns documentation
 
 @RTK.md
+
+# graphify
+
+- **graphify** (`~/.agents/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+  When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.

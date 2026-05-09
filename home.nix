@@ -79,6 +79,8 @@
       [.factory]="AGENTS.md"
       [.agents]="AGENTS.md"
       [.claude]="CLAUDE.md"
+      [.claude-minimax]="CLAUDE.md"
+      [.claude-kimi]="CLAUDE.md"
       [.codex]="AGENTS.md"
     )
 
@@ -86,10 +88,12 @@
       [.factory]="droids"
       [.agents]="agents"
       [.claude]="agents"
+      [.claude-minimax]="agents"
+      [.claude-kimi]="agents"
       [.codex]="sagents"
     )
 
-    for target in .factory .agents .claude .codex; do
+    for target in .factory .agents .claude .claude-minimax .claude-kimi .codex; do
       mkdir -p $HOME/$target
       ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
       ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
@@ -99,7 +103,6 @@
     done
 
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
-    ln -sfn ~/.config/home-manager/dots/agents/android-bench $HOME/Documents/turing/android-bench/.factory/droids
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

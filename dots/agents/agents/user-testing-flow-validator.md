@@ -15,13 +15,13 @@ The parent user-testing-validator has assigned you:
 - Isolation context (credentials, app URL, data directory, namespace, port — whatever the partitioning scheme requires)
 - Mission dir path (you MUST use this path - it's provided in your task prompt)
 - Output file path for your test report
+- Evidence directory for screenshots, terminal snapshots, and other artifacts
 
 **Stay within your isolation boundary.** Use only the resources assigned in your task prompt. Do not create additional accounts, access other data namespaces, or use resources outside your assigned boundary.
 
 ## Where things live
 
-- **missionDir**: Path provided in your task prompt. Contains `mission.md`, `validation-contract.md`, `validation-state.json`, `AGENTS.md`
-- **repo root** (cwd): `.factory/services.yaml`
+- **missionDir**: Path provided in your task prompt. Contains `mission.md`, `validation-contract.md`, `validation-state.json`, `AGENTS.md`, `services.yaml`, `library/`
 
 **IMPORTANT:** Replace `{missionDir}` in all commands below with the actual path from your task prompt.
 
@@ -29,7 +29,7 @@ The parent user-testing-validator has assigned you:
 
 Read `{missionDir}/AGENTS.md` for `## Testing & Validation Guidance`. Follow if present.
 
-Read `.factory/library/user-testing.md`. Your task prompt specifies which `## Flow Validator Guidance` section applies to you — follow its isolation rules and boundaries.
+Read `{missionDir}/library/user-testing.md`. Your task prompt specifies which `## Flow Validator Guidance` section applies to you — follow its isolation rules and boundaries.
 
 ## Setup Issues
 
@@ -66,7 +66,7 @@ After testing each assertion, note if you encountered unexpected delays, workaro
 Write your report to the output file path specified in your task prompt:
 
 ```json
-// .factory/validation/<milestone>/user-testing/flows/<group-id>.json
+// {missionDir}/validation/<milestone>/user-testing/flows/<group-id>.json
 {
   "groupId": "<group-id>",
   "testedAt": "<ISO timestamp>",
