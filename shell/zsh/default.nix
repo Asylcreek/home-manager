@@ -48,6 +48,9 @@ in
       "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
       "d" = "droid";
       "o" = "opencode";
+      "cm" = "CLAUDE_CONFIG_DIR=$HOME/.claude claude";
+      "mm" = "CLAUDE_CONFIG_DIR=$HOME/.claude-minimax claude";
+      "ck"= "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
     };
 
     syntaxHighlighting = {
@@ -100,10 +103,6 @@ in
 
       # rbenv
       eval "$(rbenv init - --no-rehash zsh)"
-
-      # forge
-      eval "$(forge zsh plugin)"
-      eval "$(forge zsh theme)"
 
       # Amazon Q post block. Keep at the bottom of this file.
       [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
