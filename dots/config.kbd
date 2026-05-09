@@ -26,6 +26,9 @@
   ;; fingers faster.
   tap-time 250
   hold-time 250
+  repress-time 0
+  left-hand-keys (q w e r t a s d f g z x c v b)
+  right-hand-keys (y u i o p h j k l ; n m)
 )
 
 (deflayer default
@@ -109,20 +112,20 @@
   )
 
   ;; QWERTY Home Row Mods (Left Hand)
-  qa (tap-hold-release $tap-time $hold-time a @hpr)
-  qs (tap-hold-release $tap-time $hold-time s lalt)
-  qd (tap-hold-release $tap-time $hold-time d lmet)
-  qf (tap-hold-release $tap-time $hold-time f lsft)
-  qv (tap-hold-release $tap-time $hold-time v lctl)
-  qe (tap-hold-release $tap-time $hold-time e @meh)
+  qa (tap-hold-release-keys $repress-time $hold-time a @hpr $left-hand-keys)
+  qs (tap-hold-release-keys $repress-time $hold-time s lalt $left-hand-keys)
+  qd (tap-hold-release-keys $repress-time $hold-time d lmet $left-hand-keys)
+  qf (tap-hold-release-keys $repress-time $hold-time f lsft $left-hand-keys)
+  qv (tap-hold-release-keys $repress-time $hold-time v lctl $left-hand-keys)
+  qe (tap-hold-release-keys $repress-time $hold-time e @meh $left-hand-keys)
 
   ;; QWERTY Home Row Mods (Right Hand)
-  qj (tap-hold-release $tap-time $hold-time j rsft)
-  qk (tap-hold-release $tap-time $hold-time k rmet)
-  ql (tap-hold-release $tap-time $hold-time l ralt)
-  q; (tap-hold-release $tap-time $hold-time ; @hpr)
-  qm (tap-hold-release $tap-time $hold-time m rctl)
-  qi (tap-hold-release $tap-time $hold-time i @meh)
+  qj (tap-hold-release-keys $repress-time $hold-time j rsft $right-hand-keys)
+  qk (tap-hold-release-keys $repress-time $hold-time k rmet $right-hand-keys)
+  ql (tap-hold-release-keys $repress-time $hold-time l ralt $right-hand-keys)
+  q; (tap-hold-release-keys $repress-time $hold-time ; @hpr $right-hand-keys)
+  qm (tap-hold-release-keys $repress-time $hold-time m rctl $right-hand-keys)
+  qi (tap-hold-release-keys $repress-time $hold-time i @meh $right-hand-keys)
 
   ;; Graphite Home Row Mods (Left Hand)
   gn (tap-hold-release $tap-time $hold-time n @hpr)
