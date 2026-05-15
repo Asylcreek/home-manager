@@ -104,6 +104,9 @@ in
       # rbenv
       eval "$(rbenv init - --no-rehash zsh)"
 
+      # mise
+      eval "$(mise activate zsh)"
+
       # Amazon Q post block. Keep at the bottom of this file.
       [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
     '';

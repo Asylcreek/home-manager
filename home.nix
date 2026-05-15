@@ -103,6 +103,7 @@
     done
 
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
+    ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
