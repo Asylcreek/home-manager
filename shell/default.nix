@@ -7,6 +7,5 @@
     ./fzf
     ./zoxide
     ./tmux
-    ./node
   ];
 }
