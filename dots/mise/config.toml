@@ -6,6 +6,8 @@
 "npm:pi-acp" = "0.0.27"
 "npm:agent-browser" = "0.27.0"
 "npm:@earendil-works/pi-coding-agent" = "0.74.0"
+"npm:pnpm" = "latest-11"
+"npm:yarn" = "1.22.22"
 
 [tasks.thelm]
 description = "Run the Thelm binary"
