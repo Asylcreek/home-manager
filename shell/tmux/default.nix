@@ -44,6 +44,7 @@
       bind-key -T copy-mode-vi 'C-\' select-pane -l
 
       set -g allow-passthrough on
+      set -g extended-keys on
 
       set -ga update-environment TERM
       set -ga update-environment TERM_PROGRAM
