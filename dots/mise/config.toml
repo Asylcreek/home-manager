@@ -1,12 +1,12 @@
 [tools]
 "npm:@zed-industries/codex-acp" = "0.14.0"
 "npm:zero-native" = "0.2.0"
-"npm:@agentclientprotocol/claude-agent-acp" = "0.33.1"
+"npm:@agentclientprotocol/claude-agent-acp" = "0.36.0"
 "npm:portless" = "0.13.0"
 "npm:pi-acp" = "0.0.27"
 "npm:agent-browser" = "0.27.0"
-"npm:@earendil-works/pi-coding-agent" = "0.74.0"
-"npm:pnpm" = "latest-11"
+"npm:@earendil-works/pi-coding-agent" = "0.75.3"
+"npm:pnpm" = "11.1.2"
 "npm:yarn" = "1.22.22"
 
 [tasks.thelm]

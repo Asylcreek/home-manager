@@ -34,5 +34,8 @@ macos-secure-input-indication = true
 
 auto-update = check
 
-keybind = global:cmd+shift+alt+ctrl+q=toggle_quick_terminal
-
+keybind = global:all:cmd+shift+alt+ctrl+q=toggle_quick_terminal
+keybind = cmd+alt+j=goto_split:down
+keybind = cmd+alt+k=goto_split:up
+keybind = cmd+alt+l=goto_split:right
+keybind = cmd+alt+h=goto_split:left
