@@ -103,7 +103,7 @@ in
       fi
 
       # fnm
-      eval "$(fnm env --use-on-cd --resolve-engines)" 
+      # eval "$(fnm env --use-on-cd --resolve-engines)" 
 
       # rbenv
       eval "$(rbenv init - --no-rehash zsh)"
