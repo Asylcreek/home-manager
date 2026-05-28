@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.tmux = {
     enable = true;
 
@@ -111,8 +109,6 @@
           set -g @continuum-save-interval '10'
         '';
       }
-
-
     ];
 
     prefix = "C-,";
