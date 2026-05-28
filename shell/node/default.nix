@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # prevent installing node with pnpm
     (pnpm.overrideAttrs
       (oldAttrs: rec {
-        buildInputs = [ ];
+        buildInputs = [];
       }))
 
     # prevent installing node with yarn
-    (yarn.override { nodejs = null; })
+    (yarn.override {nodejs = null;})
   ];
 }
-

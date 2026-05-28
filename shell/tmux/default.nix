@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.tmux = {
     enable = true;
 
@@ -44,7 +42,6 @@
       bind-key -T copy-mode-vi 'C-\' select-pane -l
 
       set -g allow-passthrough on
-      set -g extended-keys on
 
       set -ga update-environment TERM
       set -ga update-environment TERM_PROGRAM
@@ -112,8 +109,6 @@
           set -g @continuum-save-interval '10'
         '';
       }
-
-
     ];
 
     prefix = "C-,";

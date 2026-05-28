@@ -1,10 +1,6 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   ompConfigPath = pkgs.writeText "negligible.omp.json" (builtins.readFile ../../dots/oh-my-posh/kali.omp.json);
-in
-
-{
+in {
   home.packages = with pkgs; [
     oh-my-posh
   ];
@@ -20,7 +16,7 @@ in
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" ];
+      plugins = ["git"];
       theme = "";
     };
 
@@ -50,7 +46,7 @@ in
       "o" = "opencode";
       "cm" = "CLAUDE_CONFIG_DIR=$HOME/.claude claude";
       "mm" = "CLAUDE_CONFIG_DIR=$HOME/.claude-minimax claude";
-      "ck"= "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
+      "ck" = "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
     };
 
     syntaxHighlighting = {
@@ -59,7 +55,7 @@ in
 
     history = {
       expireDuplicatesFirst = true;
-      ignorePatterns = [ "doppler*" ];
+      ignorePatterns = ["doppler*"];
       ignoreAllDups = true;
       extended = true;
     };
@@ -103,7 +99,7 @@ in
       fi
 
       # fnm
-      # eval "$(fnm env --use-on-cd --resolve-engines)" 
+      # eval "$(fnm env --use-on-cd --resolve-engines)"
 
       # rbenv
       eval "$(rbenv init - --no-rehash zsh)"
@@ -118,10 +114,10 @@ in
     initExtraFirst = ''
       # Amazon Q pre block. Keep at the top of this file.
       [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
-      '';
+    '';
   };
 
-  programs.direnv ={
+  programs.direnv = {
     enable = true;
     nix-direnv = {
       enable = true;

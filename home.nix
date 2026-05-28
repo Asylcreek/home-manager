@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   imports = [
     ./shell
   ];
@@ -21,7 +19,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages =  [
+  home.packages = [
     # jq
     # ripgrep
     # fd
@@ -62,12 +60,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/kanata/config.kbd".source = ./dots/config.kbd;
-    ".config/ghostty/config".source = ./dots/ghostty/config;
-    ".config/ghostty/themes/jellybeans-muted".source = ./dots/ghostty/themes/jellybeans-muted;
-    ".config/ghostty/themes/moonfly".source = ./dots/ghostty/themes/moonfly;
-    ".config/ghostty/themes/gruvbox".source = ./dots/ghostty/themes/gruvbox;
-    ".config/aerospace/aerospace.toml".source = ./dots/aerospace.toml;
     ".env".source = ./dots/.env;
     ".envrc".source = ./dots/.envrc;
   };
@@ -102,8 +94,15 @@
       ln -sfn $agentSource/skills $HOME/$target
     done
 
+    ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
+    ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
+    ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
+    ln -sfn ~/.config/home-manager/dots/ghostty/themes/moonfly $HOME/.config/ghostty/themes/moonfly
+    ln -sfn ~/.config/home-manager/dots/ghostty/themes/gruvbox $HOME/.config/ghostty/themes/gruvbox
+    ln -sfn ~/.config/home-manager/dots/aerospace.toml $HOME/.config/aerospace/aerospace.toml
     ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
+    ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

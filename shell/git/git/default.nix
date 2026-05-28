@@ -1,25 +1,23 @@
-{pkgs,...}:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     gh
   ];
 
   programs.git = {
-   enable = true;
-   
-   userName = "Omokugbo Joseph Boro";
-   userEmail = "omokugbobr@gmail.com";
+    enable = true;
 
-   extraConfig = {
-     init = {
-       defaultBranch = "main";
+    userName = "Omokugbo Joseph Boro";
+    userEmail = "omokugbobr@gmail.com";
+
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
       };
 
-     merge.conflictStyle = "zdiff3";
-   };
+      merge.conflictStyle = "zdiff3";
+    };
 
-   includes = [
+    includes = [
       {
         contents = {
           user = {
@@ -30,9 +28,9 @@
 
         condition = "gitdir:~/Documents/turing/";
       }
-   ];
+    ];
 
-   ignores = [
+    ignores = [
       # macOS
       ".DS_Store"
       "._*"
@@ -50,9 +48,9 @@
       ".opencode"
       ".codex"
       ".factory"
-   ];
+    ];
 
-   delta = {
+    delta = {
       enable = true;
 
       options = {
@@ -61,19 +59,6 @@
         line-numbers = true;
         hyperlinks = true;
       };
-   };
-  };
-
-  programs.lazygit = {
-    enable = true;
-
-    settings = {
-      git.paging = {
-        colorArg = "always";
-        pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=lazygit-edit://{path}:{line}";
-      };
-
-      os.editPreset = "nvim";
     };
   };
 }
