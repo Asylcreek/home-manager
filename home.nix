@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   imports = [
     ./shell
   ];
@@ -21,7 +19,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages =  [
+  home.packages = [
     # jq
     # ripgrep
     # fd
@@ -103,6 +101,7 @@
 
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
     ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
+    ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
