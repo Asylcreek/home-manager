@@ -2,7 +2,7 @@
   imports = [
     # ./yazi
     ./git
-    ./fonts
+    # ./fonts
     ./zsh
     ./fzf
     ./zoxide
