@@ -6,15 +6,17 @@
   programs.git = {
     enable = true;
 
-    userName = "Omokugbo Joseph Boro";
-    userEmail = "omokugbobr@gmail.com";
-
-    extraConfig = {
+    settings = {
       init = {
         defaultBranch = "main";
       };
 
       merge.conflictStyle = "zdiff3";
+
+      user = {
+        email = "omokugbobr@gmail.com";
+        name = "Omokugbo Joseph Boro";
+      };
     };
 
     includes = [
@@ -50,15 +52,17 @@
       ".factory"
     ];
 
-    delta = {
-      enable = true;
+  };
 
-      options = {
-        navigate = true;
-        dark = true;
-        line-numbers = true;
-        hyperlinks = true;
-      };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+
+    options = {
+      navigate = true;
+      dark = true;
+      line-numbers = true;
+      hyperlinks = true;
     };
   };
 }
