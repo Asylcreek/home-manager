@@ -113,9 +113,6 @@ in {
         # fnm
         # eval "$(fnm env --use-on-cd --resolve-engines)"
 
-        # rbenv
-        eval "$(rbenv init - --no-rehash zsh)"
-
         # mise
         eval "$(mise activate zsh)"
 

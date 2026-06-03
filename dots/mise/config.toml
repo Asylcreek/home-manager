@@ -10,6 +10,7 @@
 "npm:yarn" = "1.22.22"
 aube = "1.15.0"
 node = "22"
+ruby = "3.3.11"
 
 [tasks.thelm]
 description = "Run the Thelm binary"
