@@ -6,6 +6,5 @@
     ./zsh
     ./fzf
     ./zoxide
-    ./tmux
   ];
 }
