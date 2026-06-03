@@ -102,6 +102,8 @@
     ln -sfn ~/.config/home-manager/dots/aerospace.toml $HOME/.config/aerospace/aerospace.toml
     ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
     ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
+    mkdir -p $HOME/.config/tmux
+    ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
