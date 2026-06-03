@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Code Changes"
+  short_description: "Review uncommitted changes for reuse, quality, and efficiency."
+  default_prompt: "Review my uncommitted changes for code reuse, code quality, maintainability, and efficiency."
