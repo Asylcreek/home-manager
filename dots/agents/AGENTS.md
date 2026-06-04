@@ -152,8 +152,6 @@ Key areas covered:
 
 → See [docs-rules/nestjs-patterns/index.md](~/.agents/docs-rules/nestjs-patterns/index.md) for complete NestJS patterns documentation
 
-@RTK.md
-
 # graphify
 
 - **graphify** (`~/.agents/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
