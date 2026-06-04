@@ -46,12 +46,13 @@
       ".envrc"
       ".direnv/"
 
+      "cspell.json"
+
       ".claude"
       ".opencode"
       ".codex"
       ".factory"
     ];
-
   };
 
   programs.delta = {
