@@ -48,6 +48,9 @@
 
       "cspell.json"
 
+      "mise.local.toml"
+
+      ".agents"
       ".claude"
       ".opencode"
       ".codex"
