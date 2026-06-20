@@ -19,13 +19,21 @@ in {
       enable = true;
     };
 
-    enableCompletion = true;
+    enableCompletion = false;
 
     oh-my-zsh = {
       enable = true;
       plugins = ["git"];
       theme = "";
     };
+
+    plugins = [
+      {
+        name = "zsh-autocomplete";
+        src = pkgs.zsh-autocomplete;
+        file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+      }
+    ];
 
     shellAliases = {
       "dv" = "cd ~/Downloads/Video";
@@ -69,8 +77,14 @@ in {
 
     initContent = lib.mkMerge [
       (lib.mkBefore ''
+        zstyle ':autocomplete:*' delay 0.1
+        zstyle ':autocomplete:*' timeout 1.5
+        zstyle ':autocomplete:*' min-input 2
+        zstyle -e ':autocomplete:*:*' list-lines 'reply=( 12 )'
+        zstyle ':autocomplete:*' add-semicolon no
+
         # Amazon Q pre block. Keep at the top of this file.
-        [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+        # [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
       '')
       ''
         # load .env
@@ -116,9 +130,14 @@ in {
         # mise
         eval "$(mise activate zsh)"
 
-        # Amazon Q post block. Keep at the bottom of this file.
-        [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+        export CARAPACE_BRIDGES='zsh,bash'
+        source <(carapace _carapace)
+
       ''
+      (lib.mkAfter ''
+        # Amazon Q post block. Keep at the bottom of this file.
+        # [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+      '')
     ];
   };
 
