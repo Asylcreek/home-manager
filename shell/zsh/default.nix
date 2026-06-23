@@ -46,11 +46,11 @@ in {
       "edng" = "v ~/Library/Application\\ Support/ngrok/ngrok.yml";
       "hsf" = "sudo darwin-rebuild switch --impure";
       "dr" = "doppler run -- ";
-      "psd" = "pnpm start:dev";
-      "pd" = "pnpm dev";
-      "pb" = "pnpm build";
-      "pii" = "pnpm install";
-      "pa" = "pnpm add";
+      "pnsd" = "pnpm start:dev";
+      "pnd" = "pnpm dev";
+      "pnb" = "pnpm build";
+      "pni" = "pnpm install";
+      "pna" = "pnpm add";
       "yb" = "yarn build";
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
