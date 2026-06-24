@@ -1,159 +1,318 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Use when you have a spec or requirements for a multi-step implementation task, before touching code
 ---
 
 # Writing Plans
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+Write self-contained implementation plans that a skilled engineer or agent can execute without prior project context.
 
-Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
+A plan should define outcomes, ownership, constraints, evidence, and replan conditions. It should give the implementer enough structure to proceed safely while leaving room to adapt to the actual codebase.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
+**Default save path:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+User or repo preferences override this default.
 
-- (User preferences for plan location override this default)
+## Core Principle
+
+An implementation plan defines the contract for the work.
+
+Each task must make clear:
+
+- what outcome it produces
+- which files or modules it owns
+- what behavior changes
+- what behavior must be preserved
+- how success is verified
+- what conditions require replanning
+
+Use exact snippets only when the exact shape is part of the contract, such as public API signatures, schemas, migrations, config, expected outputs, protocol examples, state machines, or fragile command sequences.
+
+## Before Writing Tasks
+
+Read the spec and relevant repo context first.
+
+Check for:
+
+- repo-local instructions such as `AGENTS.md`, `CONTRIBUTING`, docs, scripts, or existing plan conventions
+- existing architecture and ownership boundaries
+- relevant tests and verification commands
+- package/project membership rules
+- commit, branch, PR, or release policies
+- prior specs, ADRs, or task trackers that constrain scope
+
+Promote relevant local constraints into the plan. Do not hardcode project-specific rules in this skill.
 
 ## Scope Check
 
-If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+If the spec covers multiple independent subsystems, suggest splitting it into separate plans. Each plan should produce working, testable software on its own.
 
-## File Structure
+Make exclusions explicit. A good plan says what it will not do.
 
-Before defining tasks, map out which files will be created or modified and what each one is responsible for. This is where decomposition decisions get locked in.
+## Repo Reconciliation
 
-- Design units with clear boundaries and well-defined interfaces. Each file should have one clear responsibility.
-- You reason best about code you can hold in context at once, and your edits are more reliable when files are focused. Prefer smaller, focused files over large ones that do too much.
-- Files that change together should live together. Split by responsibility, not by technical layer.
-- In existing codebases, follow established patterns. If the codebase uses large files, don't unilaterally restructure - but if a file you're modifying has grown unwieldy, including a split in the plan is reasonable.
+While drafting the plan, confirm the repo facts that the plan depends on.
 
-This structure informs the task decomposition. Each task should produce self-contained changes that make sense independently.
+Check:
 
-## Bite-Sized Task Granularity
+- the named files and modules exist or should be created
+- current APIs, initializers, command surfaces, and test seams match assumptions
+- existing lifecycle, persistence, routing, or cleanup helpers
+- test target membership and command recipes
+- generated project or build-system requirements
 
-**Each step is one action (2-5 minutes):**
+When the plan names existing APIs, files, commands, or test selectors, distinguish verified facts from preferred implementation shapes. If something was not just verified from the repo, label it as provisional or adaptable.
 
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Commit" - step
+Repo reconciliation should include only facts that are current, task-relevant, and useful for execution. Do not include provenance notes, prior draft references, requested output filenames, comparison context, or how the plan was generated.
 
-## Plan Document Header
+If repo evidence contradicts an assumption, update the task contracts before saving the plan.
 
-**Every plan MUST start with this header:**
+## File / Ownership Map
+
+Before tasks, map files and responsibilities.
+
+For each file or module, state whether it is:
+
+- create
+- modify
+- test
+- generated/config
+- discovery target
+
+Prefer ownership language over premature line-level edits.
+
+Example:
+
+```markdown
+- Modify: `src/session/SessionStore.ts`
+  Owns atomic read/write/reset of session rows.
+- Test: `tests/session/session-store.test.ts`
+  Proves replacement, rollback, and reset behavior.
+- Discovery: `src/db/migrations/`
+  Confirm existing migration style before adding schema work.
+```
+
+## Snippet Rule
+
+Use exact snippets only when the snippet is part of the contract.
+
+Good uses:
+
+- public API signatures
+- schema, migration, config, or protocol shape
+- expected test names, assertions, fixtures, or golden outputs
+- state-machine examples
+- wire formats
+- fragile command sequences
+- small input/output examples
+
+Future test selectors, helper names, and proposed APIs are preferred shapes unless verified from existing source or required by the spec.
+
+If a signature, helper name, test selector, or file shape is only a likely direction, label it as adaptable:
+
+```markdown
+Preferred shape; adapt to existing repo conventions if they differ.
+```
+
+Do not present speculative APIs as confirmed repo facts.
+
+## Dangerous Operations
+
+For destructive, irreversible, or externally visible operations, require extra proof.
+
+Examples:
+
+- deletion
+- reset
+- migration
+- process shutdown
+- payment/auth changes
+- data export/import
+- external service writes
+- filesystem cleanup
+
+Plans must define:
+
+- preflight checks
+- blocking/refusal behavior
+- what remains unchanged when the operation is blocked, refused, or fails
+- rollback or recovery expectations
+- idempotency expectations where relevant
+- audit/log/trace requirements where relevant
+- evidence that proves the blocked/refused/failed path is safe
+
+## Observability Requirements
+
+If the spec requires logs, traces, metrics, audit events, notifications, or other observability behavior, include a dedicated task or explicit evidence step for it.
+
+Do not leave observability requirements only in the architecture summary.
+
+## Task Shape
+
+Use demoable or testable slices. A task should leave the system in a coherent state when executed.
+
+```markdown
+### Task N: [Demoable Slice]
+
+**Goal:** What exists after this task.
+
+**Files / Ownership:**
+
+- Create: `path/to/new-file`
+- Modify: `path/to/existing-file`
+- Test: `path/to/test-file`
+- Discovery: `path/to/check-first`
+
+**Contract Delta:**
+
+- Behavior added or changed.
+- Behavior preserved.
+- Edge cases and invariants.
+- Explicit non-goals.
+
+**Required Evidence:**
+
+- Test command or runtime check.
+- Expected failing evidence before the implementation step, when practical.
+- Expected passing evidence after the implementation step.
+- Any logs, traces, screenshots, HTTP responses, database rows, or artifact checks needed.
+
+**Implementation Guidance:**
+
+- Default approach.
+- Existing patterns to follow.
+- Known constraints.
+
+**Allowed Freedom:**
+
+- Decisions the implementer may make while preserving the contract.
+
+**Do Not Change:**
+
+- Boundaries, behaviors, files, APIs, or user-visible surfaces that must remain untouched.
+
+**Replan If:**
+
+- Conditions that invalidate the task assumptions.
+```
+
+## Verification
+
+Every task needs concrete evidence.
+
+Prefer automated tests. If automated tests are not enough, name the smallest runtime or inspection evidence that proves the behavior.
+
+Good evidence examples:
+
+- focused test command and expected result
+- lint/typecheck/build command
+- HTTP request and expected status/body
+- database row count or query result
+- trace/log event with required fields
+- screenshot or browser evidence for visual work
+- diff inspection for generated files or config
+
+Do not write “run tests” without naming relevant tests or commands.
+
+The final verification section must gather every acceptance-critical check in one place. Do not rely only on earlier task-local evidence for requirements that define completion.
+
+When final verification includes source scans for excluded work, scope the scans to relevant production, test, and configuration paths so expected docs/spec mentions do not create false positives.
+
+## Local Command Policy
+
+Plans must incorporate repo-specific command rules discovered from local instructions.
+
+Examples of local command policy can include:
+
+- package manager commands
+- test selectors
+- build flags
+- generated-project steps
+- sandbox/elevation requirements
+- artifact cleanup rules
+- commit restrictions
+
+Do not make these universal in the skill. Make the plan reflect the current repo.
+
+## No Placeholders
+
+These are plan failures:
+
+- `TBD`, `TODO`, `implement later`, `fill in details`
+- “add appropriate error handling”
+- “handle edge cases”
+- “write tests for this”
+- “similar to previous task”
+- vague verbs without observable behavior
+- test steps without commands or expected evidence
+- invented APIs presented as confirmed repo facts
+- destructive steps without failure/rollback behavior
+- broad refactors not required by the spec
+- execution-option prompts, “plan saved” prose, or assistant handoff text inside the saved plan document
+- provenance notes, prior draft references, requested output filenames, comparison context, or generation-process notes inside the saved plan document
+
+## Plan Header
+
+Every plan should start with:
 
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Execute this plan task-by-task. Keep each task passing before moving to the next one.
 
 **Goal:** [One sentence describing what this builds]
 
-**Architecture:** [2-3 sentences about approach]
+**Architecture:** [2-3 sentences about the approach]
 
-**Tech Stack:** [Key technologies/libraries]
+**Tech Stack:** [Key technologies/libraries/tools]
+
+**Source Spec:** [Path or link]
 
 ---
 ```
 
-## Task Structure
-
-````markdown
-### Task N: [Component Name]
-
-**Files:**
-
-- Create: `exact/path/to/file.py`
-- Modify: `exact/path/to/existing.py:123-145`
-- Test: `tests/exact/path/to/test.py`
-
-- [ ] **Step 1: Write the failing test**
-
-```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
-```
-
-- [ ] **Step 2: Run test to verify it fails**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: FAIL with "function not defined"
-
-- [ ] **Step 3: Write minimal implementation**
-
-```python
-def function(input):
-    return expected
-```
-
-- [ ] **Step 4: Run test to verify it passes**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: PASS
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
-```
-````
-
-## No Placeholders
-
-Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
-
-- "TBD", "TODO", "implement later", "fill in details"
-- "Add appropriate error handling" / "add validation" / "handle edge cases"
-- "Write tests for the above" (without actual test code)
-- "Similar to Task N" (repeat the code — the engineer may be reading tasks out of order)
-- Steps that describe what to do without showing how (code blocks required for code steps)
-- References to types, functions, or methods not defined in any task
-
-## Remember
-
-- Exact file paths always
-- Complete code in every step — if a step changes code, show the code
-- Exact commands with expected output
-- DRY, YAGNI, TDD, frequent commits
-
 ## Self-Review
 
-After writing the complete plan, look at the spec with fresh eyes and check the plan against it. This is a checklist you run yourself — not a subagent dispatch.
+After writing the plan, review it before presenting it.
 
-**1. Spec coverage:** Skim each section/requirement in the spec. Can you point to a task that implements it? List any gaps.
+Check:
 
-**2. Placeholder scan:** Search your plan for red flags — any of the patterns from the "No Placeholders" section above. Fix them.
+1. **Spec coverage:** Every requirement maps to a task or explicit non-goal.
+2. **Scope discipline:** The plan does not implement excluded work.
+3. **Repo constraints:** Local command, test, build, and git policies are reflected.
+4. **Contract clarity:** Each task states behavior, invariants, evidence, and replan triggers.
+5. **Snippet necessity:** Exact snippets are only used when contractual.
+6. **Stale API risk:** Speculative names, signatures, selectors, or files are marked as adaptable.
+7. **Dangerous operations:** Destructive work has preflight, blocked/failure behavior, unchanged-state expectations, and evidence.
+8. **Observability:** Required logs, traces, metrics, audits, notifications, or events have tasks or explicit evidence.
+9. **Boundary preservation:** Existing dependency direction and module boundaries are preserved unless the spec explicitly changes them.
+10. **Task ordering:** Tasks avoid long compile-broken gaps where possible.
+11. **Final verification:** Completion-defining checks are gathered in one final verification section.
+12. **Source scans:** Excluded-work scans are scoped to relevant paths to avoid expected docs/spec matches.
+13. **Placeholder scan:** Remove vague filler and unverifiable claims.
+14. **Plan artifact cleanliness:** The saved plan does not include assistant handoff prose, execution-option prompts, provenance notes, prior draft references, requested output filenames, comparison context, or generation-process notes.
 
-**3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
-
-If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
+Fix issues inline.
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, say:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+```markdown
+Plan complete and saved to `docs/plans/<filename>.md`.
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+Execution options:
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+1. Subagent-driven execution
+2. Inline execution in this session
 
-**Which approach?"**
+Which approach?
+```
 
-**If Subagent-Driven chosen:**
+If repo or user instructions prohibit commits, branching, subagents, or specific workflows, reflect that instead of using this default handoff.
 
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Fresh subagent per task + two-stage review
-
-**If Inline Execution chosen:**
-
-- **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
-- Batch execution with checkpoints for review
+Do not put this handoff text inside the saved plan document.
