@@ -1,6 +1,8 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
+config-version = 2
+
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
@@ -13,6 +15,8 @@ after-startup-command = []
 
 # Start AeroSpace at login
 start-at-login = true
+
+auto-reload-config = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -41,6 +45,22 @@ key-mapping.preset = 'qwerty'
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focus-changed = ['move-mouse window-lazy-center']
+
+on-window-detected = [
+  { if = 'test %{app-bundle-id} = com.mongodb.compass || test %{app-bundle-id} = com.postmanlabs.mac', run = 'move-node-to-workspace 6' },
+  { if = 'test %{app-bundle-id} = com.mitchellh.ghostty', run = [
+    'layout floating',
+    'move-node-to-workspace 7',
+  ] },
+  { if = 'test %{app-bundle-id} = sh.cider.genten.mac || test %{app-bundle-id} = com.apple.Music || test %{app-bundle-id} = com.apple.clock || test %{app-bundle-id} = com.apple.Notes || test %{app-bundle-id} = io.zsa.keymapp', run = 'move-node-to-workspace 9' },
+  { if = 'test %{app-bundle-id} = net.agalwood.Motrix || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.apple.AppStore || test %{app-bundle-id} = com.apple.iCal', run = 'layout floating' },
+  { if = 'test %{app-bundle-id} = app.zen-browser.zen', run = [
+    'layout floating',
+    'move-node-to-workspace 7',
+  ] },
+  { if = 'test %{app-bundle-id} = cc.ffitch.shottr || test %{app-bundle-id} = com.colliderli.iina || test %{app-bundle-id} = com.linkmymac.mac || test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.objective-see.lulu.app || test %{app-bundle-id} = com.electron.dockerdesktop || test %{app-bundle-id} = app.motrix.native || test %{app-bundle-id} = org.localsend.localsendApp', run = 'layout floating' },
+  { if = 'test %{app-bundle-id} = net.whatsapp.WhatsApp || test %{app-bundle-id} = com.tinyspeck.slackmacgap', run = 'move-node-to-workspace u' },
+]
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -155,6 +175,8 @@ f = [
 ] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 b = "balance-sizes"
+4 = ['exec-and-forget ~/.config/aerospace/layouts/grid-4', 'mode main']
+3 = ['exec-and-forget ~/.config/aerospace/layouts/grid-3', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
@@ -163,98 +185,6 @@ alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
-
-[[on-window-detected]]
-if.app-id = "com.mongodb.compass"
-run = "move-node-to-workspace 6"
-
-[[on-window-detected]]
-if.app-id = "com.postmanlabs.mac"
-run = "move-node-to-workspace 6"
-
-[[on-window-detected]]
-if.app-id = "com.mitchellh.ghostty"
-run = ["layout floating", "move-node-to-workspace 7"]
-
-[[on-window-detected]]
-if.app-id = "sh.cider.genten.mac"
-run = "move-node-to-workspace 9"
-
-[[on-window-detected]]
-if.app-id = "com.apple.Music"
-run = "move-node-to-workspace 9"
-
-[[on-window-detected]]
-if.app-id = "net.agalwood.Motrix"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.apple.ActivityMonitor"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.apple.clock"
-run = "move-node-to-workspace 9"
-
-[[on-window-detected]]
-if.app-id = "com.apple.Notes"
-run = "move-node-to-workspace 9"
-
-[[on-window-detected]]
-if.app-id = "com.apple.AppStore"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.apple.iCal"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "app.zen-browser.zen"
-run = ["layout floating", "move-node-to-workspace 7"]
-
-[[on-window-detected]]
-if.app-id = "cc.ffitch.shottr"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.colliderli.iina"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.linkmymac.mac"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.apple.finder"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.objective-see.lulu.app"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "com.electron.dockerdesktop"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "app.motrix.native"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "io.zsa.keymapp"
-run = "move-node-to-workspace 9"
-
-[[on-window-detected]]
-if.app-id = "org.localsend.localsendApp"
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = "net.whatsapp.WhatsApp"
-run = "move-node-to-workspace u"
-
-[[on-window-detected]]
-if.app-id = "com.tinyspeck.slackmacgap"
-run = "move-node-to-workspace u"
 
 [workspace-to-monitor-force-assignment]
 # 5 = [ 'secondary', '^Airplay-Asylcreek', 'ARZOPA' ]
