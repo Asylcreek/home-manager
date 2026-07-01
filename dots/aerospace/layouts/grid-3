@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+workspace="$(aerospace list-workspaces --focused)"
+tiling_window_count="$(
+  aerospace list-windows --workspace "$workspace" --format '%{window-layout}' |
+    grep -Ev '^floating$' |
+    wc -l |
+    tr -d ' '
+)"
+
+if (( tiling_window_count < 3 || tiling_window_count > 4 )); then
+  aerospace echo --stderr -- "grid-3 needs 3 or 4 tiling windows; found $tiling_window_count"
+  exit 1
+fi
+
+aerospace flatten-workspace-tree --workspace "$workspace"
+aerospace layout --workspace "$workspace" --root h_tiles >/dev/null 2>&1 || true
+
+seed_window_id="$(
+  aerospace list-windows --workspace "$workspace" --format '%{window-id}%{tab}%{window-layout}' |
+    awk -F '\t' '$2 != "floating" { print $1; exit }'
+)"
+
+aerospace focus --window-id "$seed_window_id"
+
+while true; do
+  previous_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
+  aerospace focus --ignore-floating left >/dev/null 2>&1 || true
+  current_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
+  [[ "$previous_window_id" == "$current_window_id" ]] && break
+done
+
+spatial_window_ids=()
+
+while true; do
+  current_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
+  spatial_window_ids+=("$current_window_id")
+
+  aerospace focus --ignore-floating right >/dev/null 2>&1 || true
+  next_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
+  [[ "$current_window_id" == "$next_window_id" ]] && break
+done
+
+aerospace focus --window-id "${spatial_window_ids[3]}"
+aerospace join-with left
+
+for ((index = 4; index <= ${#spatial_window_ids[@]}; index++)); do
+  extra_window_id="${spatial_window_ids[$index]}"
+  aerospace focus --window-id "$extra_window_id"
+  aerospace join-with left
+done
+
+aerospace focus --window-id "${spatial_window_ids[2]}"
+aerospace layout accordion horizontal vertical
+aerospace balance-sizes --workspace "$workspace"

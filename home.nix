@@ -99,7 +99,8 @@
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/moonfly $HOME/.config/ghostty/themes/moonfly
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/gruvbox $HOME/.config/ghostty/themes/gruvbox
-    ln -sfn ~/.config/home-manager/dots/aerospace.toml $HOME/.config/aerospace/aerospace.toml
+    ln -sfn ~/.config/home-manager/dots/aerospace/aerospace.toml $HOME/.config/aerospace/aerospace.toml
+    ln -sfn ~/.config/home-manager/dots/aerospace/layouts $HOME/.config/aerospace/layouts
     ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
     ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
     mkdir -p $HOME/.config/tmux

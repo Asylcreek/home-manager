@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+workspace="$(aerospace list-workspaces --focused)"
+tiling_window_count="$(
+  aerospace list-windows --workspace "$workspace" --format '%{window-layout}' |
+    grep -Ev '^floating$' |
+    wc -l |
+    tr -d ' '
+)"
+
+if (( tiling_window_count != 4 )); then
+  aerospace echo --stderr -- "grid-4 needs exactly 4 tiling windows; found $tiling_window_count"
+  exit 1
+fi
+
+aerospace flatten-workspace-tree --workspace "$workspace"
+aerospace layout --workspace "$workspace" --root h_tiles >/dev/null 2>&1 || true
+
+index=0
+while (( index + 1 < tiling_window_count )); do
+  aerospace focus --dfs-index "$index"
+  aerospace join-with right
+  index=$((index + 2))
+done
+
+aerospace balance-sizes --workspace "$workspace"
