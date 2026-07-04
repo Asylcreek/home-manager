@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 set -euo pipefail
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 workspace="$(aerospace list-workspaces --focused)"
 tiling_window_count="$(
