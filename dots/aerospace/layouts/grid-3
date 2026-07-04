@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 set -euo pipefail
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 workspace="$(aerospace list-workspaces --focused)"
 tiling_window_count="$(
@@ -26,7 +27,7 @@ aerospace focus --window-id "$seed_window_id"
 
 while true; do
   previous_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
-  aerospace focus --ignore-floating left >/dev/null 2>&1 || true
+  aerospace focus --ignore-floating dfs-prev >/dev/null 2>&1 || true
   current_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
   [[ "$previous_window_id" == "$current_window_id" ]] && break
 done
@@ -37,7 +38,7 @@ while true; do
   current_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
   spatial_window_ids+=("$current_window_id")
 
-  aerospace focus --ignore-floating right >/dev/null 2>&1 || true
+  aerospace focus --ignore-floating dfs-next >/dev/null 2>&1 || true
   next_window_id="$(aerospace list-windows --focused --format '%{window-id}')"
   [[ "$current_window_id" == "$next_window_id" ]] && break
 done
@@ -51,6 +52,9 @@ for ((index = 4; index <= ${#spatial_window_ids[@]}; index++)); do
   aerospace join-with left
 done
 
-aerospace focus --window-id "${spatial_window_ids[2]}"
-aerospace layout accordion horizontal vertical
+if (( tiling_window_count == 4 )); then
+  aerospace focus --window-id "${spatial_window_ids[2]}"
+  aerospace layout accordion horizontal vertical
+fi
+
 aerospace balance-sizes --workspace "$workspace"

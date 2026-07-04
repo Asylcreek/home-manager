@@ -175,8 +175,8 @@ f = [
 ] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 b = "balance-sizes"
-4 = ['exec-and-forget ~/.config/aerospace/layouts/grid-4', 'mode main']
-3 = ['exec-and-forget ~/.config/aerospace/layouts/grid-3', 'mode main']
+4 = ['exec-and-forget /bin/zsh /Users/asyl/.config/aerospace/layouts/grid-4', 'mode main']
+3 = ['exec-and-forget /bin/zsh /Users/asyl/.config/aerospace/layouts/grid-3', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
