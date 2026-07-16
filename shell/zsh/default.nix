@@ -62,6 +62,7 @@ in {
       "cm" = "CLAUDE_CONFIG_DIR=$HOME/.claude claude";
       "mm" = "CLAUDE_CONFIG_DIR=$HOME/.claude-minimax claude";
       "ck" = "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
+      "ccp" = "CLAUDE_CONFIG_DIR=$HOME/.claude-cliproxy claude";
     };
 
     syntaxHighlighting = {
