@@ -73,6 +73,7 @@
       [.claude]="CLAUDE.md"
       [.claude-minimax]="CLAUDE.md"
       [.claude-kimi]="CLAUDE.md"
+      [.claude-cliproxy]="CLAUDE.md"
       [.codex]="AGENTS.md"
     )
 
@@ -82,10 +83,11 @@
       [.claude]="agents"
       [.claude-minimax]="agents"
       [.claude-kimi]="agents"
+      [.claude-cliproxy]="agents"
       [.codex]="sagents"
     )
 
-    for target in .factory .agents .claude .claude-minimax .claude-kimi .codex; do
+    for target in .factory .agents .claude .claude-minimax .claude-kimi .claude-cliproxy .codex; do
       mkdir -p $HOME/$target
       ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
       ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}

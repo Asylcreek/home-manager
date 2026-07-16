@@ -1,16 +1,16 @@
 [tools]
 "npm:@zed-industries/codex-acp" = "0.16.0"
 "npm:zero-native" = "0.3.0"
-"npm:@agentclientprotocol/claude-agent-acp" = "0.57.0"
-"npm:portless" = "0.15.1"
+"npm:@agentclientprotocol/claude-agent-acp" = "0.59.0"
+"npm:portless" = "0.15.3"
 "npm:pi-acp" = "0.0.31"
-"npm:agent-browser" = "0.31.1"
-"npm:@earendil-works/pi-coding-agent" = "0.80.3"
-"npm:pnpm" = "11.10.0"
+"npm:agent-browser" = "0.31.2"
+"npm:@earendil-works/pi-coding-agent" = "0.80.7"
+"npm:pnpm" = "11.13.0"
 "npm:yarn" = "1.22.22"
 aube = "1.26.0"
 node = "26"
-ruby = "4.0.5"
+ruby = "4.0.6"
 
 [tasks.thelm]
 description = "Run the Thelm binary"
