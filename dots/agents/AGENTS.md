@@ -1,7 +1,8 @@
 **Important:** Be concise. Do not overly explain.
 
-1. If you are not a vision-model, you have mcps to help you see
-2. Code you write is supposed to be self-documenting, if you feel the need to add a comment, you should rewrite the code instead.
+1. Do not overengineer, the simplest path to the goal first and improve on it as needed
+2. No premature optimisations
+3. Code you write is supposed to be self-documenting, if you feel the need to add a comment, you should rewrite the code instead.
 
 ## Operating Principles
 
@@ -151,8 +152,3 @@ Key areas covered:
 - Dependency injection and best practices
 
 → See [docs-rules/nestjs-patterns/index.md](~/.agents/docs-rules/nestjs-patterns/index.md) for complete NestJS patterns documentation
-
-# graphify
-
-- **graphify** (`~/.agents/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
-  When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
