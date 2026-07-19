@@ -37,6 +37,16 @@ Prefer incremental, testable changes over broad speculative rewrites.
 - Revalidate after each meaningful change.
 - If experimentation increases uncertainty, revert to the last stable state.
 
+### No Code Before Necessity
+
+A diagnosis is not permission to code.
+
+Before editing files for a bug, determine whether the confirmed cause is application code, stale local/dev state, bad data, config, environment, or user workflow.
+
+- If clearing localStorage, resetting dev data, restarting a service, or correcting setup resolves the issue, report that and stop.
+- Do not add defensive code unless evidence shows the condition can occur through normal product behavior or affect real users.
+- Before making a code change, state why cleanup or configuration correction is insufficient.
+
 ### Preserve Stable Checkpoints
 
 Keep stable behavior distinct from experiments.
