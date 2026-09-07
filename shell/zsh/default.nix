@@ -134,6 +134,11 @@ in {
         export CARAPACE_BRIDGES='zsh,bash'
         source <(carapace _carapace)
 
+        bindkey '\ez' clear-screen
+
+        [ -r "$HOME/.ibudo/shell-integration/ibudo.zsh" ] &&
+        . "$HOME/.ibudo/shell-integration/ibudo.zsh"
+
       ''
       (lib.mkAfter ''
         bindkey -M menuselect '\r' .accept-line
