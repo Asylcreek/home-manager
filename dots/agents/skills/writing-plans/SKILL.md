@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step implementation task, before touching code
+description: Use when the user explicitly requests an implementation plan, supplies an approved specification for planning, or authorized work spans multiple dependent phases that need separate ownership and verification. Do not use when the contract is already clear and the work can be completed safely as one coherent change.
 ---
 
 # Writing Plans
@@ -11,11 +11,22 @@ Write self-contained implementation plans that a skilled engineer or agent can e
 
 A plan should define outcomes, ownership, constraints, evidence, and replan conditions. It should give the implementer enough structure to proceed safely while leaving room to adapt to the actual codebase.
 
-**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
+Do not create a plan merely because implementation has several steps. If the contract is already derivable from the request and repository, proceed with the authorized work. Use a plan when coordination, sequencing, risk, or a durable handoff makes it useful.
 
-**Default save path:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+When a saved plan is useful, default to `docs/plans/YYYY-MM-DD-<feature-name>.md`.
 
 User or repo preferences override this default.
+
+## When to skip
+
+Skip plan creation when:
+
+- the user requested implementation rather than planning and the contract is already clear
+- the change is narrow enough to implement and verify as one coherent unit
+- an existing approved plan already covers the work
+- the task is diagnosis, review, explanation, or a mechanical operation
+
+Ask a question only when missing information materially changes the contract and cannot be discovered from the repository or supplied context.
 
 ## Core Principle
 
@@ -298,21 +309,10 @@ Check:
 
 Fix issues inline.
 
-## Execution Handoff
+## Handoff
 
-After saving the plan, say:
+If the user requested only a plan, provide the saved plan and stop. Do not automatically ask them to choose an execution mode.
 
-```markdown
-Plan complete and saved to `docs/plans/<filename>.md`.
+If the request also authorizes implementation, continue only when the approved scope and current environment make the next action clear. Ask about execution strategy only when the choice materially affects ownership, isolation, cost, or risk.
 
-Execution options:
-
-1. Subagent-driven execution
-2. Inline execution in this session
-
-Which approach?
-```
-
-If repo or user instructions prohibit commits, branching, subagents, or specific workflows, reflect that instead of using this default handoff.
-
-Do not put this handoff text inside the saved plan document.
+Do not put assistant handoff prose inside the saved plan document. Never commit the plan unless the user explicitly requests a commit.
