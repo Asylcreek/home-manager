@@ -37,14 +37,14 @@ in {
 
     shellAliases = {
       "dv" = "cd ~/Downloads/Video";
-      "vlc" = "/Applications/VLC.app/Contents/MacOS/VLC";
+      "vlc" = if pkgs.stdenv.isDarwin then "/Applications/VLC.app/Contents/MacOS/VLC" else "vlc";
       "v" = "nvim";
       "python" = "python3";
       "ta" = "tmux a -t ";
       "dash" = "ta gh && tmux send-keys -t 0 'gh dash' Enter";
       "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
       "edng" = "v ~/Library/Application\\ Support/ngrok/ngrok.yml";
-      "hsf" = "sudo darwin-rebuild switch --impure";
+      "hsf" = if pkgs.stdenv.isDarwin then "sudo darwin-rebuild switch --impure" else "home-manager switch --flake path:$HOME/.config/home-manager#coder";
       "dr" = "doppler run -- ";
       "pnsd" = "pnpm start:dev";
       "pnd" = "pnpm dev";
@@ -54,7 +54,7 @@ in {
       "yb" = "yarn build";
       "yd" = "yarn dev";
       "ysd" = "yarn start:dev";
-      "uc" = "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup";
+      "uc" = if pkgs.stdenv.isDarwin then "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup" else "sudo apt update && sudo apt upgrade";
       "p8" = "ns -p pnpm_8";
       "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
       "d" = "droid";
@@ -89,7 +89,7 @@ in {
       '')
       ''
         # load .env
-        if [ -f $HOME/.env ]; then
+        if [[ "$OSTYPE" == darwin* && -f "$HOME/.env" ]]; then
           export $(cat $HOME/.env | xargs)
         fi
 
