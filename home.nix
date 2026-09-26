@@ -99,6 +99,7 @@
     mkdir -p $HOME/.config/{kanata,ghostty,aerospace,mise,lazygit,tmux,ibudo}
     mkdir -p $HOME/.config/ghostty/themes
 
+    ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
     ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
