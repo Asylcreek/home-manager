@@ -98,7 +98,9 @@
 
     mkdir -p $HOME/.config/{kanata,ghostty,aerospace,mise,lazygit,tmux,ibudo}
     mkdir -p $HOME/.config/ghostty/themes
+    mkdir -p $HOME/.codex/agents
 
+    ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
     ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
@@ -111,6 +113,7 @@
     ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
     ln -sfn ~/.config/home-manager/dots/ibudo/config.toml $HOME/.config/ibudo/config.toml
     ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
+    ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
