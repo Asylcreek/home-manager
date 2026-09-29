@@ -96,6 +96,10 @@
       ln -sfn $agentSource/skills $HOME/$target
     done
 
+    mkdir -p $HOME/.config/{kanata,ghostty,aerospace,mise,lazygit,tmux,ibudo}
+    mkdir -p $HOME/.config/ghostty/themes
+    mkdir -p $HOME/.codex/agents
+
     ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
     ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
@@ -106,8 +110,10 @@
     ln -sfn ~/.config/home-manager/dots/aerospace/layouts $HOME/.config/aerospace/layouts
     ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
     ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
-    mkdir -p $HOME/.config/tmux
     ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
+    ln -sfn ~/.config/home-manager/dots/ibudo/config.toml $HOME/.config/ibudo/config.toml
+    ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
+    ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -126,10 +132,15 @@
   #  /etc/profiles/per-user/asyl/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    HOMEBREW_PREFIX = "/opt/homebrew";
+    HOMEBREW_CELLAR = "/opt/homebrew/Cellar";
+    HOMEBREW_REPOSITORY = "/opt/homebrew";
   };
 
-  home.sessionPath = [];
+  home.sessionPath = [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

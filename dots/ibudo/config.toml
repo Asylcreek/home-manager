@@ -1,0 +1,44 @@
+[appearance]
+theme_source = "ghostty"
+theme = "gruvbox"
+background_opacity = 0.7
+background_blur = 20
+
+[browser]
+default_search_engine = "duckduckgo"
+
+[ghostty]
+config_path = "~/.config/ghostty/config"
+read_user_config = true
+
+[keymap]
+leader = "ctrl-."
+leader_timeout_ms = 1500
+
+[terminal]
+when_last_pane_exits = "close_workspace_tab"
+
+[terminal.profile.global]
+font_family = "Maple Mono"
+font_size = 13
+shell_integration = true
+
+[terminal.profile.per_pane]
+enabled = true
+
+[session]
+restore_on_startup = "last_session"
+restore_terminal_scrollback = false
+restore_composer_draft = "crash_only"
+
+[storage]
+composer_sent_limit = 50
+recent_locations_limit = 100
+github_cache_ttl_minutes = 10
+runtime_log_retention_days = 7
+
+[notifications]
+macos_enabled = true
+sound_enabled = false
+keep_recent = 200
+dock_badge_enabled = true
