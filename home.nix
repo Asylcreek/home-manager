@@ -1,70 +1,24 @@
-{lib, ...}: {
-  imports = [
-    ./shell
-  ];
+{lib, pkgs, ...}: {
+  imports = [./shell];
+  home.username = "coder";
+  home.homeDirectory = "/home/coder";
+  home.stateVersion = "24.05";
+  home.packages = with pkgs; [carapace lazygit tmux fd ripgrep diff-so-fancy];
+  home.sessionVariables.EDITOR = "nvim";
+  home.sessionPath = ["$HOME/.nix-profile/bin" "$HOME/.local/share/mise/shims" "$HOME/.local/bin"];
+  programs.home-manager.enable = true;
+  xdg.enable = true;
 
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "asyl";
-  home.homeDirectory = "/Users/asyl";
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    # jq
-    # ripgrep
-    # fd
-    # tor
-    # watchman
-    # mongosh
-    # doppler
-    # nowplaying-cli
-    # unar
-    # tree
-    # certbot
-    # wget
-    #
-    # # develop
-    # go
-    # redis
-    # fnm
-    # cargo
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-    ".env".source = ./dots/.env;
-    ".envrc".source = ./dots/.envrc;
+  xdg.configFile = {
+    "lazygit/config.yml".source = ./dots/lazygit/config.yml;
+    "oh-my-posh".source = ./dots/oh-my-posh;
+    "tmux/tmux.conf".text = lib.replaceStrings
+      ["/Users/asyl/.nix-profile/bin/zsh" "run '$HOMEBREW_PREFIX/opt/tpm/share/tpm/tpm'" "run-shell -b '$HOME/.ibudo/integrations/ibudo-tmux/ibudo.tmux'"]
+      ["${pkgs.zsh}/bin/zsh" "run '${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux'\nrun '${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux'" "if-shell 'test -f $HOME/.ibudo/integrations/ibudo-tmux/ibudo.tmux' 'run-shell -b $HOME/.ibudo/integrations/ibudo-tmux/ibudo.tmux'"]
+      (builtins.readFile ./dots/tmux/tmux.conf);
   };
 
-  home.activation.linkAgents = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.linkAgents = lib.hm.dag.entryAfter ["linkGeneration"] ''
     agentSource="$HOME/.config/home-manager/dots/agents"
 
     declare -A nameMap=(
@@ -96,54 +50,7 @@
       ln -sfn $agentSource/skills $HOME/$target
     done
 
-    mkdir -p $HOME/.config/{kanata,ghostty,aerospace,mise,lazygit,tmux,ibudo}
-    mkdir -p $HOME/.config/ghostty/themes
-    mkdir -p $HOME/.codex/agents
-
-    ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
-    ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
-    ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
-    ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
-    ln -sfn ~/.config/home-manager/dots/ghostty/themes/moonfly $HOME/.config/ghostty/themes/moonfly
-    ln -sfn ~/.config/home-manager/dots/ghostty/themes/gruvbox $HOME/.config/ghostty/themes/gruvbox
-    ln -sfn ~/.config/home-manager/dots/aerospace/aerospace.toml $HOME/.config/aerospace/aerospace.toml
-    ln -sfn ~/.config/home-manager/dots/aerospace/layouts $HOME/.config/aerospace/layouts
-    ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
-    ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
-    ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
-    ln -sfn ~/.config/home-manager/dots/ibudo/config.toml $HOME/.config/ibudo/config.toml
-    ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
     ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
   '';
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/asyl/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    HOMEBREW_PREFIX = "/opt/homebrew";
-    HOMEBREW_CELLAR = "/opt/homebrew/Cellar";
-    HOMEBREW_REPOSITORY = "/opt/homebrew";
-  };
 
-  home.sessionPath = [
-    "/opt/homebrew/bin"
-    "/opt/homebrew/sbin"
-  ];
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  xdg.enable = true;
 }
