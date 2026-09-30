@@ -45,7 +45,8 @@ Use for ANY technical issue:
 
 ## The Four Phases
 
-You MUST complete each phase before proceeding to the next.
+Use these phases to establish the cause before fixing. Apply the steps relevant
+to the issue, and move on when the evidence supports the next step.
 
 ### Phase 1: Root Cause Investigation
 
@@ -73,9 +74,11 @@ You MUST complete each phase before proceeding to the next.
 
    **WHEN system has multiple components (CI → build → signing, API → service → database):**
 
-   **BEFORE proposing fixes, add diagnostic instrumentation:**
+   **Before proposing fixes, gather evidence at the relevant component boundaries.
+   Use existing logs and traces first; add targeted instrumentation only when
+   needed and within your assigned scope:**
    ```
-   For EACH component boundary:
+   For each boundary relevant to the suspected failure:
      - Log what data enters component
      - Log what data exits component
      - Verify environment/config propagation
@@ -128,9 +131,9 @@ You MUST complete each phase before proceeding to the next.
    - What works that's similar to what's broken?
 
 2. **Compare Against References**
-   - If implementing pattern, read reference implementation COMPLETELY
-   - Don't skim - read every line
-   - Understand the pattern fully before applying
+   - Read the relevant reference implementation and its dependencies
+   - Expand the read when behavior or assumptions remain unclear
+   - Understand the applicable behavior before using the pattern
 
 3. **Identify Differences**
    - What's different between working and broken?

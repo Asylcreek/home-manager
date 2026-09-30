@@ -6,7 +6,7 @@ Very important: You do not know everything ... do some research to confirm
 
 1. Do not overengineer, the simplest path to the goal first and improve on it as needed
 2. No premature optimisations
-3. Code you write is supposed to be self-documenting, if you feel the need to add a comment, you should rewrite the code instead.
+3. Prefer self-documenting code. Use comments when they explain intent, constraints, or non-obvious behavior that the code cannot express clearly.
 
 ## Operating Principles
 
@@ -138,16 +138,16 @@ Key rules:
 
 **CRITICAL: Minimize token usage by avoiding redundant file reads.**
 
-Never re-read files that were already read in the conversation. Reference from context instead.
+Avoid redundant file reads. Reuse context when it contains the exact information needed.
 
 Key rules:
 
-- Never re-read files already read in this conversation
+- Re-read targeted sections when the available context is incomplete or uncertain
 - Reference from conversation history when possible
 - Batch multiple file reads in parallel
 - Check if file was already read before reading
 
-Exceptions: user explicitly asks, file was modified, or verifying recent changes.
+Re-reading is also appropriate when the user asks, a file changed, or current contents need verification.
 
 → See [docs-rules/file-reading-efficiency.md](~/.agents/docs-rules/file-reading-efficiency.md) for complete rules and examples
 

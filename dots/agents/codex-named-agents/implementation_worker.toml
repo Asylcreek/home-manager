@@ -20,8 +20,9 @@ Implement the requested changes and perform the relevant verification. Investiga
 failures rather than masking them. Report what changed, what was verified, and
 any unresolved limitations using the orchestrator's requested output format.
 
-All UI verification is owned by the user. Do not claim manual UI verification
-unless the orchestrator explicitly assigns it to you.
+Manual UI acceptance is owned by the user. Perform relevant automated tests and
+any runtime UI inspection explicitly assigned by the orchestrator. Report only
+verification you actually performed, and leave manual acceptance to the user.
 
 Follow the orchestrator's instructions regarding branches, commits, and other
 repository operations. Use regular speed only. Do not request fast, priority, or
