@@ -1,21 +1,47 @@
-{lib, pkgs, ...}: {
-  imports = [./shell];
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./shell
+  ];
+
   home.username = "coder";
   home.homeDirectory = "/home/coder";
+
   home.stateVersion = "24.05";
-  home.packages = with pkgs; [carapace lazygit tmux fd ripgrep diff-so-fancy];
-  home.sessionVariables.EDITOR = "nvim";
-  home.sessionPath = ["$HOME/.nix-profile/bin" "$HOME/.local/share/mise/shims" "$HOME/.local/bin"];
+
+  home.packages = with pkgs; [
+    carapace
+    lazygit
+    tmux
+    tmuxPlugins.resurrect
+    tmuxPlugins.continuum
+    fd
+    ripgrep
+    diff-so-fancy
+  ];
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+    "$HOME/.local/share/mise/shims"
+    "$HOME/.local/bin"
+  ];
+
   programs.home-manager.enable = true;
+
   xdg.enable = true;
 
   xdg.configFile = {
     "lazygit/config.yml".source = ./dots/lazygit/config.yml;
     "oh-my-posh".source = ./dots/oh-my-posh;
-    "tmux/tmux.conf".text = lib.replaceStrings
-      ["/Users/asyl/.nix-profile/bin/zsh" "run '$HOMEBREW_PREFIX/opt/tpm/share/tpm/tpm'" "run-shell -b '$HOME/.ibudo/integrations/ibudo-tmux/ibudo.tmux'"]
-      ["${pkgs.zsh}/bin/zsh" "run '${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux'\nrun '${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux'" "if-shell 'test -f $HOME/.ibudo/integrations/ibudo-tmux/ibudo.tmux' 'run-shell -b $HOME/.ibudo/integrations/ibudo-tmux/ibudo.tmux'"]
-      (builtins.readFile ./dots/tmux/tmux.conf);
+
+    "tmux/tmux.conf".source = ./dots/tmux/tmux.conf;
   };
 
   home.activation.linkAgents = lib.hm.dag.entryAfter ["linkGeneration"] ''
@@ -50,7 +76,9 @@
       ln -sfn $agentSource/skills $HOME/$target
     done
 
+    mkdir -p "$HOME/.config/mise"
+    ln -sfn "$HOME/.config/home-manager/dots/mise/config.toml" "$HOME/.config/mise/config.toml"
+    ln -sfn "$agentSource/scripts" "$HOME/.factory/scripts"
     ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
   '';
-
 }
