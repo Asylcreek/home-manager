@@ -4,31 +4,32 @@
 
 ## Rules
 
-1. **Never re-read a file** that has already been read in this conversation unless the user explicitly asks or the file has been modified
-2. **Reference from context**: If information from a previously read file is needed, reference it from the conversation history
+1. **Avoid redundant reads**: Reuse context when it contains the exact information needed
+2. **Reference from context**: Use conversation history when it is complete and current
 3. **Before reading any file**, check if it was already read in this conversation
 4. **Batch reads**: If you need to read multiple files, read them all in parallel in one message
-5. **Ask first**: If unsure whether to read a file, ask the user if they want you to read it
+5. **Read targeted sections**: Re-read the relevant sections when available context is incomplete, uncertain, or stale
 
 ## Examples
 
-### ❌ **Bad** (wastes tokens):
+### ❌ **Bad** (redundant read when context is complete and current):
 ```
 User: What's in the config file?
 Droid: Let me read it again...
 [Reads file that was already read 5 messages ago]
 ```
 
-### ✅ **Good** (efficient):
+### ✅ **Good** (reuse complete, current context):
 ```
 User: What's in the config file?
 Droid: Based on the config file I read earlier (message #3), it contains...
 ```
 
-## Exceptions
+## When to re-read
 
-Only re-read a file if:
+Re-reading is appropriate when:
 
-- The user explicitly says "re-read" or "read it again"
-- You see a system reminder that the file was modified
-- You need to verify recent changes you just made
+- Available context is incomplete, uncertain, or stale
+- The user asks for a re-read
+- The file changed
+- Current contents need verification
