@@ -53,7 +53,7 @@ on-window-detected = [
     'move-node-to-workspace 7',
   ] },
   { if = 'test %{app-bundle-id} = sh.cider.genten.mac || test %{app-bundle-id} = com.apple.Music || test %{app-bundle-id} = com.apple.clock || test %{app-bundle-id} = com.apple.Notes || test %{app-bundle-id} = io.zsa.keymapp', run = 'move-node-to-workspace 9' },
-  { if = 'test %{app-bundle-id} = net.agalwood.Motrix || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.apple.AppStore || test %{app-bundle-id} = com.apple.iCal', run = 'layout floating' },
+  { if = 'test %{app-bundle-id} = net.agalwood.Motrix || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.apple.AppStore || test %{app-bundle-id} = com.apple.iCal || test %{app-bundle-id} = com.objective-see.KnockKnock || test %{app-bundle-id} = com.objective-see.oversight || test %{app-bundle-id} = com.objective-see.taskexplorer', run = 'layout floating' },
   { if = 'test %{app-bundle-id} = app.zen-browser.zen', run = [
     'layout floating',
     'move-node-to-workspace 7',
@@ -175,8 +175,14 @@ f = [
 ] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 b = "balance-sizes"
-4 = ['exec-and-forget /bin/zsh /Users/asyl/.config/aerospace/layouts/grid-4', 'mode main']
-3 = ['exec-and-forget /bin/zsh /Users/asyl/.config/aerospace/layouts/grid-3', 'mode main']
+4 = [
+  'exec-and-forget /bin/zsh /Users/asyl/.config/aerospace/layouts/grid-4',
+  'mode main',
+]
+3 = [
+  'exec-and-forget /bin/zsh /Users/asyl/.config/aerospace/layouts/grid-3',
+  'mode main',
+]
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
