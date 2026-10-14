@@ -63,6 +63,7 @@
       "<leader> p b": "browser.open_url",
       "<leader> p c": "git.open_changes",
       "<leader> g g": "workspace_tab.toggle_git_sidebar",
+      "<leader> u f": "ssh.upload_files",
     },
   },
   {
