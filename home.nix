@@ -80,5 +80,6 @@
     ln -sfn "$HOME/.config/home-manager/dots/mise/config.toml" "$HOME/.config/mise/config.toml"
     ln -sfn "$agentSource/scripts" "$HOME/.factory/scripts"
     ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
+    ln -sfn "$HOME/.config/home-manager/dots/codex/config.toml" "$HOME/.codex/config.toml"
   '';
 }

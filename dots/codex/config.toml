@@ -1,0 +1,20 @@
+model = "gpt-6.1-sol"
+model_reasoning_effort = "low"
+approval_policy = "never"
+approvals_reviewer = "user"
+sandbox_mode = "danger-full-access"
+
+[features]
+memories = true
+multi_agent = true
+
+[memories]
+generate_memories = true
+use_memories = true
+
+[marketplaces.wakatime]
+source_type = "git"
+source = "https://github.com/wakatime/codex-cli-wakatime.git"
+
+[plugins."codex-cli-wakatime@wakatime"]
+enabled = true
