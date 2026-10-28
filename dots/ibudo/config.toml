@@ -1,8 +1,8 @@
 [appearance]
 theme_source = "ghostty"
 theme = "gruvbox"
-background_opacity = 0.7
-background_blur = 20
+background_opacity = 0.3
+background_glass = "regular"
 
 [browser]
 default_search_engine = "duckduckgo"
@@ -20,7 +20,7 @@ when_last_pane_exits = "close_workspace_tab"
 
 [terminal.profile.global]
 font_family = "Maple Mono"
-font_size = 13
+font_size = 13.0
 shell_integration = true
 
 [terminal.profile.per_pane]
