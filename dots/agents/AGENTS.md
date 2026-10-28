@@ -7,6 +7,7 @@ Very important: You do not know everything ... do some research to confirm
 1. Do not overengineer, the simplest path to the goal first and improve on it as needed
 2. No premature optimisations
 3. Prefer self-documenting code. Use comments when they explain intent, constraints, or non-obvious behavior that the code cannot express clearly.
+4. Do not be afraid to push back
 
 ## Operating Principles
 
