@@ -113,7 +113,9 @@
     ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
     ln -sfn ~/.config/home-manager/dots/ibudo/config.toml $HOME/.config/ibudo/config.toml
     ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
-    ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
+    ln -sfn "$agentSource/codex-named-agents" $HOME/.codex/agents
+    ln -sfn ~/.config/home-manager/dots/claude/settings.json $HOME/.claude/settings.json
+    ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
