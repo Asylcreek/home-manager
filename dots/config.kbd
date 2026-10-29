@@ -1,0 +1,158 @@
+;; Home row mods QWERTY example with more complexity.
+;; Some of the changes from the basic example:
+;; - when a home row mod activates tap, the home row mods are disabled
+;;   while continuing to type rapidly
+;; - tap-hold-release helps make the hold action more responsive
+;; - pressing another key on the same half of the keyboard
+;;   as the home row mod will activate an early tap action
+
+(defcfg
+  process-unmapped-keys no
+  concurrent-tap-hold yes
+)
+
+(defsrc
+  esc  f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet       spc              rmet ralt
+)
+
+(defvar
+  ;; Note: consider using different time values for your different fingers.
+  ;; For example, your pinkies might be slower to release keys and index
+  ;; fingers faster.
+  tap-time 250
+  hold-time 250
+  repress-time 0
+  left-hand-keys (q w e r t a s d f g z x c v b)
+  right-hand-keys (y u i o p h j k l ; n m)
+)
+
+(deflayer default
+  @esc 🔅    🔆    mctl  sls   dtn   dnd   ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    @qe  r    t    y    u    @qi  o    p    [    ]    \
+  caps @qa  @qs  @qd  @qf  g    h    @qj  @qk  @ql  @q;  '    ret
+  lsft z    x    c    @qv  b    n    @qm  ,    .    /    rsft
+  fn   lctl lalt lmet       spc              rmet ralt
+)
+
+(deflayer graphite
+  @qw  🔅    🔆    mctl  sls   dtn   dnd   ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
+  _    z    l    @gd  w    b    j    f    @go  u    XX    XX    XX    XX
+  @ct  @gn  @gr  @gt  @gs  g    y    @gh  @ga  @ge  @gi  XX    XX XX
+  XX   q    x    @extra @gc  v    k    @gp  .    ,    ;    XX XX
+  XX   XX   XX   XX   @rptsym   XX   @gspc   XX   XX   XX   XX   XX    
+  _    _    _    XX       @bspnav            _    _
+)
+
+(deflayer sym
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX \ S-, S-\ S-5 S-grv S-- ' = S-. XX XX XX XX
+  XX [ S-[ S-7 S-9 S-= - S-0 S-' S-] ] XX XX XX
+  XX S-3 S-6 S-4 S-1 S-8 / S-; S-/ S-2 grv XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   
+  XX   XX   XX   XX       XX               XX   XX
+)
+
+(deflayer num
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   XX   9    8    7    XX   XX   XX   C-,  XX   XX   XX   XX   XX
+  XX   XX   3    2    1    XX   tab  @zer lmet lalt XX   XX   XX XX
+  XX   XX   6    5    4    XX   XX   lctl XX   XX   XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   
+  XX   XX   XX   XX       XX               XX   XX
+)
+
+(deflayer extra
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   XX   XX   XX   XX   XX   XX   S-ret M-ret A-ret XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   ret    esc    tab    bspc XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   S-tab  C-tab  C-S-tab XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX     XX     XX     XX   XX   
+  XX   XX   XX   XX        XX                 XX     XX
+)
+
+(deflayer nav
+  XX XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  XX  
+  XX   XX   XX   XX   XX   XX   XX   M-left up M-rght XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   A-left   left    down    rght    A-rght XX   XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX  XX  XX XX   XX XX
+  XX   XX   XX   XX   XX   XX   rpt-any   XX     XX     XX     XX   XX   
+  XX   XX   XX   XX        XX                 XX     XX
+)
+
+(deflayer fn
+  _     f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _  _     _     _     _     _     _     _     _ _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     
+  _    _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _                 _                 _     _
+)
+
+(defchordsv2
+  (x c) esc $tap-time all-released (graphite)
+)
+
+(defalias
+  ;; Modifiers
+  meh (multi lctl lalt lsft)
+  hpr (multi lctl lalt lsft lmet)
+  os (multi lalt lsft)
+
+  ;; Caps Word Toggle
+  ct (caps-word-custom-toggle
+    3500
+    (a b c d e f g h i j k l m n o p q r s t u v w x y z)
+    (bspc del)
+  )
+
+  ;; QWERTY Home Row Mods (Left Hand)
+  qa (tap-hold-release-keys $repress-time $hold-time a @hpr $left-hand-keys)
+  qs (tap-hold-release-keys $repress-time $hold-time s lalt $left-hand-keys)
+  qd (tap-hold-release-keys $repress-time $hold-time d lmet $left-hand-keys)
+  qf (tap-hold-release-keys $repress-time $hold-time f lsft $left-hand-keys)
+  qv (tap-hold-release-keys $repress-time $hold-time v lctl $left-hand-keys)
+  qe (tap-hold-release-keys $repress-time $hold-time e @meh $left-hand-keys)
+
+  ;; QWERTY Home Row Mods (Right Hand)
+  qj (tap-hold-release-keys $repress-time $hold-time j rsft $right-hand-keys)
+  qk (tap-hold-release-keys $repress-time $hold-time k rmet $right-hand-keys)
+  ql (tap-hold-release-keys $repress-time $hold-time l ralt $right-hand-keys)
+  q; (tap-hold-release-keys $repress-time $hold-time ; @hpr $right-hand-keys)
+  qm (tap-hold-release-keys $repress-time $hold-time m rctl $right-hand-keys)
+  qi (tap-hold-release-keys $repress-time $hold-time i @meh $right-hand-keys)
+
+  ;; Graphite Home Row Mods (Left Hand)
+  gn (tap-hold-release $tap-time $hold-time n @hpr)
+  gr (tap-hold-release $tap-time $hold-time r lalt)
+  gt (tap-hold-release $tap-time $hold-time t lmet)
+  gs (tap-hold-release $tap-time $hold-time s lsft)
+  gc (tap-hold-release $tap-time $hold-time c lctl)
+  gd (tap-hold-release $tap-time $hold-time d @meh)
+
+  ;; Graphite Home Row Mods (Right Hand)
+  gh (tap-hold-release $tap-time $hold-time h rsft)
+  ga (tap-hold-release $tap-time $hold-time a rmet)
+  ge (tap-hold-release $tap-time $hold-time e ralt)
+  gi (tap-hold-release $tap-time $hold-time i @hpr)
+  gp (tap-hold-release $tap-time $hold-time p rctl)
+  go (tap-hold-release $tap-time $hold-time o @meh)
+
+  ;; Layer Access Taps/Holds
+  gspc (tap-hold-release $tap-time $hold-time spc (layer-while-held num))
+  zer  (tap-hold-release $tap-time $hold-time 0 @os)
+  extra (tap-hold-release $tap-time $hold-time m (layer-while-held extra))
+  rptsym (tap-hold-release $tap-time $hold-time rpt-any (layer-while-held sym))
+  bspnav (tap-hold-release $tap-time $hold-time bspc (layer-while-held nav))
+  fn (tap-hold-release $tap-time $hold-time fn (layer-toggle fn))
+
+  ;; Layer Switches
+  qw (layer-switch default)
+  sym (layer-while-held sym)
+  esc (tap-hold-release $tap-time $hold-time esc (layer-switch graphite))
+)

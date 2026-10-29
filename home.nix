@@ -81,5 +81,7 @@
     ln -sfn "$agentSource/scripts" "$HOME/.factory/scripts"
     ln -sfn "$agentSource/codex-named-agents" "$HOME/.codex/agents"
     ln -sfn "$HOME/.config/home-manager/dots/codex/config.toml" "$HOME/.codex/config.toml"
+    ln -sfn "$HOME/.config/home-manager/dots/claude/settings.json" "$HOME/.claude/settings.json"
+    ln -sfn "$HOME/.config/home-manager/dots/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
   '';
 }

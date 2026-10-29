@@ -5,8 +5,8 @@ description: Use when working on book, mini, pve, pve2, or pve3 choosing which m
 
 # Machines
 
-1. mini (this machine)
-2. book - accessible via `ssh book`
+1. book (this machine)
+2. mini - accessible via `ssh mini`
 3. pve - accessible via `ssh hl01`
 4. pve2 - accessible via `ssh hl02`
 5. pve3 - accessible via `ssh hl03`
