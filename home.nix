@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./shell
+    ./services/t3code.nix
   ];
 
   home.username = "coder";
