@@ -55,6 +55,7 @@
       ".opencode"
       ".codex"
       ".factory"
+      ".context"
     ];
   };
 
