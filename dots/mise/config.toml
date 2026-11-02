@@ -4,7 +4,11 @@
 "npm:@openai/codex" = "0.166.0"
 "npm:agent-browser" = "0.33.2"
 "npm:pnpm" = "11.20.0"
-"npm:t3" = "0.1.6"
+"npm:t3" = "0.1.7-nightly.20261102.4066"
+"npm:yarn" = "1.22.22"
+aube = "1.37.0"
+node = "26"
+ruby = "4.0.6"
 
 [settings.npm]
 package_manager = "npm"
