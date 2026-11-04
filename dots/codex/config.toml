@@ -12,6 +12,9 @@ wire_api = "responses"
 env_key = "CLIPROXY_API_KEY"
 requires_openai_auth = false
 
+[mcp_servers.basic-memory]
+url = "https://bm.asylcreek.xyz/mcp"
+
 [agents]
 enabled = true
 default_subagent_model = "gpt-6.1-sol"
