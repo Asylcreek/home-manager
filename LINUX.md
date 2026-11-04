@@ -10,6 +10,6 @@ Apply changes inside a workspace:
 home-manager switch --flake "path:$HOME/.config/home-manager#coder"
 ```
 
-Fresh Coder workspaces pull the `linux` branch on first start. Existing workspaces
+Fresh Coder workspaces pull the `coder` branch on first start. Existing workspaces
 need a pull and the switch command above. Shared configuration changes belong in
 `home.nix`; Linux does not require a separate home module.
