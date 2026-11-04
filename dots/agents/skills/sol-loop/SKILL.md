@@ -9,7 +9,7 @@ owns diagnosis, fixes, and verification.
 ## Defaults
 
 - Model: GPT-6.1 Sol.
-- Reasoning: Medium. Use Standard speed.
+- Reasoning: High. Use Fast speed.
 - One reviewer per round. The reviewer must not delegate.
 - At most 3 rounds, stopping earlier when the change is approved.
 - Do not switch models, increase effort, or extend the budget silently.

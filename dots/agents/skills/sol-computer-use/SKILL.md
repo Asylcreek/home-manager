@@ -8,14 +8,14 @@ to Codex; you own the goal, the safety limits, and checking the result.
 
 ## Defaults
 
-- Model: GPT-6.1 Sol. Reasoning: Low. Standard speed.
+- Model: GPT-6.1 Sol. Reasoning: Low. Fast speed.
 - One Codex task per GUI job. Codex must not hand the task to another agent.
 - Do not switch models or raise effort silently.
 
 ## Before handing off
 
-1. Confirm the task really needs desktop control. If preview_*,
-   device_*, agent-browser, or a shell command can do it, use that.
+1. Confirm the task really needs desktop control. If preview__,
+   device__, agent-browser, or a shell command can do it, use that.
 2. Write a self-contained brief:
    - Goal and target app.
    - Starting state and what counts as done.
@@ -38,6 +38,7 @@ Pass the brief through stdin. Do not change global Codex config or auth.
 ## Safety
 
 Without explicit user approval stated in the brief, Codex must not:
+
 - purchase anything, or send messages or email
 - delete files or data
 - change system settings, permissions, or accounts
@@ -50,11 +51,12 @@ If one of these comes up, Codex stops and reports back.
 Use computer use to do only the task below. Do not delegate.
 Take a screenshot at the end, plus one at any failure.
 Return:
+
 - DONE, BLOCKED, or PARTIAL
 - the steps you took
 - what you observed on screen
 - the saved screenshot paths
-Separate what you saw from what you assume.
+  Separate what you saw from what you assume.
 
 ## After
 
