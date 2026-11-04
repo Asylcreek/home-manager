@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib, pkgs, ...}: {
   imports = [
     ./shell
   ];
@@ -116,6 +116,31 @@
     ln -sfn "$agentSource/codex-named-agents" $HOME/.codex/agents
     ln -sfn ~/.config/home-manager/dots/claude/settings.json $HOME/.claude/settings.json
     ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
+  '';
+  # Claude keeps MCP servers with mutable account and session state in ~/.claude.json.
+  home.activation.configureClaudeMcp = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    run ${pkgs.python3}/bin/python3 - <<'PY'
+    import json
+    import os
+    import tempfile
+    from pathlib import Path
+
+    target = Path.home() / ".claude.json"
+    source = Path.home() / ".config/home-manager/dots/claude/mcp.json"
+    original = target.read_text() if target.exists() else None
+    config = json.loads(original) if original is not None else {}
+    managed = json.loads(source.read_text())["mcpServers"]
+    servers = {**config.get("mcpServers", {}), **managed}
+    if config.get("mcpServers") != servers:
+        config["mcpServers"] = servers
+        with tempfile.NamedTemporaryFile(mode="w", dir=target.parent, prefix=".claude-mcp-", delete=False) as temporary:
+            json.dump(config, temporary, indent=2)
+            temporary.write("\n")
+        if (target.read_text() if target.exists() else None) != original:
+            os.unlink(temporary.name)
+            raise RuntimeError("Claude configuration changed during activation; retry")
+        os.replace(temporary.name, target)
+    PY
   '';
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
