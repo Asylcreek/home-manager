@@ -15,6 +15,14 @@ requires_openai_auth = false
 [mcp_servers.basic-memory]
 url = "https://bm.asylcreek.xyz/mcp"
 
+[mcp_servers.kaneo]
+command = "npx"
+args = ["-y", "@kaneo/mcp@0.1.11", "serve"]
+env_vars = ["KANEO_API_KEY"]
+
+[mcp_servers.kaneo.env]
+KANEO_API_URL = "https://kaneo.asylcreek.xyz"
+
 [agents]
 enabled = true
 default_subagent_model = "gpt-6.1-sol"
