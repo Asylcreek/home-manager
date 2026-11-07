@@ -15,6 +15,16 @@ Do not capture automatically, save whole transcripts, or perform startup or back
 4. Keep observations distinct from hypotheses. Commands and configuration that were proposed but never applied must remain labeled as proposed. Never store passwords, tokens, private keys, or other secrets.
 5. Read back the saved record and report its title and memory URL. If saving fails, report the failure rather than claiming the fact was remembered.
 
+## Note UUIDs
+
+When creating a new note, generate a UUID v4 and pass it as `metadata.uuid`
+through Basic Memory.
+
+Preserve the existing frontmatter `uuid` when updating a note.
+
+Read back the saved frontmatter to confirm the UUID, then report its
+Jotty URL: `https://jotty.asylcreek.xyz/note/<uuid>`.
+
 The MCP server is the authority for tool names and arguments; use its advertised search/read/write/edit tools.
 
 Do not modify the system being documented or write to other memory systems as part of this skill.
