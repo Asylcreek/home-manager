@@ -3,6 +3,15 @@
     "basic-memory": {
       "type": "http",
       "url": "https://bm.asylcreek.xyz/mcp"
+    },
+    "kaneo": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@kaneo/mcp@0.1.11", "serve"],
+      "env": {
+        "KANEO_API_URL": "https://kaneo.asylcreek.xyz",
+        "KANEO_API_KEY": "${KANEO_API_KEY}"
+      }
     }
   }
 }
