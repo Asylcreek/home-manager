@@ -18,6 +18,11 @@
   ];
 
   home.sessionVariables.EDITOR = "nvim";
+  # System Zsh must find Nix tools without relying on Bash's startup hooks.
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+    "/nix/var/nix/profiles/default/bin"
+  ];
 
   programs.home-manager.enable = true;
   xdg.enable = true;

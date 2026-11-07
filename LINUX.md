@@ -11,9 +11,9 @@ prerequisites, the shell tools, fd, and ripgrep. Git uses the host's APT-managed
 binary. `EDITOR` and the `v` alias both use `nvim`.
 
 The profile does not change `/etc/passwd`, Bash configuration, Proxmox services,
-networking, storage, or APT packages. SSH keeps the existing Bash login shell.
-Run `zsh` to use the managed shell, or `tmux` to open Zsh inside tmux. The prompt
-shows the username and hostname so hosts remain distinguishable.
+networking, storage, or APT packages. Set the login shell separately after
+activation. The prompt shows the username and hostname so hosts remain
+distinguishable.
 
 Coder's T3 service, mise installation, agent configuration, GitHub CLI/dashboard,
 and development aliases are not activated by this profile.
@@ -39,6 +39,20 @@ suffix. Review any existing `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, Git config,
 and tmux config before switching. Try one host first, then test a fresh SSH
 session and tmux before applying to the others.
 
+## Root login shell
+
+After activation, install Debian's Zsh and change root's login shell:
+
+```sh
+apt-get install --no-install-recommends zsh
+chsh -s /usr/bin/zsh root
+```
+
+The system binary keeps login access independent of the Nix profile. Home
+Manager supplies its configuration and Nix profile paths. Keep an existing SSH
+session open while testing a new login. Remote SSH commands now run through
+Zsh; invoke `/bin/bash` explicitly for commands that require Bash syntax.
+
 ## Update
 
 ```sh
@@ -53,6 +67,6 @@ or update the flake lock. The existing lock file is retained from `coder`.
 ## Roll back
 
 Use `home-manager generations` to find the previous generation and run its
-`activate` script. If this was the first activation, use `home-manager uninstall`
-and restore the backed-up dotfiles. Neither operation uninstalls Nix or rolls
-back Proxmox or APT changes.
+`activate` script. Before uninstalling Home Manager or Nix, restore the login
+shell with `chsh -s /bin/bash root`. Then use `home-manager uninstall` and restore
+the backed-up dotfiles. These operations do not roll back Proxmox or APT changes.
