@@ -40,6 +40,12 @@ Add labels that describe the task's type or affected area.
 - Check the returned task association when attaching labels; do not
   remove a label from another task to reuse it.
 
+## Memory
+
+When creating a task as done, link the relevant memory note under "Memory"
+in its description. Retrieve the URL through the memory workflow and use
+the note title as link text.
+
 ## Updates and completion
 
 Keep changes within the requested scope. Do not mark a task complete
