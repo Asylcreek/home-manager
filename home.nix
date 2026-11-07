@@ -7,6 +7,9 @@
 
   home.packages = with pkgs; [
     neovim
+    # nvim-treesitter compiles parsers using these tools.
+    stdenv.cc
+    tree-sitter
     tmux
     tmuxPlugins.resurrect
     tmuxPlugins.continuum

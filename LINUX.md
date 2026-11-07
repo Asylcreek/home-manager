@@ -6,8 +6,9 @@ account at `/root` on x86-64 Debian-based Proxmox hosts. The flake output is
 
 Home Manager manages Zsh, the Kali Oh My Posh prompt, completion, autosuggestions,
 syntax highlighting, fzf, zoxide, Git configuration, and tmux with
-resurrect/continuum. Nix supplies Neovim, the shell tools, fd, and ripgrep. Git uses
-the host's APT-managed binary. `EDITOR` and the `v` alias both use `nvim`.
+resurrect/continuum. Nix supplies Neovim, its Tree-sitter CLI and C compiler
+prerequisites, the shell tools, fd, and ripgrep. Git uses the host's APT-managed
+binary. `EDITOR` and the `v` alias both use `nvim`.
 
 The profile does not change `/etc/passwd`, Bash configuration, Proxmox services,
 networking, storage, or APT packages. SSH keeps the existing Bash login shell.
