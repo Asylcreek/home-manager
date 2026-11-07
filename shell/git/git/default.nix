@@ -1,10 +1,8 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    gh
-  ];
-
+{...}: {
   programs.git = {
     enable = true;
+    # Keep the host's APT-managed Git binary.
+    package = null;
 
     settings = {
       init = {
@@ -18,19 +16,6 @@
         name = "Omokugbo Joseph Boro";
       };
     };
-
-    includes = [
-      {
-        contents = {
-          user = {
-            email = "omokugbo.b@turing.com";
-            name = "Omokugbo Boro";
-          };
-        };
-
-        condition = "gitdir:~/Documents/turing/";
-      }
-    ];
 
     ignores = [
       # macOS
@@ -57,25 +42,5 @@
       ".factory"
       ".context"
     ];
-  };
-
-  programs.gh = {
-    enable = true;
-
-    gitCredentialHelper = {
-      enable = true;
-    };
-  };
-
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-
-    options = {
-      navigate = true;
-      dark = true;
-      line-numbers = true;
-      hyperlinks = true;
-    };
   };
 }

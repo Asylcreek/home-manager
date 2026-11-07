@@ -1,15 +1,57 @@
-# Coder Linux profile
+# Proxmox host profile
 
-The `coder` flake output uses `home.nix` and targets Debian x86-64 with the `coder` account at `/home/coder`.
+The `proxmox` branch provides one standalone Home Manager profile for the `root`
+account at `/root` on x86-64 Debian-based Proxmox hosts. The flake output is
+`proxmox`; all hosts use the same configuration.
 
-Included: Zsh, the Kali Oh My Posh theme, completion, autosuggestions, syntax highlighting, fzf, zoxide, Git/gh-dash, lazygit, tmux with resurrect/continuum, agent instructions, and Claude instructions. Neovim and mise are supplied by the Coder VM image.
+Home Manager manages Zsh, the Kali Oh My Posh prompt, completion, autosuggestions,
+syntax highlighting, fzf, zoxide, Git configuration, and tmux with
+resurrect/continuum. Nix supplies Neovim, the shell tools, fd, and ripgrep. Git uses
+the host's APT-managed binary. `EDITOR` and the `v` alias both use `nvim`.
 
-Apply changes inside a workspace:
+The profile does not change `/etc/passwd`, Bash configuration, Proxmox services,
+networking, storage, or APT packages. SSH keeps the existing Bash login shell.
+Run `zsh` to use the managed shell, or `tmux` to open Zsh inside tmux. The prompt
+shows the username and hostname so hosts remain distinguishable.
+
+Coder's T3 service, mise installation, agent configuration, GitHub CLI/dashboard,
+and development aliases are not activated by this profile.
+
+## Install on a host
+
+Install [Nix in multi-user mode](https://nix.dev/manual/nix/latest/installation/installing-binary.html#multi-user-installation)
+and [standalone Home Manager](https://nix-community.github.io/home-manager/)
+first. Enable `nix-command` and `flakes` in the Nix configuration. Git must be
+available from the host. Run the following as `root`.
+
+Once the branch has been published:
 
 ```sh
-home-manager switch --flake "path:$HOME/.config/home-manager#coder"
+git clone --branch proxmox https://github.com/Asylcreek/home-manager.git ~/.config/home-manager
+cd ~/.config/home-manager
+nix build --no-link '.#homeConfigurations.proxmox.activationPackage'
+home-manager switch -b before-home-manager --flake "path:$HOME/.config/home-manager#proxmox"
 ```
 
-Fresh Coder workspaces pull the `coder` branch on first start. Existing workspaces
-need a pull and the switch command above. Shared configuration changes belong in
-`home.nix`; Linux does not require a separate home module.
+The first switch backs up conflicting dotfiles with the `.before-home-manager`
+suffix. Review any existing `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, Git config,
+and tmux config before switching. Try one host first, then test a fresh SSH
+session and tmux before applying to the others.
+
+## Update
+
+```sh
+cd ~/.config/home-manager
+git pull --ff-only
+home-manager switch --flake "path:$HOME/.config/home-manager#proxmox"
+```
+
+The `hsf` alias runs the switch command inside Zsh. It does not pull Git changes
+or update the flake lock. The existing lock file is retained from `coder`.
+
+## Roll back
+
+Use `home-manager generations` to find the previous generation and run its
+`activate` script. If this was the first activation, use `home-manager uninstall`
+and restore the backed-up dotfiles. Neither operation uninstalls Nix or rolls
+back Proxmox or APT changes.
