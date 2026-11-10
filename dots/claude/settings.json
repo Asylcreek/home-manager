@@ -12,6 +12,18 @@
     "pr": ""
   },
   "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "sh ~/.claude/statusline-command.sh"
+  },
+  "extraKnownMarketplaces": {
+    "wakatime": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/wakatime/claude-code-wakatime.git"
+      }
+    }
+  },
   "outputStyle": "Structural Thinking",
   "syntaxHighlightingDisabled": false,
   "effortLevel": "high",
@@ -20,8 +32,7 @@
   "theme": "dark",
   "verbose": false,
   "autoCompactEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "sh ~/.claude/statusline-command.sh"
+  "enabledPlugins": {
+    "claude-code-wakatime@wakatime": true
   }
 }
