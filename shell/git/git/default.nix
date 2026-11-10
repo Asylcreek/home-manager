@@ -1,10 +1,7 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    gh
-  ];
-
+{...}: {
   programs.git = {
     enable = true;
+    package = null;
 
     settings = {
       init = {
@@ -12,6 +9,17 @@
       };
 
       merge.conflictStyle = "zdiff3";
+      core.pager = "delta";
+      pager.blame = "delta";
+      interactive.diffFilter = "delta --color-only";
+      delta = {
+        navigate = true;
+        dark = true;
+        line-numbers = true;
+        hyperlinks = true;
+      };
+      credential."https://github.com".helper = ["" "!gh auth git-credential"];
+      credential."https://gist.github.com".helper = ["" "!gh auth git-credential"];
 
       user = {
         email = "omokugbobr@gmail.com";
@@ -59,23 +67,9 @@
     ];
   };
 
-  programs.gh = {
-    enable = true;
-
-    gitCredentialHelper = {
-      enable = true;
-    };
-  };
-
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-
-    options = {
-      navigate = true;
-      dark = true;
-      line-numbers = true;
-      hyperlinks = true;
-    };
-  };
+  xdg.configFile."gh/config.yml".text = ''
+    git_protocol: https
+    editor: nvim
+    prompt: enabled
+  '';
 }

@@ -1,158 +1,41 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  ompConfigPath = pkgs.writeText "negligible.omp.json" (builtins.readFile ../../dots/oh-my-posh/kali.omp.json);
+{config, lib, ...}: let
+  aliases = {
+    "dv" = "cd ~/Downloads/Video";
+    "v" = "nvim";
+    "python" = "python3";
+    "ta" = "tmux a -t ";
+    "dash" = "ta gh && tmux send-keys -t 0 'gh-dash' Enter";
+    "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
+    "hsf" = "home-manager switch --flake $HOME/.config/home-manager#asyl-omar";
+    "dr" = "doppler run -- ";
+    "pnsd" = "pnpm start:dev";
+    "pnd" = "pnpm dev";
+    "pnb" = "pnpm build";
+    "pni" = "pnpm install";
+    "pna" = "pnpm add";
+    "yb" = "yarn build";
+    "yd" = "yarn dev";
+    "ysd" = "yarn start:dev";
+    "uc" = "omarchy update";
+    "p8" = "ns -p pnpm_8";
+    "d" = "droid";
+    "o" = "opencode";
+    "cm" = "CLAUDE_CONFIG_DIR=$HOME/.claude claude";
+    "mm" = "CLAUDE_CONFIG_DIR=$HOME/.claude-minimax claude";
+    "ck" = "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
+    "ccp" = "claude --dangerously-skip-permissions";
+  };
 in {
-  home.packages = with pkgs; [
-    oh-my-posh
-  ];
+  home.file.".zshenv".text = ''
+    if [ -r /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    fi
+    if [ -r "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh" ]; then
+      . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+    fi
+  '';
 
-  programs.zsh = {
-    enable = true;
-
-    dotDir = config.home.homeDirectory;
-
-    autosuggestion = {
-      enable = true;
-    };
-
-    enableCompletion = false;
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = ["git"];
-      theme = "";
-    };
-
-    plugins = [
-      {
-        name = "zsh-autocomplete";
-        src = pkgs.zsh-autocomplete;
-        file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
-      }
-    ];
-
-    shellAliases = {
-      "dv" = "cd ~/Downloads/Video";
-      "vlc" = "/Applications/VLC.app/Contents/MacOS/VLC";
-      "v" = "nvim";
-      "python" = "python3";
-      "ta" = "tmux a -t ";
-      "dash" = "ta gh && tmux send-keys -t 0 'gh dash' Enter";
-      "dots" = "/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME";
-      "edng" = "v ~/Library/Application\\ Support/ngrok/ngrok.yml";
-      "hsf" = "sudo darwin-rebuild switch --impure";
-      "dr" = "doppler run -- ";
-      "pnsd" = "pnpm start:dev";
-      "pnd" = "pnpm dev";
-      "pnb" = "pnpm build";
-      "pni" = "pnpm install";
-      "pna" = "pnpm add";
-      "yb" = "yarn build";
-      "yd" = "yarn dev";
-      "ysd" = "yarn start:dev";
-      "uc" = "brew outdated && brew upgrade && brew upgrade --cask --greedy && brew cleanup";
-      "p8" = "ns -p pnpm_8";
-      "k" = "sudo kanata --cfg ~/.config/kanata/config.kbd";
-      "d" = "droid";
-      "o" = "opencode";
-      "cm" = "CLAUDE_CONFIG_DIR=$HOME/.claude claude";
-      "mm" = "CLAUDE_CONFIG_DIR=$HOME/.claude-minimax claude";
-      "ck" = "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
-      "ccp" = "claude --dangerously-skip-permissions";
-    };
-
-    syntaxHighlighting = {
-      enable = true;
-    };
-
-    history = {
-      expireDuplicatesFirst = true;
-      ignorePatterns = ["doppler*"];
-      ignoreAllDups = true;
-      extended = true;
-    };
-
-    initContent = lib.mkMerge [
-      (lib.mkBefore ''
-        zstyle ':autocomplete:*' delay 0.1
-        zstyle ':autocomplete:*' timeout 1.5
-        zstyle ':autocomplete:*' min-input 2
-        zstyle -e ':autocomplete:*:*' list-lines 'reply=( 12 )'
-        zstyle ':autocomplete:*' add-semicolon no
-
-        # Amazon Q pre block. Keep at the top of this file.
-        # [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
-      '')
-      ''
-        # load .env
-        if [ -f $HOME/.env ]; then
-          export $(cat $HOME/.env | xargs)
-        fi
-
-        ns() {
-          export context_display="$*"
-
-          nix-shell "$@" --run '
-            export NIX_CONTEXT_DISPLAY="$context_display";
-            zsh
-          '
-        }
-
-        # Custom Oh My Posh config with nix-shell segment
-        eval "$(oh-my-posh init zsh --config ${ompConfigPath})"
-
-        # Function to set context for Oh My Posh before each prompt
-        # Define this AFTER oh-my-posh init to avoid being overwritten
-        function set_poshcontext() {
-          # Populate NIX_CONTEXT_DISPLAY if we're in a nix-shell
-          if [[ -n "$IN_NIX_SHELL" && -n "$NIX_CONTEXT_DISPLAY" ]]; then
-            export POSH_NIX_CONTEXT="$NIX_CONTEXT_DISPLAY"
-          else
-            unset POSH_NIX_CONTEXT
-          fi
-        }
-
-        # Register the hook to run before every prompt
-        autoload -U add-zsh-hook
-        add-zsh-hook precmd set_poshcontext
-
-        # Ghostty shell integration
-        if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
-            builtin source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
-        fi
-
-        # fnm
-        # eval "$(fnm env --use-on-cd --resolve-engines)"
-
-        # mise
-        eval "$(mise activate zsh)"
-
-        export CARAPACE_BRIDGES='zsh,bash'
-        source <(carapace _carapace)
-
-        bindkey '\ez' clear-screen
-
-        [ -r "$HOME/.ibudo/shell-integration/ibudo.zsh" ] &&
-        . "$HOME/.ibudo/shell-integration/ibudo.zsh"
-
-      ''
-      (lib.mkAfter ''
-        bindkey -M menuselect '\r' .accept-line
-
-        # Amazon Q post block. Keep at the bottom of this file.
-        # [[ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-      '')
-    ];
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv = {
-      enable = true;
-    };
-  };
+  home.file.".zshrc".text = builtins.readFile ./zshrc + "\n" +
+    lib.concatStringsSep "\n" (lib.mapAttrsToList
+      (name: value: "alias ${lib.escapeShellArg name}=${lib.escapeShellArg value}") aliases);
 }

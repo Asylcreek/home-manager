@@ -1,125 +1,46 @@
-{lib, pkgs, ...}: {
-  imports = [
-    ./shell
-  ];
+{config, lib, ...}: let
+  dotfiles = "${config.home.homeDirectory}/.config/home-manager/dots";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
+in {
+  imports = [./shell];
 
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "asyl";
-  home.homeDirectory = "/Users/asyl";
+  home.homeDirectory = "/home/asyl";
+  home.stateVersion = "24.05";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  # Omarchy installs applications. Home Manager only installs its own CLI.
+  programs.home-manager.enable = true;
+  xdg.enable = true;
+  xdg.mime.enable = false;
+  programs.man.enable = false;
+  manual.manpages.enable = false;
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    # jq
-    # ripgrep
-    # fd
-    # tor
-    # watchman
-    # mongosh
-    # doppler
-    # nowplaying-cli
-    # unar
-    # tree
-    # certbot
-    # wget
-    #
-    # # develop
-    # go
-    # redis
-    # fnm
-    # cargo
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-    ".env".source = ./dots/.env;
-    ".envrc".source = ./dots/.envrc;
+  xdg.configFile = {
+    "mise/config.toml".source = link "mise/config.toml";
+    "lazygit/config.yml".source = link "lazygit/config.yml";
+    "opencode/opencode.jsonc".source = link "opencode/opencode.jsonc";
+    "oh-my-posh".source = link "oh-my-posh";
   };
 
-  home.activation.linkAgents = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    agentSource="$HOME/.config/home-manager/dots/agents"
+  home.file = lib.mkMerge ([
+    {
+      ".claude/settings.json".source = link "claude/settings.json";
+      ".claude/statusline-command.sh".source = link "claude/statusline-command.sh";
+      ".codex/config.toml".source = link "codex/config.toml";
+      ".codex/agents".source = link "agents/codex-named-agents";
+      ".factory/scripts".source = link "agents/scripts";
+    }
+  ] ++ map (target: {
+    "${target}/${if lib.hasPrefix ".claude" target then "CLAUDE.md" else "AGENTS.md"}".source = link "agents/AGENTS.md";
+    "${target}/${if target == ".factory" then "droids" else if target == ".codex" then "sagents" else "agents"}".source = link "agents/agents";
+    "${target}/commands".source = link "agents/commands";
+    "${target}/docs-rules".source = link "agents/docs-rules";
+    "${target}/skills".source = link "agents/skills";
+  }) [".factory" ".agents" ".claude" ".claude-minimax" ".claude-kimi" ".claude-cliproxy" ".codex"]);
 
-    declare -A nameMap=(
-      [.factory]="AGENTS.md"
-      [.agents]="AGENTS.md"
-      [.claude]="CLAUDE.md"
-      [.claude-minimax]="CLAUDE.md"
-      [.claude-kimi]="CLAUDE.md"
-      [.claude-cliproxy]="CLAUDE.md"
-      [.codex]="AGENTS.md"
-    )
-
-    declare -A agentsMap=(
-      [.factory]="droids"
-      [.agents]="agents"
-      [.claude]="agents"
-      [.claude-minimax]="agents"
-      [.claude-kimi]="agents"
-      [.claude-cliproxy]="agents"
-      [.codex]="sagents"
-    )
-
-    for target in .factory .agents .claude .claude-minimax .claude-kimi .claude-cliproxy .codex; do
-      mkdir -p $HOME/$target
-      ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
-      ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
-      ln -sfn $agentSource/commands $HOME/$target
-      ln -sfn $agentSource/docs-rules $HOME/$target
-      ln -sfn $agentSource/skills $HOME/$target
-    done
-
-    mkdir -p $HOME/.config/{kanata,ghostty,aerospace,mise,lazygit,tmux,ibudo}
-    mkdir -p $HOME/.config/ghostty/themes
-    mkdir -p $HOME/.codex/agents
-
-    ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
-    ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
-    ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
-    ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
-    ln -sfn ~/.config/home-manager/dots/ghostty/themes/moonfly $HOME/.config/ghostty/themes/moonfly
-    ln -sfn ~/.config/home-manager/dots/ghostty/themes/gruvbox $HOME/.config/ghostty/themes/gruvbox
-    ln -sfn ~/.config/home-manager/dots/aerospace/aerospace.toml $HOME/.config/aerospace/aerospace.toml
-    ln -sfn ~/.config/home-manager/dots/aerospace/layouts $HOME/.config/aerospace/layouts
-    ln -sfn ~/.config/home-manager/dots/mise/config.toml $HOME/.config/mise/config.toml
-    ln -sfn ~/.config/home-manager/dots/lazygit/config.yml $HOME/.config/lazygit/config.yml
-    ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
-    ln -sfn ~/.config/home-manager/dots/ibudo/config.toml $HOME/.config/ibudo/config.toml
-    ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
-    ln -sfn "$agentSource/codex-named-agents" $HOME/.codex/agents
-    ln -sfn ~/.config/home-manager/dots/claude/settings.json $HOME/.claude/settings.json
-    ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
-  '';
   # Claude keeps MCP servers with mutable account and session state in ~/.claude.json.
-  home.activation.configureClaudeMcp = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    run ${pkgs.python3}/bin/python3 - <<'PY'
+  home.activation.configureClaudeMcp = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    run /usr/bin/python3 - <<'PY'
     import json
     import os
     import tempfile
@@ -142,35 +63,4 @@
         os.replace(temporary.name, target)
     PY
   '';
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/asyl/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    HOMEBREW_PREFIX = "/opt/homebrew";
-    HOMEBREW_CELLAR = "/opt/homebrew/Cellar";
-    HOMEBREW_REPOSITORY = "/opt/homebrew";
-  };
-
-  home.sessionPath = [
-    "/opt/homebrew/bin"
-    "/opt/homebrew/sbin"
-  ];
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  xdg.enable = true;
 }

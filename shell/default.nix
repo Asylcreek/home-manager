@@ -4,7 +4,6 @@
     ./git
     # ./fonts
     ./zsh
-    ./fzf
-    ./zoxide
+    ./tmux
   ];
 }

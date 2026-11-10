@@ -1,0 +1,96 @@
+# Omarchy owns the shell and plugins; this file only configures them.
+if [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
+  source /usr/share/omarchy/default/bash/env-bootstrap
+elif [[ -d "$HOME/.local/share/omarchy/bin" ]]; then
+  export OMARCHY_PATH="$HOME/.local/share/omarchy"
+  path=("$OMARCHY_PATH/bin" $path)
+fi
+
+zstyle ':autocomplete:*' delay 0.1
+zstyle ':autocomplete:*' timeout 1.5
+zstyle ':autocomplete:*' min-input 2
+zstyle -e ':autocomplete:*:*' list-lines 'reply=( 12 )'
+zstyle ':autocomplete:*' add-semicolon no
+
+if [[ -r /usr/share/oh-my-zsh/oh-my-zsh.sh ]]; then
+  export ZSH=/usr/share/oh-my-zsh
+  ZSH_THEME=""
+  plugins=(git)
+  source "$ZSH/oh-my-zsh.sh"
+fi
+
+if [[ -r /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+else
+  autoload -Uz compinit
+  compinit
+fi
+if [[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="$HOME/.zsh_history"
+HISTORY_IGNORE='(doppler*)'
+setopt HIST_FCNTL_LOCK EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY NO_APPEND_HISTORY
+setopt NO_HIST_FIND_NO_DUPS NO_HIST_SAVE_NO_DUPS
+
+# Keep local credentials out of the Nix store.
+if [[ -f "$HOME/.env" ]]; then
+  export $(cat "$HOME/.env" | xargs)
+fi
+
+ns() {
+  export context_display="$*"
+  nix-shell "$@" --run '
+    export NIX_CONTEXT_DISPLAY="$context_display";
+    zsh
+  '
+}
+
+if (( $+commands[oh-my-posh] )); then
+  eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/kali.omp.json")"
+  function set_poshcontext() {
+    if [[ -n "$IN_NIX_SHELL" && -n "$NIX_CONTEXT_DISPLAY" ]]; then
+      export POSH_NIX_CONTEXT="$NIX_CONTEXT_DISPLAY"
+    else
+      unset POSH_NIX_CONTEXT
+    fi
+  }
+  autoload -U add-zsh-hook
+  add-zsh-hook precmd set_poshcontext
+fi
+
+if [[ -n "$GHOSTTY_RESOURCES_DIR" && -r "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration" ]]; then
+  source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
+fi
+
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+fi
+if (( $+commands[carapace] )); then
+  export CARAPACE_BRIDGES='zsh,bash'
+  source <(carapace _carapace)
+fi
+
+export FZF_DEFAULT_COMMAND='fd --strip-cwd-prefix'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --info=inline --multi'
+if (( $+commands[fzf] )); then
+  source <(fzf --zsh)
+fi
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh --cmd c)"
+fi
+if (( $+commands[direnv] )); then
+  eval "$(direnv hook zsh)"
+fi
+
+bindkey '\ez' clear-screen
+zmodload zsh/complist
+bindkey -M menuselect '\r' .accept-line
+
+if [[ -r /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi

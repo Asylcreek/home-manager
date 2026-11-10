@@ -1,6 +1,7 @@
 {...}: {
   programs.gh-dash = {
     enable = true;
+    package = null;
     settings = {
       prSections = [
         {
