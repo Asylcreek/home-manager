@@ -162,9 +162,12 @@
     HOMEBREW_PREFIX = "/opt/homebrew";
     HOMEBREW_CELLAR = "/opt/homebrew/Cellar";
     HOMEBREW_REPOSITORY = "/opt/homebrew";
+    SSH_SK_PROVIDER = "/opt/homebrew/opt/openssh-sk-provider/lib/sk-libfido2.dylib";
+    WSFW_KEY = "$HOME/.ssh/yubim";
   };
 
   home.sessionPath = [
+    "$HOME/clis"
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
   ];
