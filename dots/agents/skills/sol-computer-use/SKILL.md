@@ -8,7 +8,7 @@ to Codex; you own the goal, the safety limits, and checking the result.
 
 ## Defaults
 
-- Model: GPT-6.1 Sol. Reasoning: Low. Fast speed.
+- Model: GPT-6.1 Sol. Reasoning: Low. Regular speed.
 - One Codex task per GUI job. Codex must not hand the task to another agent.
 - Do not switch models or raise effort silently.
 
