@@ -1,10 +1,9 @@
 [tools]
 # Claude's native executable is installed by its npm postinstall script.
-"npm:@anthropic-ai/claude-code" = { version = "2.1.316", npm_args = "--ignore-scripts=false" }
-"npm:@openai/codex" = "0.166.0"
+"npm:@anthropic-ai/claude-code" = { version = "latest", npm_args = "--ignore-scripts=false" }
+"npm:@openai/codex" = "latest"
 "npm:agent-browser" = "0.33.2"
 "npm:pnpm" = "11.20.0"
-"npm:t3" = "0.1.10-nightly.20261112.4606"
 "npm:yarn" = "1.22.22"
 node = "26"
 
