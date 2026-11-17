@@ -8,7 +8,7 @@ to Codex; you own the goal, the safety limits, and checking the result.
 
 ## Defaults
 
-- Model: GPT-6.1 Sol. Reasoning: Low. Regular speed.
+- Model: GPT-6.2 Sol. Reasoning: Low. Regular speed.
 - One Codex task per GUI job. Codex must not hand the task to another agent.
 - Do not switch models or raise effort silently.
 
@@ -24,14 +24,14 @@ to Codex; you own the goal, the safety limits, and checking the result.
 
 ## T3 Code route
 
-- Call orchestrator_capabilities and find gpt-6.1-sol under Codex.
-- Call delegate_task with target codex / gpt-6.1-sol, reasoningEffort
+- Call orchestrator_capabilities and find gpt-6.2-sol under Codex.
+- Call delegate_task with target codex / gpt-6.2-sol, reasoningEffort
   low. Use mode "wait" for short jobs and "async" for long ones.
 - If the model isn't available, report it. Do not substitute another one.
 
 ## Terminal fallback
 
-    codex exec --model gpt-6.1-sol -c model_reasoning_effort=low -
+    codex exec --model gpt-6.2-sol -c model_reasoning_effort=low -
 
 Pass the brief through stdin. Do not change global Codex config or auth.
 
