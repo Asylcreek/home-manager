@@ -15,6 +15,8 @@ Do not capture automatically, save whole transcripts, or perform startup or back
 4. Keep observations distinct from hypotheses. Commands and configuration that were proposed but never applied must remain labeled as proposed. Never store passwords, tokens, private keys, or other secrets.
 5. Read back the saved record and report its title and memory URL. If saving fails, report the failure rather than claiming the fact was remembered.
 
+Use the correct structure for each section, based on its content and purpose.
+
 ## Note UUIDs
 
 When creating a new note, generate a UUID v4 and pass it as `metadata.uuid`
