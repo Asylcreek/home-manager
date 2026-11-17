@@ -3,13 +3,13 @@ name: sol-loop
 description: Use when asked for a sol loop or independent Sol review.
 ---
 
-Use GPT-6.1 Sol as an independent reviewer. The implementing agent
+Use GPT-6.2 Sol as an independent reviewer. The implementing agent
 owns diagnosis, fixes, and verification.
 
 ## Defaults
 
-- Model: GPT-6.1 Sol.
-- Reasoning: High. Use Regular speed.
+- Model: GPT-6.2 Sol.
+- Reasoning: Medium. Use Standard speed.
 - One reviewer per round. The reviewer must not delegate.
 - At most 3 rounds, stopping earlier when the change is approved.
 - Do not switch models, increase effort, or extend the budget silently.
@@ -37,7 +37,7 @@ to inspect the change independently.
 When T3 orchestration tools are available:
 
 - Inspect `orchestrator_capabilities`.
-- Resolve GPT-6.1 Sol from the advertised models.
+- Resolve GPT-6.2 Sol from the advertised models.
 - Use `delegate_task` with review role and async mode, following its
   actual schema. Request Medium and Standard when supported.
 - Verify the reviewer can read the checkout containing the changes,
@@ -54,7 +54,7 @@ Run Codex from the same repository checkout:
 
 ```sh
 codex exec \
-  --model gpt-6.1-sol \
+  --model gpt-6.2-sol \
   --sandbox read-only \
   -c model_reasoning_effort=medium \
   -c service_tier=default \
