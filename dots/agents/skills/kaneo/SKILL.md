@@ -1,11 +1,32 @@
 ---
 name: kaneo
-description: Create and manage Kaneo tasks when the user asks to track work in Kaneo.
+description: Read, create, and manage Kaneo tasks, including opening images in task descriptions and comments.
 ---
 
 # Kaneo
 
 Use the Kaneo MCP tools to manage tasks in the Asylcreek workspace.
+
+## Task images
+
+When reading a task, automatically download and open any Kaneo-hosted
+images in its description and in comments you read. The MCP tools return
+image links as text. Fetch the image with the existing `KANEO_API_KEY`
+in the `x-api-key` header, save it to a private temporary file, and open
+it with your local image viewer or image tool.
+
+Send the key only to `https://kaneo.asylcreek.xyz/api/asset/<id>`. Resolve
+relative asset URLs against that origin. Keep the key out of command
+arguments and logs, and do not follow redirects with the key.
+
+```sh
+printf 'header = "x-api-key: %s"\n' "$KANEO_API_KEY" |
+  curl --config - --fail --silent --show-error --max-time 30 \
+    --output "$image_file" "$asset_url"
+```
+
+If the key is unavailable or the download fails, report which image you
+could not open.
 
 ## Task creation
 
