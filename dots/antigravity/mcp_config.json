@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "basic-memory": {
+      "serverUrl": "https://bm.asylcreek.xyz/mcp"
+    },
+    "kaneo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@kaneo/mcp@0.1.11",
+        "serve"
+      ],
+      "env": {
+        "KANEO_API_URL": "https://kaneo.asylcreek.xyz"
+      }
+    }
+  }
+}

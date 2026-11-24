@@ -99,6 +99,7 @@
     mkdir -p $HOME/.config/{kanata,ghostty,aerospace,mise,lazygit,tmux,ibudo}
     mkdir -p $HOME/.config/ghostty/themes
     mkdir -p $HOME/.codex/agents
+    mkdir -p "$HOME/.gemini/antigravity-cli" "$HOME/.gemini/config"
 
     ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
     ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
@@ -115,6 +116,8 @@
     ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
     ln -sfn "$agentSource/codex-named-agents" $HOME/.codex/agents
     ln -sfn ~/.config/home-manager/dots/claude/settings.json $HOME/.claude/settings.json
+    ln -sfn "$HOME/.config/home-manager/dots/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
+    ln -sfn "$HOME/.config/home-manager/dots/antigravity/mcp_config.json" "$HOME/.gemini/config/mcp_config.json"
     ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
   '';
   # Claude keeps MCP servers with mutable account and session state in ~/.claude.json.
