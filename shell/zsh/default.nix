@@ -63,6 +63,7 @@ in {
       "mm" = "CLAUDE_CONFIG_DIR=$HOME/.claude-minimax claude";
       "ck" = "CLAUDE_CONFIG_DIR=$HOME/.claude-kimi claude";
       "ccp" = "claude --dangerously-skip-permissions";
+      "agy" = "agy --dangerously-skip-permissions";
     };
 
     syntaxHighlighting = {
