@@ -77,6 +77,7 @@
       ln -sfn $agentSource/skills $HOME/$target
     done
 
+    mkdir -p "$HOME/.gemini/antigravity-cli" "$HOME/.gemini/config"
     mkdir -p "$HOME/.config/mise"
     ln -sfn "$HOME/.config/home-manager/dots/mise/config.toml" "$HOME/.config/mise/config.toml"
     ln -sfn "$agentSource/scripts" "$HOME/.factory/scripts"
@@ -84,6 +85,8 @@
     ln -sfn "$HOME/.config/home-manager/dots/codex/config.toml" "$HOME/.codex/config.toml"
     ln -sfn "$HOME/.config/home-manager/dots/claude/settings.json" "$HOME/.claude/settings.json"
     ln -sfn "$HOME/.config/home-manager/dots/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
+    ln -sfn "$HOME/.config/home-manager/dots/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
+    ln -sfn "$HOME/.config/home-manager/dots/antigravity/mcp_config.json" "$HOME/.gemini/config/mcp_config.json"
   '';
   # Claude keeps MCP servers with mutable account and session state in ~/.claude.json.
   home.activation.configureClaudeMcp = lib.hm.dag.entryAfter ["writeBoundary"] ''
