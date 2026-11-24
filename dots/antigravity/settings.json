@@ -1,0 +1,15 @@
+{
+  "agentMode": "accept-edits",
+  "model": "Gemini 4 Neon (Medium)",
+  "modelProvider": "gemini",
+  "notifications": true,
+  "trustedWorkspaces": [
+    "/Users/asyl",
+    "/var/folders/gq/qgp7y3ps4j55s9sfvh0xm0xw0000gn/T/tmp.Ntywc6QCXT"
+  ],
+  "statusLine": {
+    "type": "command",
+    "command": "sh ~/.claude/statusline-command.sh",
+    "enabled": true
+  }
+}
