@@ -68,26 +68,18 @@
     agentSource="$HOME/.config/home-manager/dots/agents"
 
     declare -A nameMap=(
-      [.factory]="AGENTS.md"
       [.agents]="AGENTS.md"
       [.claude]="CLAUDE.md"
-      [.claude-minimax]="CLAUDE.md"
-      [.claude-kimi]="CLAUDE.md"
-      [.claude-cliproxy]="CLAUDE.md"
       [.codex]="AGENTS.md"
     )
 
     declare -A agentsMap=(
-      [.factory]="droids"
       [.agents]="agents"
       [.claude]="agents"
-      [.claude-minimax]="agents"
-      [.claude-kimi]="agents"
-      [.claude-cliproxy]="agents"
       [.codex]="sagents"
     )
 
-    for target in .factory .agents .claude .claude-minimax .claude-kimi .claude-cliproxy .codex; do
+    for target in .agents .claude .codex; do
       mkdir -p $HOME/$target
       ln -sfn $agentSource/AGENTS.md $HOME/$target/''${nameMap[$target]}
       ln -sfn $agentSource/agents $HOME/$target/''${agentsMap[$target]}
@@ -101,8 +93,16 @@
     mkdir -p $HOME/.codex/agents
     mkdir -p "$HOME/.gemini/antigravity-cli" "$HOME/.gemini/config"
 
+    ln -sfn "$agentSource/codex-named-agents" $HOME/.codex/agents
+
+    ln -sfn ~/.config/home-manager/dots/claude/settings.json $HOME/.claude/settings.json
+    ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
+
+    ln -sfn "$agentSource/skills" "$HOME/.gemini/config/skills"
+    ln -sfn ~/.config/home-manager/dots/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
+    ln -sfn ~/.config/home-manager/dots/antigravity/mcp_config.json $HOME/.gemini/config/mcp_config.json
+
     ln -sfn ~/.config/home-manager/dots/config.kbd $HOME/.config/kanata/config.kbd
-    ln -sfn ~/.config/home-manager/dots/agents/scripts $HOME/.factory
     ln -sfn ~/.config/home-manager/dots/ghostty/config $HOME/.config/ghostty/config
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/jellybeans-muted $HOME/.config/ghostty/themes/jellybeans-muted
     ln -sfn ~/.config/home-manager/dots/ghostty/themes/moonfly $HOME/.config/ghostty/themes/moonfly
@@ -114,11 +114,6 @@
     ln -sfn ~/.config/home-manager/dots/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
     ln -sfn ~/.config/home-manager/dots/ibudo/config.toml $HOME/.config/ibudo/config.toml
     ln -sfn ~/.config/home-manager/dots/ibudo/keymap.jsonc $HOME/.config/ibudo/keymap.jsonc
-    ln -sfn "$agentSource/codex-named-agents" $HOME/.codex/agents
-    ln -sfn ~/.config/home-manager/dots/claude/settings.json $HOME/.claude/settings.json
-    ln -sfn "$HOME/.config/home-manager/dots/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
-    ln -sfn "$HOME/.config/home-manager/dots/antigravity/mcp_config.json" "$HOME/.gemini/config/mcp_config.json"
-    ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
   '';
   # Claude keeps MCP servers with mutable account and session state in ~/.claude.json.
   home.activation.configureClaudeMcp = lib.hm.dag.entryAfter ["writeBoundary"] ''
