@@ -99,6 +99,7 @@
     ln -sfn ~/.config/home-manager/dots/claude/statusline-command.sh $HOME/.claude/statusline-command.sh
 
     ln -sfn "$agentSource/skills" "$HOME/.gemini/config/skills"
+    ln -sfn ~/.config/home-manager/dots/antigravity/GEMINI.md $HOME/.gemini/GEMINI.md
     ln -sfn ~/.config/home-manager/dots/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
     ln -sfn ~/.config/home-manager/dots/antigravity/mcp_config.json $HOME/.gemini/config/mcp_config.json
 
